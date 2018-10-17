@@ -1,0 +1,17 @@
+<script>
+    
+    var createThumbnail = new Promise((resolve, reject) => {
+        console.log('something happens here...');
+        //    reject(Error("It broke")); 
+        resolve('Success..');
+    });
+
+    createThumbnail.then((value) => {
+        console.log('then something happens in then');
+        //        throw "is Empty";
+        console.log(value);
+    }).catch((err) => {
+        console.log(err);
+    })
+
+</script>

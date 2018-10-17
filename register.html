@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+	<head> 
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
+		<style type="text/css">
+
+			.bg-shadow {
+
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+			}
+
+			.check-label label {
+				height: 0px;
+			}
+
+			.custom-control-input:checked~.custom-control-label::before{
+
+				background-color: #18a2b9 !important;
+
+			}
+
+			.ui-dialog-titlebar {
+				display: none;
+			}
+
+		</style>
+
+		<title>Hello, world!</title>
+	</head>
+	<style>
+
+	</style>
+
+	<body class="bg-info text-light">
+
+		<div class="btn-container dialog">
+
+			<div class="d-flex align-items-center justify-content-center h-100">
+
+				<div class="mx-2 signIn btn btn-light">Log In</div>
+
+			</div>
+
+		</div> 
+
+		<div class="container formPage">  
+
+			<div id="dialog-signin" class="dialog d-flex align-items-center justify-content-center">
+
+				<div class="col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded p-3 text-light bg-shadow">
+
+					<form role="form" id="sign-in" novalidate action="http://localhost/themepic/login.php" method="post">
+
+						<div class="form-group"> 
+
+							<div class="d-flex justify-content-between align-items-center">
+								<label for="in-email">Email address</label>
+								<small class="text-warning pl-2 text-right"><label for="in-email" generated="true" class="error"></label></small>
+							</div>
+
+							<input name="in-email" class="form-control" id="in-email" aria-describedby="emailHelp" placeholder="Enter email" value="qasimali24@gmail.com">
+
+							<!--						value="qasimali24@gmail.com"-->
+
+						</div>
+
+						<div class="form-group">
+
+							<div class="d-flex justify-content-between align-items-center">
+								<label for="in-pass">Password</label>
+								<small class="text-warning pl-2 text-right"><label for="in-pass" generated="true" class="error"></label></small>
+							</div>
+
+							<input name="in-pass" type="password" class="form-control" id="in-pass" placeholder="Password" value="pakistani">
+							
+							
+
+						</div>
+						
+						<p class=""><small class="text-warning text-right form-error"></small></p>
+
+						<button type="button" id="log-in" class="btn btn-info">Log In</button>
+						<button type="button" class="signUp btn btn-outline-light">Sign Up</button>
+
+					</form>
+
+				</div>
+
+			</div>
+
+			<div id="dialog-signup" class="dialog d-flex align-items-center justify-content-center">
+
+				<div class="col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded p-3 text-light bg-shadow">
+
+					<form id="sign-up" novalidate>
+
+						<div class="form-group">
+
+							<div class="d-flex justify-content-between align-items-center">
+
+								<label for="user-name">Name</label>
+
+								<small class="text-warning pl-2 text-right"><label for="user-name" generated="true" class="error"></label></small>
+
+							</div>
+
+							<input name="user-name" type="text" class="form-control" id="user-name" aria-describedby="emailHelp" placeholder="Enter your last name" value="Qasim">
+
+							<small class="text-muted">I need to store pics with your name. This name will be visible to people you share your edits with.</small>
+
+						</div> 
+
+						<div class="form-group">
+
+							<div class="d-flex justify-content-between align-items-center">
+								<label for="user-email">Email address</label>
+								<small class="text-warning pl-2 text-right"><label for="user-email" generated="true" class="error"></label></small>
+							</div>
+
+							<input name="user-email" class="form-control" id="user-email" aria-describedby="emailHelp" placeholder="Enter email" >
+
+							<!--						value="qasimali24@gmail.com"-->
+
+							<small class="text-muted">You will get notifications only. No newsletters.</small>
+
+						</div>
+
+						<div class="form-group">
+
+							<div class="d-flex justify-content-between align-items-center">
+								<label for="user-pass">Password</label>
+								<small class="text-warning pl-2 text-right"><label for="user-pass" generated="true" class="error"></label></small>
+							</div>
+
+							<input name="user-pass" type="password" class="form-control" id="user-pass" placeholder="Password" value="pakistani">
+
+							<small class="text-muted">Create an easy password. Np :)</small>
+
+						</div>
+
+						<div class="form-group">
+
+							<div class="d-flex justify-content-between align-items-center">
+
+								<div class="custom-control custom-checkbox">
+									<input name="agreeTerms" type="checkbox" class="custom-control-input" id="agreeTerms" checked>
+									<span class="custom-control-indicator"></span>
+									<label class="custom-control-label" for="agreeTerms">I agree to terms and policy</label>
+								</div>
+
+								<small class="text-warning pl-2 text-right check-label"><label for="agreeTerms" generated="true" class="error"></label></small>
+
+							</div>
+
+						</div>
+
+						<button type="submit" class="btn btn-info">Submit</button>
+						<button type="button" class="signIn btn btn-outline-light">Login</button>
+
+					</form>
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.js"
+				integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+				crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/additional-methods.js"></script>
+
+		<script>
+
+			$( document ).ready(function() {
+
+				let wht = $(window).height();
+				let wwt = $(window).width();
+
+				$('.btn-container').height(wht);
+
+				$( "#dialog-signup" ).dialog({
+					resizable: false,
+					height: 'auto',
+					width: 'auto',
+					position: { my: "center", at: "center", of: window },
+					modal: true,
+					autoOpen: false,
+					appendTo: ".formPage",
+					show: {
+						effect: "fade",
+						duration: 500
+					}
+				});
+
+				$( "#dialog-signin" ).dialog({
+					resizable: false,
+					height: 'auto',
+					width: 'auto',
+					position: { my: "center", at: "center", of: window },
+					modal: true,
+					autoOpen: false,
+					appendTo: ".formPage",
+					show: {
+						effect: "fade",
+						duration: 500
+					}
+				});
+
+			})
+
+			$('.signUp').click(function () {
+
+				$('.dialog').hide();
+
+				$( "#dialog-signin" ).dialog('close');
+
+				$( "#dialog-signup" ).dialog('open');
+
+			})
+
+			$('.signIn').click(function () {
+
+				$('.dialog').hide();
+
+				$( "#dialog-signup" ).dialog('close');
+
+				$( "#dialog-signin" ).dialog('open');
+
+			})
+
+			$('#sign-up').submit(function(e) {
+
+				e.preventDefault();
+
+				if (!($("#sign-up").valid())) {
+
+					return;
+
+				}
+
+				// carryout ajax request to server -> store the information -> start a new session with this user
+
+				$.ajax({
+					method: "POST",
+					url: 'http://localhost/themepic/signup.php',
+					//					url: "http://localhost/themepic/checkemailexists.php",
+					data: {
+						'user-name': $('#user-name').val(),
+						'user-email': $('#user-email').val(),
+						'user-pass': $('#user-pass').val()
+					},
+					success: function( msg ) {
+						let myObj = JSON.parse(msg);
+						console.log(myObj);
+
+					}
+				})
+
+			});
+
+			$('#log-in').click(function(e) {
+
+				if (!($("#sign-in").valid())) {
+
+					return;
+
+				}
+
+				$.ajax({
+					method: "POST",
+					url: 'http://localhost/themepic/verifyemailnpass.php',
+					async: false,
+					data: {
+						
+						'in-email': $('#in-email').val(),
+						'in-pass': $('#in-pass').val()
+						
+					},
+					success: function( msg ) {
+						
+						let myObj = JSON.parse(msg);
+						
+						console.log(myObj);
+						
+						if (myObj.success == false) {
+							
+							$('.form-error').html(`<i class="fas fa-exclamation-circle"></i> ` + myObj.error);
+							return;
+							
+						}
+						
+						$("#sign-in").submit()
+
+					}
+				})
+				
+				
+
+			});
+
+			$.validator.setDefaults({
+
+				highlight: function(element, errorClass, validClass) {
+
+				},
+
+				unhighlight: function(element, errorClass, validClass) {
+
+				}	
+			}); 
+
+			$("#sign-in").validate({
+
+				rules: {
+					'in-email' : {
+						required: true,
+						minlength: 5,
+						email: true
+					},
+					'in-pass' : {
+						required: true,
+						minlength: 5,
+					}
+
+				},
+				messages: {
+					'in-email' : {
+						required: `<i class="fas fa-exclamation-circle"></i>`+" Fill in the blank",
+						email: `<i class="fas fa-exclamation-circle"></i>`+" email address is invalid",
+						minlength: `<i class="fas fa-exclamation-circle"></i>`+" atleast 5 characters",
+					},
+					'in-pass' : {
+						required: `<i class="fas fa-exclamation-circle"></i>`+" Fill in the blank",
+						minlength: `<i class="fas fa-exclamation-circle"></i>`+" atleast 5 characters"
+					}
+				},
+
+			});
+
+			$("#sign-up").validate({
+
+				rules: {
+					'user-name' : {
+						required: true,
+						lettersonly: true,
+						minlength: 2
+					},
+					'user-email' : {
+						required: true,
+						minlength: 5,
+						email: true,
+						remote: {
+							url: "http://localhost/themepic/checkemailexists.php",
+							type: "post",
+							data: {  
+								'user-email': function() {
+									return $("#user-email").val();
+								}
+							}
+						}
+					},
+					'user-pass' : {
+						required: true,
+						minlength: 5
+					},
+					agreeTerms: {
+						required: true
+					}
+
+				},
+				messages: {
+					'user-name': {
+						required: `<i class="fas fa-exclamation-circle"></i>`+" Please write your name",
+						lettersonly: `<i class="fas fa-exclamation-circle"></i>`+" a name can not have symbols and numbers",
+						minlength: `<i class="fas fa-exclamation-circle"></i>`+" atleast 2 characters"
+					},
+					'user-email' : {
+						required: `<i class="fas fa-exclamation-circle"></i>`+" Fill in the blank",
+						email: `<i class="fas fa-exclamation-circle"></i>`+" email address is invalid",
+						minlength: `<i class="fas fa-exclamation-circle"></i>`+" atleast 5 characters",
+						remote: `<i class="fas fa-exclamation-circle"></i>`+" This email is already registered"
+					},
+					'user-pass' : {
+						required: `<i class="fas fa-exclamation-circle"></i>`+" Fill in the blank",
+						minlength: `<i class="fas fa-exclamation-circle"></i>`+" atleast 5 characters",
+					},
+					agreeTerms: {
+						required: `<i class="fas fa-exclamation-circle"></i>`
+					}
+				},
+
+			});
+
+
+
+
+		</script>
+	</body>
+</html>
