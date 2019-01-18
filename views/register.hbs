@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-	<head> 
+	<head>
 		<!-- Required meta tags -->
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,7 +33,7 @@
 
 		</style>
 
-		<title>Hello, world!</title>
+		<title>Home - Make a story</title>
 	</head>
 	<style>
 
@@ -49,9 +49,9 @@
 
 			</div>
 
-		</div> 
+		</div>
 
-		<div class="container formPage">  
+		<div class="container formPage">
 
 			<div id="dialog-signin" class="dialog d-flex align-items-center justify-content-center">
 
@@ -59,7 +59,7 @@
 
 					<form role="form" id="sign-in" novalidate action="http://localhost/themepic/login.php" method="post">
 
-						<div class="form-group"> 
+						<div class="form-group">
 
 							<div class="d-flex justify-content-between align-items-center">
 								<label for="in-email">Email address</label>
@@ -80,11 +80,11 @@
 							</div>
 
 							<input name="in-pass" type="password" class="form-control" id="in-pass" placeholder="Password" value="pakistani">
-							
-							
+
+
 
 						</div>
-						
+
 						<p class=""><small class="text-warning text-right form-error"></small></p>
 
 						<button type="button" id="log-in" class="btn btn-info">Log In</button>
@@ -116,7 +116,7 @@
 
 							<small class="text-muted">I need to store pics with your name. This name will be visible to people you share your edits with.</small>
 
-						</div> 
+						</div>
 
 						<div class="form-group">
 
@@ -285,30 +285,30 @@
 					url: 'http://localhost/themepic/verifyemailnpass.php',
 					async: false,
 					data: {
-						
+
 						'in-email': $('#in-email').val(),
 						'in-pass': $('#in-pass').val()
-						
+
 					},
 					success: function( msg ) {
-						
+
 						let myObj = JSON.parse(msg);
-						
+
 						console.log(myObj);
-						
+
 						if (myObj.success == false) {
-							
+
 							$('.form-error').html(`<i class="fas fa-exclamation-circle"></i> ` + myObj.error);
 							return;
-							
+
 						}
-						
+
 						$("#sign-in").submit()
 
 					}
 				})
-				
-				
+
+
 
 			});
 
@@ -320,8 +320,8 @@
 
 				unhighlight: function(element, errorClass, validClass) {
 
-				}	
-			}); 
+				}
+			});
 
 			$("#sign-in").validate({
 
@@ -366,7 +366,7 @@
 						remote: {
 							url: "http://localhost/themepic/checkemailexists.php",
 							type: "post",
-							data: {  
+							data: {
 								'user-email': function() {
 									return $("#user-email").val();
 								}
