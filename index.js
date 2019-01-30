@@ -20,6 +20,11 @@ app.get('/',(req,res) => {
   res.render('index.hbs');
 });
 
+app.post('/data',(req,res) => {
+  console.log(req.params);
+  res.send('nothing here yet');
+})
+
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);
 })
