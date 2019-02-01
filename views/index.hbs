@@ -253,36 +253,27 @@
 				}
 
 				// carryout ajax request to server -> store the information -> start a new session with this user
+				
+				let data = {
+					"name": $('#user-name').val(),
+					"email": $('#user-email').val(),
+					"password": $('#user-pass').val(),
+				};
+
+				data = JSON.stringify(data);
 
 				$.ajax({
 				    url: '/data',
 				    type: 'post',
-				    data: {
-							"name": $('#user-name').val(),
-							"email": $('#user-email').val(),
-							"password": $('#user-pass').val(),
-				    },
+				    data,
 				    headers: {
-				        'content-type': 'application/json',  //for object property name, use quoted notation shown in second
-				    },
-				    dataType: 'json',
-				    success: function (data) {
-				        console.log(data);
-				    },
-						fail: (e) => {
-							console.log(e);
-						}
-				});
-
-				// $.post('/data',{
-				// 		name: $('#user-name').val(),
-				// 		email: $('#user-email').val(),
-				// 		password: $('#user-pass').val(),
-				// }).done((msg) => {
-				// 	console.log('message received from server:', msg);
-				// }).fail((e) => {
-				// 	console.log('something is not right:::',e);
-				// })
+				        'content-type': 'application/json',
+				    }
+					}).done((msg) => {
+						console.log('successful: ', msg);
+					}).fail((e) => {
+						console.log(e);
+					});
 
 			});
 

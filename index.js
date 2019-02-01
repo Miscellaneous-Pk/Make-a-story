@@ -21,8 +21,17 @@ app.get('/',(req,res) => {
 });
 
 app.post('/data',(req,res) => {
-  console.log(req.params);
-  res.send('nothing here yet');
+  console.log(req.body);
+  var user = new Users();
+  var user = _.pick(req.body,['name','email','password']);
+  user.save().then((returned) => {
+    res.status(200).send('well recieved the payload: ' + req.body.name);
+    return console.log('saved', returned.name);
+  }).catch((e) => {
+    res.status(400).send('failed to save data');
+    return console.log('there was an error',e);
+  });
+
 })
 
 app.listen(port, () => {
