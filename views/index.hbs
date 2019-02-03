@@ -253,7 +253,7 @@
 				}
 
 				// carryout ajax request to server -> store the information -> start a new session with this user
-				
+
 				let data = {
 					"name": $('#user-name').val(),
 					"email": $('#user-email').val(),
@@ -272,9 +272,8 @@
 					}).done((msg) => {
 						console.log('successful: ', msg);
 					}).fail((e) => {
-						console.log(e);
+						console.log('error here', e);
 					});
-
 			});
 
 			$('#log-in').click(function(e) {
