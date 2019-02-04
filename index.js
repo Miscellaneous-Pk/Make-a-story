@@ -1,4 +1,4 @@
-// require('./config/config');
+require('./config/config');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -6,7 +6,11 @@ const hbs = require('hbs');
 const _ = require('lodash');
 
 const {mongoose} = require('./db/mongoose');
+<<<<<<< HEAD
 
+=======
+const {Users} = require('./models/users');
+>>>>>>> b8a6636fae7650b3906cce9488f06c434937f3ee
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -15,11 +19,30 @@ app.use(bodyParser.json());
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine','hbs');
 
+
 app.get('/',(req,res) => {
+<<<<<<< HEAD
   res.render('register.hbs');
 })
+=======
+  res.render('index.hbs');
+});
+>>>>>>> b8a6636fae7650b3906cce9488f06c434937f3ee
 
-// serverRunning();
+app.post('/data',(req,res) => {
+
+  var user = new Users(
+    _.pick(req.body,['name','email','password']),
+  );
+  user.save().then((returned) => {
+    res.status(200).send('well recieved the payload: ' + req.body.name);
+    return console.log('saved', returned.name);
+  }).catch((e) => {
+    if (e.code === 11000) return res.status(400).send('You are already registered with this email');
+    console.log('Error here', e);
+    return res.status(400).send('Server - Bad Request');
+  });
+})
 
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);
