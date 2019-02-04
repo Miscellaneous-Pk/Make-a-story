@@ -17,22 +17,35 @@ app.set('view engine','hbs');
 
 
 app.get('/',(req,res) => {
-  res.render('register.hbs');
+  res.render('index.hbs');
 })
 
 app.post('/data',(req,res) => {
 
-  var user = new Users(
-    _.pick(req.body,['name','email','password']),
-  );
-  user.save().then((returned) => {
-    res.status(200).send('well recieved the payload: ' + req.body.name);
-    return console.log('saved', returned.name);
-  }).catch((e) => {
-    if (e.code === 11000) return res.status(400).send('You are already registered with this email');
-    console.log('Error here', e);
-    return res.status(400).send('Server - Bad Request');
-  });
+  if (req.body.query === 'Register') {
+    var user = new Users(
+      _.pick(req.body,['name','email','password']),
+    );
+    user.save().then((returned) => {
+      res.status(200).send('well recieved the payload: ' + req.body.name);
+      return console.log('saved', returned.name);
+    }).catch((e) => {
+      if (e.code === 11000) return res.status(400).send('You are already registered with this email');
+      console.log('Error here', e);
+      return res.status(400).send('Server - Bad Request');
+    });
+  }
+
+  if (req.body.query === 'Login') {
+    console.log('hello');
+    var user = _.pick((req.body,['email','password']),
+    );
+    Users.find(user).then((returned) => {
+      if (!returned) return res.status(404).send('User and password do not match.');
+      return res.status(200).send(returned.name);
+    });
+  };
+
 })
 
 app.listen(port, () => {

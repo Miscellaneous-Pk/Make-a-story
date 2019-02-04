@@ -252,9 +252,12 @@
 
 				}
 
+				console.log('valid sign up pressed.');
+
 				// carryout ajax request to server -> store the information -> start a new session with this user
 
 				let data = {
+					'query': 'Register',
 					"name": $('#user-name').val(),
 					"email": $('#user-email').val(),
 					"password": $('#user-pass').val(),
@@ -276,43 +279,34 @@
 					});
 			});
 
+			// LOG IN
+			
 			$('#log-in').click(function(e) {
 
-				if (!($("#sign-in").valid())) {
+				if (!($("#sign-in").valid()))	return;
 
-					return;
+				let data = {
+					"query": 'Login',
+					"email": $('#in-email').val(),
+					"password": $('#in-pass').val()
+				};
 
-				}
+				data = JSON.stringify(data);
 
 				$.ajax({
-					method: "POST",
-					url: 'http://localhost/themepic/verifyemailnpass.php',
-					async: false,
-					data: {
-
-						'in-email': $('#in-email').val(),
-						'in-pass': $('#in-pass').val()
-
-					},
-					success: function( msg ) {
-
-						let myObj = JSON.parse(msg);
-
-						console.log(myObj);
-
-						if (myObj.success == false) {
-
-							$('.form-error').html(`<i class="fas fa-exclamation-circle"></i> ` + myObj.error);
-							return;
-
-						}
-
-						$("#sign-in").submit()
-
-					}
-				})
-
-
+				    url: '/data',
+				    type: 'post',
+				    data,
+				    headers: {
+				        'content-type': 'application/json',
+				    }
+					}).done((msg) => {
+						console.log('successful login: ', msg);
+						// $("#sign-in").submit();
+					}).fail((e) => {
+						console.log('error here', e);
+						return $('.form-error').html(`<i class="fas fa-exclamation-circle"></i> ` + myObj.error);
+					});
 
 			});
 
