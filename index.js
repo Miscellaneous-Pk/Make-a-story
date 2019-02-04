@@ -6,11 +6,7 @@ const hbs = require('hbs');
 const _ = require('lodash');
 
 const {mongoose} = require('./db/mongoose');
-<<<<<<< HEAD
-
-=======
 const {Users} = require('./models/users');
->>>>>>> b8a6636fae7650b3906cce9488f06c434937f3ee
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -21,13 +17,8 @@ app.set('view engine','hbs');
 
 
 app.get('/',(req,res) => {
-<<<<<<< HEAD
   res.render('register.hbs');
 })
-=======
-  res.render('index.hbs');
-});
->>>>>>> b8a6636fae7650b3906cce9488f06c434937f3ee
 
 app.post('/data',(req,res) => {
 
