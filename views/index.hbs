@@ -156,7 +156,7 @@
 									<label class="custom-control-label" for="agreeTerms">I agree to terms and policy</label>
 								</div>
 
-								<small class="text-warning pl-2 text-right check-label"><label for="agreeTerms" generated="true" class="error"></label></small>
+								<small class="text-warning pl-2 text-right check-label"><label for="agreeTerms" generated="true" class="signup-error"></label></small>
 
 							</div>
 
@@ -252,10 +252,6 @@
 
 				}
 
-				console.log('valid sign up pressed.');
-
-				// carryout ajax request to server -> store the information -> start a new session with this user
-
 				let data = {
 					'query': 'Register',
 					"name": $('#user-name').val(),
@@ -274,13 +270,13 @@
 				    }
 					}).done((msg) => {
 						console.log('successful: ', msg);
+						// TODO: go to home page
 					}).fail((e) => {
-						console.log('error here', e);
+						console.log('error here', e.responseText);
+						return $('.signup-error').html(`<i class="fas fa-exclamation-circle"></i> ` + e.responseText)
 					});
 			});
 
-			// LOG IN
-			
 			$('#log-in').click(function(e) {
 
 				if (!($("#sign-in").valid()))	return;
@@ -302,10 +298,10 @@
 				    }
 					}).done((msg) => {
 						console.log('successful login: ', msg);
-						// $("#sign-in").submit();
+						$("#sign-in").submit();
 					}).fail((e) => {
 						console.log('error here', e);
-						return $('.form-error').html(`<i class="fas fa-exclamation-circle"></i> ` + myObj.error);
+						return $('.form-error').html(`<i class="fas fa-exclamation-circle"></i> ` + e.responseText);
 					});
 
 			});
@@ -403,9 +399,6 @@
 
 			});
 
-
-
-
-		</script>
+			</script>
 	</body>
 </html>

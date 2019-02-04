@@ -1,6 +1,6 @@
 <?php 
 
-header('Access-Control-Allow-Origin: *'); 
+header('Access-Control-Allow-Origin: *');
 
 session_start();
 
@@ -13,9 +13,9 @@ if (mysqli_connect_error()) {
 	$myObj->Success = 'false';
 	$myObj->reason = mysqli_connect_error();
 
-} 
+}
 
-if (isset($_POST['in-email'])) { 
+if (isset($_POST['in-email'])) {
 
 	$query = "SELECT * FROM users WHERE email = '" . $_POST['in-email'] . "'";
 
@@ -77,4 +77,3 @@ $myJSON = json_encode($myObj);
 echo $myJSON;
 
 ?>
-

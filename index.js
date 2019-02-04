@@ -37,14 +37,15 @@ app.post('/data',(req,res) => {
   }
 
   if (req.body.query === 'Login') {
-    console.log('hello');
-    var user = _.pick((req.body,['email','password']),
-    );
+    var user = _.pick(req.body,['email','password']);
     Users.find(user).then((returned) => {
-      if (!returned) return res.status(404).send('User and password do not match.');
-      return res.status(200).send(returned.name);
+      var size = Object.keys(returned).length;
+      if (!size) return res.status(404).send('User and password do not match.');
+      return res.status(200).send(returned[0].name);
     });
   };
+
+  
 
 })
 
