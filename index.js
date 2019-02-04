@@ -18,7 +18,12 @@ app.set('view engine','hbs');
 
 app.get('/',(req,res) => {
   res.render('index.hbs');
-})
+});
+
+app.get('/home:token',(req,res) => {
+  console.log(req.params.token);
+  res.render('home.hbs');
+});
 
 app.post('/data',(req,res) => {
 
@@ -30,6 +35,7 @@ app.post('/data',(req,res) => {
       res.status(200).send('well recieved the payload: ' + req.body.name);
       return console.log('saved', returned.name);
     }).catch((e) => {
+      console.log(e);
       if (e.code === 11000) return res.status(400).send('You are already registered with this email');
       console.log('Error here', e);
       return res.status(400).send('Server - Bad Request');
@@ -45,9 +51,7 @@ app.post('/data',(req,res) => {
     });
   };
 
-  
-
-})
+});
 
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);

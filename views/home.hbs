@@ -1,15 +1,3 @@
-<?php
-
-session_start();
-
-if (!isset($_SESSION['nameUser'])) {
-
-    header ('Location: index.php');
-
-}
-
-?>
-
 <!doctype html>
 
 <html lang="en">
@@ -461,8 +449,8 @@ if (!isset($_SESSION['nameUser'])) {
                     <div class="d-flex align-items-center mx-1">
 
                         <h1 class="display-4">
-                            <?php 
-                            echo ucfirst($_SESSION["nameUser"]); 
+                            <?php
+                            echo ucfirst($_SESSION["nameUser"]);
                             if (isset($_SESSION['idPicture'])) {
                                 echo $_SESSION['idPicture'];
                             }
@@ -581,7 +569,7 @@ if (!isset($_SESSION['nameUser'])) {
                             <label class="position-absolute upload-btn-wrapper w-100 h-100 d-flex align-items-center justify-content-center flex-wrap">
 
                                 <div class="upload-error-here text-light text-center">
-                                    <h5 class="upload-btn-text"><i class="fas fa-upload"></i></h5> 
+                                    <h5 class="upload-btn-text"><i class="fas fa-upload"></i></h5>
                                     <small>Click here to upload your image</small>
                                 </div>
 
@@ -659,12 +647,12 @@ if (!isset($_SESSION['nameUser'])) {
 
                             <div class="detailBox bg-dark rounded">
 
-                                <!--
-<small class="border-right px-1 rounded-left">1</small>
-<small class="border-right px-1">2</small>
-<small class="border-right px-1">3</small>
-<small class=" px-1 rounded-right">4</small>
--->
+
+                                <small class="border-right px-1 rounded-left">1</small>
+                                <small class="border-right px-1">2</small>
+                                <small class="border-right px-1">3</small>
+                                <small class=" px-1 rounded-right">4</small>
+
 
                             </div>
 
@@ -689,14 +677,14 @@ if (!isset($_SESSION['nameUser'])) {
 
                                 <div class="d-flex flex-wrap bg-dark rounded-bottom">
 
-                                    <!--
-<div class="col-md-4 col-sm-6 col-12 text-left p-2">
 
-<span class="badge badge-light">1</span>
-<small >Quickly manage the layout, alignment, and sizing of grid columbox utilities. For more complex implementations, custom CSS may be necessary.</small>
+                                    <div class="col-md-4 col-sm-6 col-12 text-left p-2">
 
-</div>
--->
+                                    <span class="badge badge-light">1</span>
+                                    <small >Quickly manage the layout, alignment, and sizing of grid columbox utilities. For more complex implementations, custom CSS may be necessary.</small>
+
+                                    </div>
+
 
                                 </div>
 
@@ -2631,7 +2619,7 @@ border-top-color: #343a40;
 
                 let thumbnail_link = $(this).find('.card-image-top').attr('src');
 
-                // get this image from photo 
+                // get this image from photo
 
                 $.post('http://localhost/themepic/give_me_image_data.php', {
                     link: thumbnail_link
@@ -2701,7 +2689,7 @@ border-top-color: #343a40;
 
                     console.log('-- This image is laoded for the first time: ' + $(this).attr('firstLoad') + '. Storing this image as draft');
 
-                    // Todo: Create thumbnail -> store image in cloudinary -> store thumbnail in cloudinary -> save urls in local database 
+                    // Todo: Create thumbnail -> store image in cloudinary -> store thumbnail in cloudinary -> save urls in local database
 
                     var createThumbnail = new Promise((resolve, reject) => {
                         resolve('Success!');
@@ -2816,7 +2804,7 @@ border-top-color: #343a40;
 
                 }
 
-            }  
+            }
 
             $("#imgInp").change(function() {
 
