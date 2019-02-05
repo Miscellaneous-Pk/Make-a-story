@@ -20,8 +20,19 @@ app.get('/',(req,res) => {
   res.render('index.hbs');
 });
 
-app.get('/home:token',(req,res) => {
-  console.log(req.params.token);
+let authenticate = (req,res,next) => {
+  Users.findByToken(req.params.token).then((user) => {
+    req.params.user = user;
+    console.log(`user exists ${user.name}`);
+    next();
+  }).catch((e) => {
+    console.log(e);
+    return res.status(404).send('Not authorized !');
+  });
+};
+
+app.get('/home/:token', authenticate, (req,res) => {
+  console.log('authenticated !');
   res.render('home.hbs');
 });
 
@@ -31,8 +42,8 @@ app.post('/data',(req,res) => {
     var user = new Users(
       _.pick(req.body,['name','email','password']),
     );
-    user.save().then((returned) => {
-      res.status(200).send('well recieved the payload: ' + req.body.name);
+    user.generateAuthToken().then((returned) => {
+      res.status(200).send(returned.tokens[0].token);
       return console.log('saved', returned.name);
     }).catch((e) => {
       console.log(e);
@@ -40,14 +51,15 @@ app.post('/data',(req,res) => {
       console.log('Error here', e);
       return res.status(400).send('Server - Bad Request');
     });
-  }
+  };
 
   if (req.body.query === 'Login') {
     var user = _.pick(req.body,['email','password']);
-    Users.find(user).then((returned) => {
-      var size = Object.keys(returned).length;
-      if (!size) return res.status(404).send('User and password do not match.');
-      return res.status(200).send(returned[0].name);
+    Users.findByCredentials(user.email, user.password).then((returned) => {
+      return res.status(200).send(returned.tokens[0].token);
+    }).catch((e) => {
+      console.log(e);
+      res.status(404).send(`Server error - ${e}`);
     });
   };
 

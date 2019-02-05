@@ -1,8 +1,8 @@
 {
   "test": {
-    "PORT": 3000, "MONGODB_URI": "mongodb://localhost:27017/users"
+    "PORT": 3000, "MONGODB_URI": "mongodb://localhost:27017/users","JWT_SECRET": "1234!@@#$asdf92309&%^"
   },
   "development": {
-    "PORT": 3000, "MONGODB_URI": "mongodb://localhost:27017/users"
+    "PORT": 3000, "MONGODB_URI": "mongodb://localhost:27017/users","JWT_SECRET": "1234!@@#$asdf92309&%^"
   }
 }

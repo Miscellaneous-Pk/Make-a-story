@@ -71,11 +71,15 @@ UsersSchema.statics.findByToken = function (token) {
   var User = this;
   var decoded;
 
+  console.log(token);
+
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (e) {
-    return Promise.reject();
+    console.log(e);
+    return Promise.reject('not found this user token');
   }
+  console.log('token is valid..');
 
   return User.findOne({
     '_id': decoded._id,
@@ -83,6 +87,24 @@ UsersSchema.statics.findByToken = function (token) {
     'tokens.access': 'auth'
   });
 };
+
+UsersSchema.statics.findByCredentials = function (email, password) {
+
+  var User = this;
+  return User.findOne({email}).then((user) => {
+    if (!user) return Promise.reject('No user found with this email and password. Please sign up.');
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(password, user.password, (err, res) => {
+          if (res) {
+            resolve(user);
+          } else {
+            reject('Password did not match !');
+          }
+        });
+      });
+    });
+
+  };
 
 
 var Users = mongoose.model('Users', UsersSchema);
