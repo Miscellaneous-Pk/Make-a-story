@@ -190,7 +190,7 @@
 
 						</div>
 
-						<button type="button" id="rx-code" class="level-0 mb-2 btn btn-info" name="button">Recieve code</button>
+						<button type="button" id="rx-code" class="mb-2 btn btn-info" name="button">Recieve code</button>
 
 						<hr class="bg-info">
 
@@ -198,7 +198,7 @@
 
 							<div class="d-flex justify-content-between align-items-center">
 
-								<label id="level-1" class="level-1 text-muted" for="fp-code">Code recieved in email</label>
+								<label id="level-1" class="level-1 text-muted" for="fp-code">Check your email and enter code here</label>
 
 								<small class="text-warning pl-2 text-right"><label for="fp-code" generated="true" class="error"></label></small>
 
@@ -423,6 +423,7 @@
 				//TODO: perform ajax to server here
 				$('.level-1').removeClass('text-muted bg-dark').attr('disabled',false);
 				$('.level-0').attr('disabled',true).addClass('bg-dark text-muted');
+				$('#rx-code').attr('disabled',true);
 
 
 			})
