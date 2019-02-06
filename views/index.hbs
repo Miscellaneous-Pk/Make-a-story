@@ -33,7 +33,7 @@
 
 		</style>
 
-		<title>Hello, world!</title>
+		<title>Welcome</title>
 	</head>
 	<style>
 
@@ -68,8 +68,6 @@
 
 							<input name="in-email" class="form-control" id="in-email" aria-describedby="emailHelp" placeholder="Enter email" value="qasimali24@gmail.com">
 
-							<!--						value="qasimali24@gmail.com"-->
-
 						</div>
 
 						<div class="form-group">
@@ -87,6 +85,7 @@
 
 						<button type="button" id="click-login" class="btn btn-info">Log In</button>
 						<button type="button" class="signUp btn btn-outline-light">Sign Up</button>
+						<button type="button" class="forgotpassword btn btn-dark">Forgot Password ?</button>
 
 					</form>
 
@@ -154,11 +153,11 @@
 									<label class="custom-control-label" for="agreeTerms">I agree to terms and policy</label>
 								</div>
 
-								<small class="text-warning pl-2 text-right check-label"><label for="agreeTerms" generated="true" class="signup-error"></label></small>
-
 							</div>
 
 						</div>
+
+						<p class="d-none"><small class="text-warning text-right check-label"><label for="agreeTerms" generated="true" class="signup-error"></label></small></p>	
 
 						<button type="button" id="click-signup" class="btn btn-info">Submit</button>
 						<button type="button" class="signIn btn btn-outline-light">Login</button>
@@ -169,6 +168,65 @@
 
 			</div>
 
+			<div id="dialog-forgotpassword" class="dialog d-flex align-items-center justify-content-center">
+
+				<div class="col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded p-3 text-light bg-shadow">
+
+					<form role="form" id="forgotpassword" novalidate action="/home" method="get">
+
+						<div class="form-group">
+
+							<div class="d-flex justify-content-between align-items-center">
+
+								<label for="fp-email">Your email address</label>
+
+								<small class="text-warning pl-2 text-right"><label for="fp-email" generated="true" class="error"></label></small>
+
+							</div>
+
+							<input name="fp-email" type="text" class="form-control" id="fp-email" aria-describedby="emailHelp" placeholder="Enter your email address" value="Qasim">
+
+							<small class="text-muted">If you do not have your email registered, please sign up.</small>
+
+						</div>
+
+						<div class="form-group">
+
+							<div class="d-flex justify-content-between align-items-center">
+								<label for="fp-pass">Password</label>
+								<small class="text-warning pl-2 text-right"><label for="fp-pass" generated="true" class="error"></label></small>
+							</div>
+
+							<input name="fp-pass" type="password" class="form-control" id="fp-pass" placeholder="Password" value="pakistani">
+
+							<small class="text-muted">Create an easy password. Np :)</small>
+
+						</div>
+
+						<div class="form-group">
+
+							<div class="d-flex justify-content-between align-items-center">
+								<label for="fp-pass2">Confirm Password</label>
+								<small class="text-warning pl-2 text-right"><label for="fp-pass2" generated="true" class="error"></label></small>
+							</div>
+
+							<input name="fp-pass2" type="password" class="form-control" id="fp-pass2" placeholder="Password" value="pakistani">
+
+							<small class="text-muted">Please enter same as you entered in previous field.</small>
+
+						</div>
+
+						<p class="d-none"><small class="text-warning pl-2 text-right check-label"><label for="agreeTerms" generated="true" class="forgotpassword-error"></label></small></p>
+
+						<button type="button" id="click-forgotpassword" class="btn btn-info">Submit</button>
+						<button type="button" class="signIn btn btn-outline-light">Log In</button>
+						<button type="button" class="signUp btn btn-outline-light">Sign Up</button>
+
+					</form>
+
+				</div>
+
+			</div>
 
 		</div>
 
@@ -218,6 +276,20 @@
 					}
 				});
 
+				$( "#dialog-forgotpassword" ).dialog({
+					resizable: false,
+					height: 'auto',
+					width: 'auto',
+					position: { my: "center", at: "center", of: window },
+					modal: true,
+					autoOpen: false,
+					appendTo: ".formPage",
+					show: {
+						effect: "fade",
+						duration: 500
+					}
+				});
+
 			})
 
 			$('.signUp').click(function () {
@@ -225,6 +297,8 @@
 				$('.dialog').hide();
 
 				$( "#dialog-signin" ).dialog('close');
+
+				$( "#dialog-forgotpassword" ).dialog('close');
 
 				$( "#dialog-signup" ).dialog('open');
 
@@ -236,7 +310,19 @@
 
 				$( "#dialog-signup" ).dialog('close');
 
+				$( "#dialog-forgotpassword" ).dialog('close');
+
 				$( "#dialog-signin" ).dialog('open');
+
+			})
+
+			$('.forgotpassword').click(function () {
+
+				$('.dialog').hide();
+
+				$( "#dialog-signin" ).dialog('close');
+
+				$( "#dialog-forgotpassword" ).dialog('open');
 
 			})
 

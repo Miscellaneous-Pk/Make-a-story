@@ -17,6 +17,7 @@ app.set('view engine','hbs');
 
 
 app.get('/',(req,res) => {
+  console.log('log in page opened');
   res.render('index.hbs');
 });
 
