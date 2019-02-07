@@ -31,6 +31,47 @@
 				display: none;
 			}
 
+			.lds-ring {
+			  display: inline-block;
+			  position: relative;
+			  width: 64px;
+			  height: 64px;
+			}
+			.lds-ring div {
+			  box-sizing: border-box;
+			  display: block;
+			  position: absolute;
+			  width: 51px;
+			  height: 51px;
+			  margin: 6px;
+			  border: 6px solid #fff;
+			  border-radius: 50%;
+			  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+			  border-color: #fff transparent transparent transparent;
+			}
+			.lds-ring div:nth-child(1) {
+			  animation-delay: -0.45s;
+			}
+			.lds-ring div:nth-child(2) {
+			  animation-delay: -0.3s;
+			}
+			.lds-ring div:nth-child(3) {
+			  animation-delay: -0.15s;
+			}
+			@keyframes lds-ring {
+			  0% {
+			    transform: rotate(0deg);
+			  }
+			  100% {
+			    transform: rotate(360deg);
+			  }
+			}
+
+
+			.loader {
+				z-index: 10;
+			}
+
 		</style>
 
 		<title>Welcome</title>
@@ -40,6 +81,10 @@
 	</style>
 
 	<body class="bg-info text-light">
+
+		<div class="loader d-none position-absolute w-100 align-items-center">
+			<div class="mx-auto lds-ring"><div></div><div></div><div></div><div></div></div>
+		</div>
 
 		<div class="btn-container dialog">
 
@@ -184,7 +229,7 @@
 
 							</div>
 
-							<input name="fp-email" type="text" class="level-0 form-control" id="fp-email" aria-describedby="emailHelp" placeholder="qasimali24@gmail.com" value="">
+							<input name="fp-email" type="text" class="level-0 form-control" id="fp-email" aria-describedby="emailHelp" placeholder="qasimali24@gmail.com" value="qasimali24@gmail.com">
 
 							<small class="text-muted">If you do not have your email registered, please sign up.</small>
 
@@ -192,7 +237,7 @@
 
 						<button type="button" id="rx-code" class="mb-2 btn btn-info" name="button">Recieve code</button>
 
-						<span class="mail-notif d-none"><i class="fas fa-check-circle"></i><small id="mail_sent" class="text-light"> <b> Mail sent !</b></small></span>
+						<span class="mail-notif d-none text-success"><i class="fas fa-check-circle"></i><small id="mail_sent" class="text-light"> <b> Mail sent !</b></small></span>
 
 
 						<hr class="bg-info">
@@ -272,6 +317,8 @@
 				let wwt = $(window).width();
 
 				$('.btn-container').height(wht);
+				$('.loader').height(wht);
+
 
 				$( "#dialog-signup" ).dialog({
 					resizable: false,
@@ -422,6 +469,7 @@
 				if ( $('#fp-email').val() === '' || !((/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/).test($('#fp-email').val())) ) return $('.fp-email-error').html('<i class="fas fa-exclamation-circle"></i> Invalid field.');
 
 				$('.fp-email-error').html('');
+				$('.loader').toggleClass('d-none d-flex');
 
 				let data = {
 					"query": 'Email_Verify',
@@ -443,9 +491,11 @@
 						$('.level-0').attr('disabled',true).addClass('bg-dark text-muted');
 						$('#rx-code').attr('disabled',true);
 						$('.mail-notif').removeClass('d-none');
+						$('.loader').toggleClass('d-none d-flex');
 					}).fail((e) => {
 						console.log(e);
-						return $('.fp-email-error').html(`<i class="fas fa-exclamation-circle"></i> ${e}`);
+						$('.loader').toggleClass('d-none d-flex');
+						return $('.fp-email-error').html(`<i class="fas fa-exclamation-circle"></i> ${e.responseText}`);
 					});
 
 			})
