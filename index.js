@@ -7,6 +7,7 @@ const _ = require('lodash');
 
 const {mongoose} = require('./db/mongoose');
 const {Users} = require('./models/users');
+const {sendmail} = require('./js/sendmail');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -64,6 +65,14 @@ app.post('/data',(req,res) => {
     });
   };
 
+  if (req.body.query === 'Email') {
+    sendmail(req.body.email,'Your Code is 123456, please enter it on webpage.','Forgot Password - Make a story').then((msg) => {
+      res.status(200).send('Please check your email inbox and enter code here.');
+    }).catch((e) => {
+      res.status(404).send(e);
+    });
+  };
+// var sendEmail = (toEmail,text,subject)
 });
 
 app.listen(port, () => {

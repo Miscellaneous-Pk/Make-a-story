@@ -1,8 +1,8 @@
 {
   "test": {
-    "PORT": 3000, "MONGODB_URI": "mongodb://localhost:27017/users","JWT_SECRET": "1234!@@#$asdf92309&%^"
+    "PORT": 3000, "MONGODB_URI": "mongodb://localhost:27017/users","JWT_SECRET": "1234!@@#$asdf92309&%^","EMAIL_ID":"miscellaneous.pk.0@gmail.com","EMAIL_PASSWORD":"1234!qasim"
   },
   "development": {
-    "PORT": 3000, "MONGODB_URI": "mongodb://localhost:27017/users","JWT_SECRET": "1234!@@#$asdf92309&%^"
+    "PORT": 3000, "MONGODB_URI": "mongodb://localhost:27017/users","JWT_SECRET": "1234!@@#$asdf92309&%^","EMAIL_ID":"miscellaneous.pk.0@gmail.com","EMAIL_PASSWORD":"1234!qasim"
   }
 }
