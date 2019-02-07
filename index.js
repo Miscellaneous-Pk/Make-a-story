@@ -65,9 +65,9 @@ app.post('/data',(req,res) => {
     });
   };
 
-  if (req.body.query === 'Email') {
+  if (req.body.query === 'Email_Verify') {
     sendmail(req.body.email,'Your Code is 123456, please enter it on webpage.','Forgot Password - Make a story').then((msg) => {
-      res.status(200).send('Please check your email inbox and enter code here.');
+      res.status(200).send(msg);
     }).catch((e) => {
       res.status(404).send(e);
     });

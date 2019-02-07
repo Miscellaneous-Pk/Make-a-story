@@ -191,6 +191,7 @@
 						</div>
 
 						<button type="button" id="rx-code" class="mb-2 btn btn-info" name="button">Recieve code</button>
+						<small id="mail_sent" class="text-success"><b>Done mail sent !</b></small>
 
 						<hr class="bg-info">
 
@@ -420,11 +421,29 @@
 
 				$('.fp-email-error').html('');
 
-				//TODO: perform ajax to server here to send email
-				$('.level-1').removeClass('text-muted bg-dark').attr('disabled',false);
-				$('.level-0').attr('disabled',true).addClass('bg-dark text-muted');
-				$('#rx-code').attr('disabled',true);
+				let data = {
+					"query": 'Email_Verify',
+					"email": $('#fp-email').val(),
+				};
 
+				data = JSON.stringify(data);
+
+				$.ajax({
+				    url: '/data',
+				    type: 'post',
+				    data,
+				    headers: {
+				        'content-type': 'application/json',
+				    }
+					}).done((msg) => {
+						console.log('Done:',msg);
+						$('.level-1').removeClass('text-muted bg-dark').attr('disabled',false);
+						$('.level-0').attr('disabled',true).addClass('bg-dark text-muted');
+						$('#rx-code').attr('disabled',true);
+					}).fail((e) => {
+						console.log(e);
+						return $('.fp-email-error').html(`<i class="fas fa-exclamation-circle"></i> ${e}`);
+					});
 
 			})
 

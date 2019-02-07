@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 
 // Generate test SMTP service account from ethereal.email
 // Only needed if you don't have a real mail account for testing
-var sendEmail = (toEmail,code,subject) => {
+var sendmail = (toEmail,code,subject) => {
   return new Promise((resolve, reject) => {
 
     nodemailer.createTestAccount((err, account) => {
