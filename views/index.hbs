@@ -191,7 +191,9 @@
 						</div>
 
 						<button type="button" id="rx-code" class="mb-2 btn btn-info" name="button">Recieve code</button>
-						<small id="mail_sent" class="text-success"><b>Done mail sent !</b></small>
+
+						<span class="mail-notif d-none"><i class="fas fa-check-circle"></i><small id="mail_sent" class="text-light"> <b> Mail sent !</b></small></span>
+
 
 						<hr class="bg-info">
 
@@ -440,6 +442,7 @@
 						$('.level-1').removeClass('text-muted bg-dark').attr('disabled',false);
 						$('.level-0').attr('disabled',true).addClass('bg-dark text-muted');
 						$('#rx-code').attr('disabled',true);
+						$('.mail-notif').removeClass('d-none');
 					}).fail((e) => {
 						console.log(e);
 						return $('.fp-email-error').html(`<i class="fas fa-exclamation-circle"></i> ${e}`);
