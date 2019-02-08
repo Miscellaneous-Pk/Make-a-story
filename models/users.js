@@ -27,7 +27,10 @@ var UsersSchema = new mongoose.Schema({
       type: String,
       required: true,
     }
-  }]
+  }],
+  phoneCode: {
+    type: String,
+  }
 });
 
 UsersSchema.pre('save', function(next) {

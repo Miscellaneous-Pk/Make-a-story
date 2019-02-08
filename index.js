@@ -66,13 +66,31 @@ app.post('/data',(req,res) => {
   };
 
   if (req.body.query === 'Email_Verify') {
-    sendmail(req.body.email,'Your Code is 123456, please enter it on webpage.','Forgot Password - Make a story').then((msg) => {
-      res.status(200).send(msg);
+    var phoneCode = Math.floor(100000 + Math.random() * 900000);
+    sendmail(req.body.email,`Your Code is <b>${phoneCode}</b>, please enter it on webpage.`,'Make a story - Forgot Password')
+    .then((msg) => {
+      return Users.findOneAndUpdate({"email": req.body.email}, {$set : {"phoneCode":phoneCode}}, {new: true});
+    }).then((user) => {
+      res.status(200).send('Mail sent !');
     }).catch((e) => {
       res.status(404).send(e);
     });
   };
-// var sendEmail = (toEmail,text,subject)
+
+  if (req.body.query === 'Test_Code') {
+    Users.findOne({
+      "email": req.body.email,
+      "phoneCode": req.body.code
+    }).then((user) => {
+      if (!user) return Promise.reject('No user found.');
+      console.log('user found', user);
+      return res.status(200).send('User Found');
+    }).catch((e) => {
+      console.log(e);
+      return res.status(404).send('Not authorized');
+    });
+  };
+
 });
 
 app.listen(port, () => {

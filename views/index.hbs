@@ -236,6 +236,7 @@
 						</div>
 
 						<button type="button" id="rx-code" class="mb-2 btn btn-info" name="button">Recieve code</button>
+						<br>
 
 						<span class="mail-notif d-none text-success"><i class="fas fa-check-circle"></i><small id="mail_sent" class="text-light"> <b> Mail sent !</b></small></span>
 
@@ -246,15 +247,17 @@
 
 							<div class="d-flex justify-content-between align-items-center">
 
-								<label id="level-1" class="level-1 text-muted" for="fp-code">Check your email and enter code here</label>
+								<!-- <label id="level-1" class="level-1 text-muted" for="fp-code"></label> -->
 
-								<small class="text-warning pl-2 text-right"><label for="fp-code" generated="true" class="error"></label></small>
+								<small class="text-warning text-right"><label for="fp-code" generated="true" class="fp-error d-none">Invalid Code !</label></small>
 
 							</div>
 
-							<input disabled name="fp-code" type="text" class="level-1 form-control bg-dark" id="fp-code" aria-describedby="emailHelp" placeholder="123asd" value="123asd">
+							<input disabled name="fp-code" type="text" class="level-1 form-control bg-dark" id="fp-code" aria-describedby="emailHelp" placeholder="123asd" value="" maxlength="6">
 
-							<small class="text-muted">Only write the code.</small>
+							<small class="text-muted">Check your email for the code and write above.</small>
+							<br>
+							<span class="code-notif d-none text-success"><i class="fas fa-check-circle"></i><small id="mail_sent" class="text-light"> <b> Code Verified !</b></small></span>
 
 						</div>
 
@@ -263,11 +266,11 @@
 						<div class="form-group">
 
 							<div class="d-flex justify-content-between align-items-center">
-								<label class="text-muted" for="fp-pass">Password</label>
+								<label class="level-2 text-muted" for="fp-pass">Password</label>
 								<small class="text-warning pl-2 text-right"><label for="fp-pass" generated="true" class="error"></label></small>
 							</div>
 
-							<input disabled name="fp-pass" type="password" class="form-control bg-dark" id="fp-pass" placeholder="Password" value="pakistani">
+							<input disabled name="fp-pass" type="password" class="level-2 form-control bg-dark" id="fp-pass" placeholder="Password" value="pakistani">
 
 							<small class="text-muted">Create an easy password. Np :)</small>
 
@@ -276,11 +279,11 @@
 						<div class="form-group">
 
 							<div class="d-flex justify-content-between align-items-center">
-								<label class="text-muted" for="fp-pass2">Confirm Password</label>
+								<label class="level-2 text-muted" for="fp-pass2">Confirm Password</label>
 								<small class="text-warning pl-2 text-right"><label for="fp-pass2" generated="true" class="error"></label></small>
 							</div>
 
-							<input disabled name="fp-pass2" type="password" class="form-control bg-dark" id="fp-pass2" placeholder="Password" value="pakistani">
+							<input disabled name="fp-pass2" type="password" class="level-2 form-control bg-dark" id="fp-pass2" placeholder="Password" value="pakistani">
 
 							<small class="text-muted">Please enter same as you entered in previous field.</small>
 
@@ -288,7 +291,7 @@
 
 						<p class="d-none"><small class="text-warning pl-2 text-right check-label"><label for="agreeTerms" generated="true" class="forgotpassword-error"></label></small></p>
 
-						<button disabled type="button" id="click-forgotpassword" class="btn btn-info">Submit</button>
+						<button disabled type="button" id="click-forgotpassword" class="level-2 btn btn-info">Submit</button>
 						<button type="button" class="signIn btn btn-outline-light">Log In</button>
 						<button type="button" class="signUp btn btn-outline-light">Sign Up</button>
 
@@ -493,12 +496,42 @@
 						$('.mail-notif').removeClass('d-none');
 						$('.loader').toggleClass('d-none d-flex');
 					}).fail((e) => {
-						console.log(e);
+						console.log(e.responseText,e);
 						$('.loader').toggleClass('d-none d-flex');
 						return $('.fp-email-error').html(`<i class="fas fa-exclamation-circle"></i> ${e.responseText}`);
 					});
 
 			})
+
+			$('#fp-code').keyup(() => {
+				if ($('#fp-code').val().length < 6) return console.log('less then 6 yet');
+
+				let data = {
+					"query": 'Test_Code',
+					"email": $('#fp-email').val(),
+					"code": $('#fp-code').val(),
+				};
+
+				data = JSON.stringify(data);
+
+				$.ajax({
+				    url: '/data',
+				    type: 'post',
+				    data,
+				    headers: {
+				        'content-type': 'application/json',
+				    }
+					}).done((msg) => {
+						console.log('Done:',msg);
+						$('.level-2').removeClass('bg-dark text-muted').attr('disabled',false);
+						$('.level-1').addClass('bg-dark').attr('disabled',true);
+						$('.code-notif').removeClass('d-none');
+						$('.fp-error').addClass('d-none');
+					}).fail((e) => {
+						console.log(e.responseText,e);
+						$('.fp-error').removeClass('d-none');
+					});
+			});
 
 			$.validator.setDefaults({
 

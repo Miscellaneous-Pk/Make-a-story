@@ -23,7 +23,7 @@ var sendmail = (toEmail,code,subject) => {
             subject: subject, // Subject line
             text: '', // plain text body
             html: `
-            <p><b>Forgot password code is:</b>  ${code} </p>
+            <p>${code}</p>
             <br>
             <small><br>
               * Don't reply to this email, it is a computer generated message.
