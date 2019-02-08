@@ -30,6 +30,14 @@ var UsersSchema = new mongoose.Schema({
   }],
   phoneCode: {
     type: String,
+  },
+  wrongAttempts: {
+    type: Number,
+    default: 0,
+  },
+  attemptedTime: {
+    type: Number,
+    default: 0,
   }
 });
 

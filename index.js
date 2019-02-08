@@ -8,6 +8,7 @@ const _ = require('lodash');
 const {mongoose} = require('./db/mongoose');
 const {Users} = require('./models/users');
 const {sendmail} = require('./js/sendmail');
+const {serverRunning} = require('./js/serverRunning');
 
 var app = express();
 var port = process.env.PORT || 3000;
@@ -67,13 +68,16 @@ app.post('/data',(req,res) => {
 
   if (req.body.query === 'Email_Verify') {
     var phoneCode = Math.floor(100000 + Math.random() * 900000);
-    sendmail(req.body.email,`Your Code is <b>${phoneCode}</b>, please enter it on webpage.`,'Make a story - Forgot Password')
-    .then((msg) => {
+    Users.findOne({"email":req.body.email}).then((user) => {
+      if (!user) return res.status(404).send('Un authorized request');
+      return sendmail(req.body.email,`Your Code is <b>${phoneCode}</b>, please enter it on webpage.`,'Make a story - Forgot Password')
+    }).then((msg) => {
       return Users.findOneAndUpdate({"email": req.body.email}, {$set : {"phoneCode":phoneCode}}, {new: true});
     }).then((user) => {
       res.status(200).send('Mail sent !');
     }).catch((e) => {
-      res.status(404).send(e);
+      console.log(e);
+      res.status(404).send(e.errno);
     });
   };
 
@@ -82,16 +86,22 @@ app.post('/data',(req,res) => {
       "email": req.body.email,
       "phoneCode": req.body.code
     }).then((user) => {
-      if (!user) return Promise.reject('No user found.');
+      if (!user) return Users.findOneAndUpdate({"email":req.body.email},{$set: {attemptedTime: new Date()}, $inc:{wrongAttempts:1}},{new:true});
       console.log('user found', user);
-      return res.status(200).send('User Found');
+      return res.status(200).send('Verified !');
+    }).then((response) => {
+      console.log(`${response}:::: Wrong attempt no: ${response.wrongAttempts} x Attempt`);
+      if (response.wrongAttempts > 4) return res.status(404).send('5 wrong attempts, please try again after 2 mins.');
+      return res.status(400).send('Did not match !');
     }).catch((e) => {
       console.log(e);
-      return res.status(404).send('Not authorized');
+      return res.status(400).send(e);
     });
   };
 
 });
+
+serverRunning();
 
 app.listen(port, () => {
   console.log(`listening on port ${port}...`);

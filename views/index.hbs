@@ -249,7 +249,7 @@
 
 								<!-- <label id="level-1" class="level-1 text-muted" for="fp-code"></label> -->
 
-								<small class="text-warning text-right"><label for="fp-code" generated="true" class="fp-error d-none">Invalid Code !</label></small>
+								<small class="text-warning text-right"><label for="fp-code" generated="true" class="fp-error d-none"></label></small>
 
 							</div>
 
@@ -529,7 +529,7 @@
 						$('.fp-error').addClass('d-none');
 					}).fail((e) => {
 						console.log(e.responseText,e);
-						$('.fp-error').removeClass('d-none');
+						$('.fp-error').removeClass('d-none').html(e.responseText);
 					});
 			});
 
