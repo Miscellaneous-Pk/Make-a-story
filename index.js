@@ -88,8 +88,9 @@ app.post('/data',(req,res) => {
     }).then((user) => {
       if (!user) return Users.findOneAndUpdate({"email":req.body.email},{$set: {attemptedTime: new Date()}, $inc:{wrongAttempts:1}},{new:true});
       console.log('user found', user);
-      return res.status(200).send('Verified !');
+      return Promise.resolve('Found');
     }).then((response) => {
+      if (response === 'Found') return res.status(200).send('Verified !');
       console.log(`${response}:::: Wrong attempt no: ${response.wrongAttempts} x Attempt`);
       if (response.wrongAttempts > 4) return res.status(404).send('5 wrong attempts, please try again after 2 mins.');
       return res.status(400).send('Did not match !');
