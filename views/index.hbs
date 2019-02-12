@@ -126,7 +126,7 @@
 
 						</div>
 
-						<p class=""><small class="text-warning text-right form-error"></small></p>
+						<p class=""><small class="text-warning form-error"></small></p>
 
 						<button type="button" id="click-login" class="btn btn-info">Log In</button>
 						<button type="button" class="signUp btn btn-outline-light">Sign Up</button>
@@ -253,7 +253,7 @@
 
 							</div>
 
-							<input disabled name="fp-code" type="text" class="level-1 form-control bg-dark" id="fp-code" aria-describedby="emailHelp" placeholder="123asd" value="" maxlength="6">
+							<input name="fp-code" type="text" class="level-1 form-control bg-dark" id="fp-code" aria-describedby="emailHelp" placeholder="123asd" value="" maxlength="6">
 
 							<small class="text-muted">Check your email for the code and write above.</small>
 							<br>
@@ -270,7 +270,7 @@
 								<small class="text-warning pl-2 text-right"><label for="fp-pass" generated="true" class="error"></label></small>
 							</div>
 
-							<input disabled name="fp-pass" type="password" class="level-2 form-control bg-dark" id="fp-pass" placeholder="Password" value="pakistani">
+							<input name="fp-pass" type="password" class="level-2 form-control bg-dark" id="fp-pass" placeholder="Password" value="pakistani">
 
 							<small class="text-muted">Create an easy password. Np :)</small>
 
@@ -283,15 +283,15 @@
 								<small class="text-warning pl-2 text-right"><label for="fp-pass2" generated="true" class="error"></label></small>
 							</div>
 
-							<input disabled name="fp-pass2" type="password" class="level-2 form-control bg-dark" id="fp-pass2" placeholder="Password" value="pakistani">
+							<input name="fp-pass2" type="password" class="level-2 form-control bg-dark" id="fp-pass2" placeholder="Password" value="pakistani">
 
 							<small class="text-muted">Please enter same as you entered in previous field.</small>
 
 						</div>
 
-						<p class="d-none"><small class="text-warning pl-2 text-right check-label"><label for="agreeTerms" generated="true" class="forgotpassword-error"></label></small></p>
+						<p class=""><small class="d-none text-warning check-label"><label for="agreeTerms" generated="true" class="forgotpassword-error"></label></small></p>
 
-						<button disabled type="button" id="click-forgotpassword" class="level-2 btn btn-info">Submit</button>
+						<button type="button" id="click-forgotpassword" class="level-2 btn btn-info">Submit</button>
 						<button type="button" class="signIn btn btn-outline-light">Log In</button>
 						<button type="button" class="signUp btn btn-outline-light">Sign Up</button>
 
@@ -532,6 +532,45 @@
 						$('.fp-error').removeClass('d-none').html(e.responseText);
 					});
 			});
+
+			$('#click-forgotpassword').click(() => {
+				console.log('click the button');
+				if ($('#fp-pass').val() === '' || $('#fp-pass2').val() === '') {
+					console.log('error is here');
+					return $('.forgotpassword-error').html('Please fill in valid fields for the passwords.').closest('small').removeClass('d-none');
+				}
+
+				if ($('#fp-pass').val() !== $('#fp-pass2').val()) {
+					return $('.forgotpassword-error').html('Your passwords do not match.').closest('small').removeClass('d-none');
+				}
+
+				$('.forgotpassword-error').closest('small').addClass('d-none');
+
+				let data = {
+					"query": 'new_password',
+					"email": $('#fp-email').val(),
+					"code": $('#fp-code').val(),
+					"password": $('#fp-pass').val()
+				};
+
+				data = JSON.stringify(data);
+
+				$.ajax({
+				    url: '/data',
+				    type: 'post',
+				    data,
+				    headers: {
+				        'content-type': 'application/json',
+				    }
+					}).done((msg) => {
+						console.log('Done:',msg);
+
+					}).fail((e) => {
+						console.log(e.responseText,e);
+						return $('.forgotpassword-error').html(e.responseText).closest('small').removeClass('d-none');
+					});
+
+			})
 
 			$.validator.setDefaults({
 

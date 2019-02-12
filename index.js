@@ -100,6 +100,25 @@ app.post('/data',(req,res) => {
     });
   };
 
+  if (req.body.query === 'new_password') {
+    // check if user has a valid passcode and email -|> change the Password
+    Users.findOne({
+      "email": req.body.email,
+      "phoneCode": req.body.code,
+    }).then((user) => {
+      if (!user) return Promise.reject('Un authorized request.');
+      user.password = req.body.password;
+      return user.generateAuthToken();
+    }).then((response)=> {
+      console.log(response);
+      res.status(200).send('Password changed');
+    }).catch((e) => {
+      console.log(e);
+      res.status(404).send(e);
+    });
+
+  };
+
 });
 
 serverRunning();
