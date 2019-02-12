@@ -564,7 +564,7 @@
 				    }
 					}).done((msg) => {
 						console.log('Done:',msg);
-
+						
 					}).fail((e) => {
 						console.log(e.responseText,e);
 						return $('.forgotpassword-error').html(e.responseText).closest('small').removeClass('d-none');
