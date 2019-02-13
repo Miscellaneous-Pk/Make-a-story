@@ -435,7 +435,7 @@
 
         </style>
 
-        <title>Get the region to show</title>
+        <title>Home - Make a story</title>
     </head>
 
     <body class="bg-info text-light">
@@ -446,17 +446,11 @@
 
                 <div class="w-100 bg-dark bg-shadow p-4">
 
-                    <div class="d-flex align-items-center mx-1">
+                    <div class="d-flex align-items-center justify-content-between mx-1">
 
-                        <h1 class="display-4">
-                            <?php
-                            echo ucfirst($_SESSION["nameUser"]);
-                            if (isset($_SESSION['idPicture'])) {
-                                echo $_SESSION['idPicture'];
-                            }
-                            ?> </h1>
+                        <h1 class="display-4">{{name}}</h1>
 
-                        <a href="logout.php" class="text-light mx-2"><i class="fas fa-sign-out-alt"></i></a>
+                        <a href="/logout/{{token}}" class="text-light mr-2"><i class="fas fa-sign-out-alt"></i>Log out</a>
 
                     </div>
 
@@ -486,69 +480,20 @@
 
                 <div class="grid pt-2">
 
-                    <?php
+                  <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 m-0 p-0"></div>
+                  <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
+                    <div class="card p-0 bg-dark bg-shadow">
+                      <!-- <div class="badge badge-danger draft-badge">Draft</div>'; -->
 
-                    $conn = new mysqli("localhost", "root", "", "mydb");
-
-                    $myObj = new stdClass();
-
-                    if ($conn->connect_error) {
-
-                        echo "<div class='grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-2 pb-2'>Couldn't connect to the database</div>".$conn->connect_error;
-
-                    }  else {
-
-                        $sql = "SELECT * FROM `picture` WHERE `users_idUsers` = '" . $_SESSION["idUser"] . "'";
-
-                        if ($result = mysqli_query($conn, $sql)) {
-
-                            if (mysqli_num_rows($result)  > 4) {
-
-                                echo '<div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 m-0 p-0"></div>';
-
-                            }
-
-                            while ($row = mysqli_fetch_assoc($result)) {
-
-                                if (strpos($row['img_thumbnail_link'], 'http://') === 0) {
-
-                                    echo '
-								<div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
-										<div class="card p-0 bg-dark bg-shadow">';
-
-                                    if ($row['edit_status'] == 0) {
-
-                                        echo '	<div class="badge badge-danger draft-badge">Draft</div>';
-
-                                    } else {
-
-                                        echo '	<div class="badge badge-success draft-badge">Published</div>';
-
-                                    }
-
-                                    echo '	<img class="card-image-top rounded-top border border-dark" src="'.$row['img_thumbnail_link'].'"  alt="">
+                      <div class="badge badge-success draft-badge">Published</div>
+                      <img class="card-image-top rounded-top border border-dark" src="https://st4.depositphotos.com/5845354/19623/i/1600/depositphotos_196239144-stock-photo-bright-milkshake-sketch-made-markers.jpg"  alt="">
 											<div class="card-body p-1">
 												<h6 class="card-text">Battle of Chawinda</h6>
 												<div class="mb-1"><small class="text-muted">created on 25 Apr 2018</small></div>
 											</div>
 										</div>
-								</div>';
-
-                                }
-
-                            }
-
-                            $conn->close();
-
-                        } else {
-
-                            echo "<div class='grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-2 pb-2'></div>" . mysqli_error($conn);
-
-                        }
-
-                    }
-
-                    ?>
+				          </div>
+                  <div class='grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-2 pb-2'></div>
 
                 </div>
 

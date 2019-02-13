@@ -36,8 +36,22 @@ let authenticate = (req,res,next) => {
 
 app.get('/home/:token', authenticate, (req,res) => {
   console.log('authenticated !');
-  res.render('home.hbs');
+  res.render('home.hbs',{
+    token: req.params.token,
+    name: req.params.user.name
+  });
 });
+
+app.get('/logout/:token', authenticate, (req,res) => {
+  let user = req.params.user;
+  user.removeToken(req.params.token).then((user) => {
+    res.render('index.hbs');
+  }).catch((e) => {
+    res.status(404).render('badCall.hbs',{
+      msg: 'Bad request, User do not exist',
+    });
+  })
+})
 
 app.post('/data',(req,res) => {
 
@@ -101,7 +115,6 @@ app.post('/data',(req,res) => {
   };
 
   if (req.body.query === 'new_password') {
-    // check if user has a valid passcode and email -|> change the Password
     Users.findOne({
       "email": req.body.email,
       "phoneCode": req.body.code,
@@ -111,7 +124,7 @@ app.post('/data',(req,res) => {
       return user.generateAuthToken();
     }).then((response)=> {
       console.log(response);
-      res.status(200).send('Password changed');
+      res.status(200).send('Password changed, please login with new password.');
     }).catch((e) => {
       console.log(e);
       res.status(404).send(e);
@@ -120,6 +133,8 @@ app.post('/data',(req,res) => {
   };
 
 });
+
+
 
 serverRunning();
 
