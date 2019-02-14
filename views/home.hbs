@@ -498,89 +498,6 @@
 										</div>
 				          </div>
 
-                  <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
-                    <div class="card p-0 bg-dark bg-shadow">
-
-                      <div class="badge badge-success draft-badge">Published</div>
-                      <img class="card-image-top rounded-top border border-dark" src="https://i.ytimg.com/vi/EcHyvqueuyA/maxresdefault.jpg"  alt="">
-											<div class="card-body p-1">
-												<h6 class="card-text">2 Battle of Chawinda</h6>
-												<div class="mb-1"><small class="text-muted">created on 25 Apr 2018</small></div>
-											</div>
-										</div>
-				          </div>
-
-                  <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
-                    <div class="card p-0 bg-dark bg-shadow">
-
-                      <div class="badge badge-success draft-badge">Published</div>
-                      <img class="card-image-top rounded-top border border-dark" src="https://i.ytimg.com/vi/EcHyvqueuyA/maxresdefault.jpg"  alt="">
-											<div class="card-body p-1">
-												<h6 class="card-text">Battle of Chawinda</h6>
-												<div class="mb-1"><small class="text-muted">created on 25 Apr 2018</small></div>
-											</div>
-										</div>
-				          </div>
-
-                  <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
-                    <div class="card p-0 bg-dark bg-shadow">
-
-                      <div class="badge badge-success draft-badge">Published</div>
-                      <img class="card-image-top rounded-top border border-dark" src="https://i.ytimg.com/vi/EcHyvqueuyA/maxresdefault.jpg"  alt="">
-											<div class="card-body p-1">
-												<h6 class="card-text">Battle of Chawinda</h6>
-												<div class="mb-1"><small class="text-muted">created on 25 Apr 2018</small></div>
-											</div>
-										</div>
-				          </div>
-
-                  <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
-                    <div class="card p-0 bg-dark bg-shadow">
-
-                      <div class="badge badge-success draft-badge">Published</div>
-                      <img class="card-image-top rounded-top border border-dark" src="https://i.ytimg.com/vi/EcHyvqueuyA/maxresdefault.jpg"  alt="">
-											<div class="card-body p-1">
-												<h6 class="card-text">Battle of Chawinda</h6>
-												<div class="mb-1"><small class="text-muted">created on 25 Apr 2018</small></div>
-											</div>
-										</div>
-				          </div>
-
-                  <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
-                    <div class="card p-0 bg-dark bg-shadow">
-
-                      <div class="badge badge-success draft-badge">Published</div>
-                      <img class="card-image-top rounded-top border border-dark" src="https://i.ytimg.com/vi/EcHyvqueuyA/maxresdefault.jpg"  alt="">
-											<div class="card-body p-1">
-												<h6 class="card-text">Battle of Chawinda</h6>
-												<div class="mb-1"><small class="text-muted">created on 25 Apr 2018</small></div>
-											</div>
-										</div>
-				          </div>
-
-                  <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
-                    <div class="card p-0 bg-dark bg-shadow">
-
-                      <div class="badge badge-success draft-badge">Published</div>
-                      <img class="card-image-top rounded-top border border-dark" src="https://i.ytimg.com/vi/EcHyvqueuyA/maxresdefault.jpg"  alt="">
-                      <div class="card-body p-1">
-                        <h6 class="card-text">Battle of Chawinda</h6>
-                        <div class="mb-1"><small class="text-muted">created on 25 Apr 2018</small></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
-                    <div class="card p-0 bg-dark bg-shadow">
-
-                      <div class="badge badge-success draft-badge">Published</div>
-                      <img class="card-image-top rounded-top border border-dark" src="https://i.ytimg.com/vi/EcHyvqueuyA/maxresdefault.jpg"  alt="">
-											<div class="card-body p-1">
-												<h6 class="card-text">Battle of Chawinda</h6>
-												<div class="mb-1"><small class="text-muted">created on 25 Apr 2018</small></div>
-											</div>
-										</div>
-				          </div>
 
                 </div>
 
@@ -2735,7 +2652,7 @@ border-top-color: #343a40;
 
                 }
 
-                console.log(dataforimageexists.status + ': data for this image exists?');
+                console.log(`Data for img exist: ${dataforimageexists.status}`);
 
                 if (dataforimageexists.status) {
 
@@ -2799,7 +2716,7 @@ border-top-color: #343a40;
 
             function readURL(input) {
 
-                if (input.files && input.files[0] && (/\.(jpe?g|png|gif)$/i.test(input.files[0].name))) {
+                if (input.files && input.files[0] && (/\.(jpe?g|png)$/i.test(input.files[0].name))) {
 
                     var reader = new FileReader();
 
@@ -2871,11 +2788,13 @@ border-top-color: #343a40;
                     if (width > MAX_WIDTH) {
                         height *= MAX_WIDTH / width;
                         width = MAX_WIDTH;
+                        console.log('Image is now downsized - I.')
                     }
                 } else {
                     if (height > MAX_HEIGHT) {
                         width *= MAX_HEIGHT / height;
                         height = MAX_HEIGHT;
+                        console.log('Image is now downsized - II.')
                     }
                 }
 
@@ -2930,7 +2849,7 @@ border-top-color: #343a40;
                     src: dataurl
                 });
 
-                console.log('Image is now downsized.')
+                console.log('Image tag is given the src of dataurl, but not loaded yet.');
 
                 return;
 
@@ -2944,31 +2863,13 @@ border-top-color: #343a40;
 
                 $("#dialog-uploadImage").dialog('close');
 
-                console.log('2. ".image" is set to "firstLoad : true"');
+                console.log('".image" is set to "firstLoad : true"');
 
                 $('.image').attr({
                     firstLoad: true
                 });
 
                 $('.image').trigger('load');
-
-
-
-                //                images_cloudinary.image_link = `http://res.cloudinary.com/miscellaneous/image/upload/visualstory/images/` + $('.grid-item').length + <?php echo $_SESSION["idUser"]; ?> + `image.png`;
-                //
-                //                $.post('http://localhost/themepic/store_images.php', {
-                //
-                //                    unsetSession: 'idPicture',
-                //                    img_link: images_cloudinary.image_link,
-                //                    edit_status: 0
-                //
-                //                }, function(msg) {
-                //
-                //                    update_image_table_db('save_draft');
-                //
-                //                });
-
-
 
             })
 
