@@ -26,7 +26,7 @@ app.get('/',(req,res) => {
 let authenticate = (req,res,next) => {
   Users.findByToken(req.params.token).then((user) => {
     req.params.user = user;
-    console.log(`user exists ${user.name}`);
+    console.log(`Authenticated. ${user.name} !`);
     next();
   }).catch((e) => {
     console.log(e);
@@ -35,7 +35,6 @@ let authenticate = (req,res,next) => {
 };
 
 app.get('/home/:token', authenticate, (req,res) => {
-  console.log('authenticated !');
   res.render('home.hbs',{
     token: req.params.token,
     name: req.params.user.name
@@ -73,10 +72,14 @@ app.post('/data',(req,res) => {
   if (req.body.query === 'Login') {
     var user = _.pick(req.body,['email','password']);
     Users.findByCredentials(user.email, user.password).then((returned) => {
-      return res.status(200).send(returned.tokens[0].token);
+      if (!returned) return Promise.reject('Invalid credentials.')
+      return returned.generateAuthToken();
+    }).then((user) => {
+      if (!user) return Promise.reject('Failed to Sign In.');
+      return res.status(200).send(user.tokens[0].token);
     }).catch((e) => {
       console.log(e);
-      res.status(404).send(`Server error - ${e}`);
+      res.status(404).send(e);
     });
   };
 
