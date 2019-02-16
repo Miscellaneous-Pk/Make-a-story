@@ -9,11 +9,13 @@ const {mongoose} = require('./db/mongoose');
 const {Users} = require('./models/users');
 const {sendmail} = require('./js/sendmail');
 const {serverRunning} = require('./js/serverRunning');
+const {uploadCloudinary} = require('./js/cloudinary');
 
 var app = express();
 var port = process.env.PORT || 3000;
 app.use(express.static(__dirname+'/static'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine','hbs');
 
@@ -137,7 +139,18 @@ app.post('/data',(req,res) => {
 
 });
 
-
+app.post('/loggedIn',authenticate,(req,res) => {
+  console.log('logged in authenticated');
+  if (req.body.query === 'uploadCloudinary') {
+    console.log('here');
+    uploadCloudinary(req.body.img).then((result) => {
+      res.status(200).send(result);
+    }).catch((e) => {
+      console.log(e);
+      res.status(400).send(e);
+    });
+  };
+})
 
 serverRunning();
 

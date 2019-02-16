@@ -2656,10 +2656,7 @@ border-top-color: #343a40;
 
                 if (dataforimageexists.status) {
 
-                    let elem = `<div class="circleAndNo rounded-circle bg-info text-light" >
-<span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span>
-<elem>1</elem>
-            </div>`;
+                    let elem = `<div class="circleAndNo rounded-circle bg-info text-light" ><span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span><elem>1</elem></div>`;
 
                     let obj = dataforimageexists.data;
 
@@ -2732,6 +2729,8 @@ border-top-color: #343a40;
                             opacity: 1,
 
                         }, 500, 'linear');
+
+                        console.log(reader.result);
 
                         $('.image-for-storage').attr({
                             src: reader.result
