@@ -26,7 +26,9 @@ app.get('/',(req,res) => {
 });
 
 let authenticate = (req,res,next) => {
-  Users.findByToken(req.params.token).then((user) => {
+  let token = req.params.token || req.body.token;
+  console.log(token);
+  Users.findByToken(token).then((user) => {
     req.params.user = user;
     console.log(`Authenticated. ${user.name} !`);
     next();
@@ -139,18 +141,77 @@ app.post('/data',(req,res) => {
 
 });
 
-app.post('/loggedIn',authenticate,(req,res) => {
-  console.log('logged in authenticated');
-  if (req.body.query === 'uploadCloudinary') {
-    console.log('here');
-    uploadCloudinary(req.body.img).then((result) => {
-      res.status(200).send(result);
+app.post('/loggedin',authenticate,(req,res) => {
+
+  if (req.body.query === 'uploadImage') {
+
+    uploadCloudinary(req.body.img).then((msg) => {
+      var user = req.params.user;
+      req.body.public_id = msg.public_id;
+      var picture = {
+        _id: msg.public_id,
+        status: req.body.status,
+        image: msg.url,
+      };
+      return user.addPicture(picture);
+    }).then((msg) => {
+      msg.public_id = req.body.public_id;
+      return res.status(200).send(msg);
     }).catch((e) => {
       console.log(e);
       res.status(400).send(e);
     });
   };
-})
+
+  if (req.body.query === 'uploadThumbnail') {
+    var user = req.params.user;
+    console.log('starting uploading of thumbnail.');
+    uploadCloudinary(req.body.img).then((msg) => {
+      console.log(msg);
+      return Users.findOneAndUpdate({
+        "_id": user._id,
+        "pictures._id": req.body.public_id,
+      },
+      {
+        $set:{"pictures.$.thumbnail": msg.url}
+      }, {new: true}).then((msg) => {
+        if (!msg) return Promise.reject('Image not found. Thumbnail URL saving failed.');
+        console.log('msg', msg);
+        res.status(200).send(msg);
+      }).catch((e) => {
+        console.log(e);
+        res.status(400).send(e);
+      })
+    })
+  };
+
+  if (req.body.query === 'deleteImage') {
+    var user = req.params.user;
+    user.deletePicture(req.body.public_id).then((msg) => {
+      if (!msg) return Promise.reject('Image can not be deleted as it doesnot exist.');
+      res.status(200).send(msg);
+    }).catch((e) => {
+      res.status(400).send(e);
+    })
+  };
+
+  if (req.body.query === 'updateImageData') {
+    var user = req.params.user;
+    Users.updateOne({
+      _id: user._id,
+      "pictures._id": req.body.public_id
+    },{
+      $set: {'pictures.$.data':req.body.data}
+    },{new: true}).then((msg) => {
+      if (!msg.n) return Promise.reject('Image do not exist. Data upload failed.');
+      res.status(200).send(msg);
+    }).catch((e) => {
+      console.log(e);
+      res.status(400).send(e);
+    })
+  }
+
+});
 
 serverRunning();
 

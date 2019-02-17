@@ -38,7 +38,21 @@ var UsersSchema = new mongoose.Schema({
   attemptedTime: {
     type: Number,
     default: 0,
-  }
+  },
+  pictures: [{
+    status: {
+      type: String,
+    },
+    image: {
+      type: String,
+    },
+    thumbnail: {
+      type: String,
+    },
+    data: {
+      type: String,
+    }
+  }]
 });
 
 UsersSchema.pre('save', function(next) {
@@ -55,6 +69,31 @@ UsersSchema.pre('save', function(next) {
     next();
   }
 });
+
+UsersSchema.methods.addPicture = function (picture) {
+  var user = this;
+  return user.updateOne({
+    $push: {
+      pictures: {
+        _id: picture._id,
+        status : picture.status,
+        image: picture.image,
+      }
+    }
+  },{new: true});
+};
+
+UsersSchema.methods.deletePicture = function (id) {
+  var user = this;
+
+  return user.updateOne({
+    $pull: {
+      pictures: {
+        _id: id,
+      }
+    }
+  });
+};
 
 UsersSchema.methods.removeToken = function (token) {
   var user = this;
@@ -82,13 +121,10 @@ UsersSchema.statics.findByToken = function (token) {
   var User = this;
   var decoded;
 
-  // console.log(token);
-
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET);
   } catch (e) {
-    console.log(e);
-    return Promise.reject('not found this user token');
+    return Promise.reject(e);
   }
 
   return User.findOne({
