@@ -728,6 +728,7 @@
         </div>
 
         <img class="image-for-storage position-absolute" id="blah" src="" alt="" style="top: -9999px; left: -9999px; opacity: 0">
+        <img class="thumbnail position-absolute" id="" src="" alt="" style="top: -9999px; left: -9999px; opacity: 0">
 
         <canvas id="canvas-for-storage" style="top: -9999px; left: -9999px; opacity: 0"></canvas>
 
@@ -2659,7 +2660,6 @@ border-top-color: #343a40;
             					}).done((res) => {
             						console.log(res);
                         $(this).data({'public_id':res.public_id})
-                        update_image_table_db('save_draft');
             					}).fail((e) => {
             						console.log('error', e.responseText);
             					});
@@ -2726,13 +2726,13 @@ border-top-color: #343a40;
 
             });
 
-            function storeThumbnail(public_id) {
+            $('.thumbnail').on('load', function() {
 
               var StorageCanvas = document.getElementById('canvas-for-storage');
 
               var ctx = StorageCanvas.getContext("2d");
 
-              var img = $('.image-for-storage')[0];
+              var img = $('.thumbnail')[0];
 
               ctx.drawImage(img, 0, 0);
 
@@ -2759,6 +2759,9 @@ border-top-color: #343a40;
               var ctx = StorageCanvas.getContext("2d");
               ctx.drawImage(img, 0, 0, width, height);
               var dataurl = StorageCanvas.toDataURL("image/png");
+              console.log(`*****`,dataurl);
+
+              let public_id = $('.image').data().public_id;
 
               let data = {
                 "query": 'uploadThumbnail',
@@ -2782,7 +2785,7 @@ border-top-color: #343a40;
                   console.log('error', e.responseText);
                 });
 
-            }
+            });
 
             function readURL(input) {
 
@@ -3037,9 +3040,7 @@ border-top-color: #343a40;
 
                 let div = document.querySelector('.custom-hide');
 
-                //                console.log('-- Going to print this printing area. Image link should be: ' + $('.custom-hide').find('.image').attr('src'));
-
-                // THUMBNAILING
+                // console.log('-- Going to print this printing area. Image link should be: ' + $('.custom-hide').find('.image').attr('src'));
 
                 html2canvas(div, {
 
@@ -3050,11 +3051,9 @@ border-top-color: #343a40;
 
                 }).then(function(drawnPic) {
 
-                    let link = drawnPic.toDataURL('image/jpeg');
+                    let dataUrl = drawnPic.toDataURL('image/jpeg');
+                    $('.thumbnail').attr({src: dataUrl});
                     printhidendisplay.undo();
-                    let public_id = $('image').data('public_id');
-
-                    storeThumbnail(public_id);
 
                     if (call == 'save_draft') {
 
@@ -3076,11 +3075,8 @@ border-top-color: #343a40;
 
                     })
 
-                });
-
                 return true;
-
-            }
+            };
 
             let store_circle_data = function() {
 
@@ -3108,17 +3104,33 @@ border-top-color: #343a40;
 
                 console.log(circleData);
 
-                $.post('http://localhost/themepic/store_plotting.php', {
-                    elem: circleData
-                }, function(result) {
+                update_image_table_db('save_draft');
 
-                    console.log('data status: ', result);
+                let imageData = JSON.stringify(circleData);
 
-                    // store thumbnail also
+                let data = {
+                  "query": 'updateImageData',
+                  "public_id": $('.image').data().public_id,
+                  "token": `{{token}}`,
+                  "data": imageData
+                };
 
-                    update_image_table_db('save_draft');
+                data = JSON.stringify(data);
 
-                });
+                $.ajax({
+                    url: '/loggedin',
+                    type: 'post',
+                    data,
+                    headers: {
+                        'content-type': 'application/json',
+                    }
+                  }).done((res) => {
+                    console.log(res);
+                  }).fail((e) => {
+                    console.log('error', e.responseText);
+                  });
+
+
 
             }
 

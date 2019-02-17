@@ -165,7 +165,7 @@ app.post('/loggedin',authenticate,(req,res) => {
 
   if (req.body.query === 'uploadThumbnail') {
     var user = req.params.user;
-    console.log('starting uploading of thumbnail.');
+    console.log('starting uploading of thumbnail...',req.body);
     uploadCloudinary(req.body.img).then((msg) => {
       console.log(msg);
       return Users.findOneAndUpdate({
@@ -200,7 +200,7 @@ app.post('/loggedin',authenticate,(req,res) => {
       _id: user._id,
       "pictures._id": req.body.public_id
     },{
-      $set: {'pictures.$.data':req.body.data}
+      $set: {'pictures.$.data':req.body.imageData}
     },{new: true}).then((msg) => {
       if (!msg.n) return Promise.reject('Image do not exist. Data upload failed.');
       res.status(200).send(msg);
