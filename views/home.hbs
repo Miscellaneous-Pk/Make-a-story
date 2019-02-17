@@ -629,8 +629,8 @@
 
                                   <div class="col-md-4 col-sm-6 col-12 text-left p-2">
 
-                                  <span class="badge badge-light">1</span>
-                                  <small >Quickly manage the layout, alignment, and sizing of grid columbox utilities. For more complex implementations, custom CSS may be necessary.</small>
+                                  <span class="badge badge-light"></span>
+                                  <small></small>
 
                                   </div>
 
@@ -2640,15 +2640,30 @@ border-top-color: #343a40;
 
                     // Todo: Create thumbnail -> store image in cloudinary -> store thumbnail in cloudinary -> save urls in local database
 
-                    var createThumbnail = new Promise((resolve, reject) => {
-                        resolve('Success!');
-                    });
+                    let data = {
+            					"query": 'uploadImage',
+            					"token": `{{token}}`,
+                      "status": "Draft",
+                      "img": $(this).attr('src'),
+            				};
 
-                    createThumbnail.then(function(value) {
-                        console.log(value);
-                    });
+            				data = JSON.stringify(data);
 
-                    //                    update_image_table_db('save_draft');
+            				$.ajax({
+            				    url: '/loggedin',
+            				    type: 'post',
+            				    data,
+            				    headers: {
+            				        'content-type': 'application/json',
+            				    }
+            					}).done((res) => {
+            						console.log(res);
+                        $(this).data({'public_id':res.public_id})
+                        update_image_table_db('save_draft');
+            					}).fail((e) => {
+            						console.log('error', e.responseText);
+            					});
+
 
                 }
 
@@ -2710,6 +2725,64 @@ border-top-color: #343a40;
                 }
 
             });
+
+            function storeThumbnail(public_id) {
+
+              var StorageCanvas = document.getElementById('canvas-for-storage');
+
+              var ctx = StorageCanvas.getContext("2d");
+
+              var img = $('.image-for-storage')[0];
+
+              ctx.drawImage(img, 0, 0);
+
+              var MAX_WIDTH = 250;
+              var MAX_HEIGHT = 250;
+              var width = img.width;
+              var height = img.height;
+
+              if (width > height) {
+                  if (width > MAX_WIDTH) {
+                      height *= MAX_WIDTH / width;
+                      width = MAX_WIDTH;
+                      console.log('thumbnail is now downsized - I.')
+                  }
+              } else {
+                  if (height > MAX_HEIGHT) {
+                      width *= MAX_HEIGHT / height;
+                      height = MAX_HEIGHT;
+                      console.log('thumbnail is now downsized - II.')
+                  }
+              };
+              StorageCanvas.width = width;
+              StorageCanvas.height = height;
+              var ctx = StorageCanvas.getContext("2d");
+              ctx.drawImage(img, 0, 0, width, height);
+              var dataurl = StorageCanvas.toDataURL("image/png");
+
+              let data = {
+                "query": 'uploadThumbnail',
+                "public_id": public_id,
+                "token": `{{token}}`,
+                "img": dataurl,
+              };
+
+              data = JSON.stringify(data);
+
+              $.ajax({
+                  url: '/loggedin',
+                  type: 'post',
+                  data,
+                  headers: {
+                      'content-type': 'application/json',
+                  }
+                }).done((res) => {
+                  console.log(res);
+                }).fail((e) => {
+                  console.log('error', e.responseText);
+                });
+
+            }
 
             function readURL(input) {
 
@@ -2795,7 +2868,7 @@ border-top-color: #343a40;
                         height = MAX_HEIGHT;
                         console.log('Image is now downsized - II.')
                     }
-                }
+                };
 
                 StorageCanvas.width = width;
                 StorageCanvas.height = height;
@@ -2978,54 +3051,28 @@ border-top-color: #343a40;
                 }).then(function(drawnPic) {
 
                     let link = drawnPic.toDataURL('image/jpeg');
-
                     printhidendisplay.undo();
+                    let public_id = $('image').data('public_id');
 
-                    $.post('http://localhost/themepic/store_in_cloudinary.php', {
+                    storeThumbnail(public_id);
 
-                        img_thumbnail_link: link,
-                        pic_id: $('.grid-item').length,
-                        user_id: `<?php echo $_SESSION["idUser"]; ?>`,
+                    if (call == 'save_draft') {
 
-                    }, function(msg) {
+                        console.log('saved draft');
 
-                        console.log(msg);
-                        //                        let myObj = JSON.parse(msg);
-                        //                        console.log(myObj);
+                        return;
 
-                    })
+                    }
 
-                    console.log(`
-8. html2Canvas has started. I have to trigger it if there is an image.
-9. thumbnail link presumed and saved in cloudinary.
-10. sending this thumbnail link and edit status of 0 to store images.php.
+                    $("#dialog-final").dialog('close');
 
-`);
+                    spinner.end();
+
+                    $('#link2page').html(myObj.link2page);
+
+                    $("#dialog-share").dialog('open');
 
                     // images_cloudinary.thumbnail_link = `http://res.cloudinary.com/miscellaneous/image/upload/visualstory/thumbnails/` + $('.grid-item').length + <?php echo $_SESSION["idUser"]; ?> + `thumb.jpg`;
-
-                    $.post('http://localhost/themepic/store_images.php', {
-                        thumbnail_link: images_cloudinary.thumbnail_link,
-                        edit_status: 0
-                    }, function(msg) {
-
-                        let myObj = JSON.parse(msg);
-
-                        if (call == 'save_draft') {
-
-                            console.log('saved draft');
-
-                            return;
-
-                        }
-
-                        $("#dialog-final").dialog('close');
-
-                        spinner.end();
-
-                        $('#link2page').html(myObj.link2page);
-
-                        $("#dialog-share").dialog('open');
 
                     })
 

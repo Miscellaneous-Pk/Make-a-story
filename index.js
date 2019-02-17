@@ -34,7 +34,7 @@ let authenticate = (req,res,next) => {
     next();
   }).catch((e) => {
     console.log(e);
-    return res.status(404).send('Not authorized !');
+    return res.status(404).render('index.hbs');
   });
 };
 
@@ -176,8 +176,7 @@ app.post('/loggedin',authenticate,(req,res) => {
         $set:{"pictures.$.thumbnail": msg.url}
       }, {new: true}).then((msg) => {
         if (!msg) return Promise.reject('Image not found. Thumbnail URL saving failed.');
-        console.log('msg', msg);
-        res.status(200).send(msg);
+        res.status(200).send(msg.pictures);
       }).catch((e) => {
         console.log(e);
         res.status(400).send(e);
