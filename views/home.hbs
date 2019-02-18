@@ -484,19 +484,20 @@
 
                 <div class="grid pt-2">
 
-
+                  {{#each pictures}}
 
                   <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
                     <div class="card p-0 bg-dark bg-shadow">
-
-                      <div class="badge badge-success draft-badge">Published</div>
-                      <img class="card-image-top rounded-top border border-dark" src="https://i.ytimg.com/vi/EcHyvqueuyA/maxresdefault.jpg"  alt="">
+                      <div class="badge badge-success draft-badge">{{status}}</div>
+                      <img class="card-image-top rounded-top border border-dark image-thumnail" src="{{thumbnail}}"  alt="">
 											<div class="card-body p-1">
-												<h6 class="card-text">1 Battle of Chawinda</h6>
-												<div class="mb-1"><small class="text-muted">created on 25 Apr 2018</small></div>
+												<h6 class="card-text image-title">1 Battle of holluki</h6>
+												<div class="mb-1"><small class="text-muted image-created">created on 25 Apr 2018</small></div>
 											</div>
 										</div>
 				          </div>
+
+                  {{/each}}
 
 
                 </div>
@@ -615,10 +616,6 @@
                               <span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span>
                               <elem></elem>
                           </div>
-
-                          <!--<img class="image mx-auto border border-dark rounded-top" id="blah" src="01f.%20img.jpg" alt="">-->
-
-                          <!--<img class="image mx-auto border border-dark rounded-top" id="blah" src="http://res.cloudinary.com/miscellaneous/image/upload/v1528352946/7185GrAb4uL._SL1406_.jpg" alt="">-->
 
                           <img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="" alt="">
 
@@ -742,6 +739,8 @@
         <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
         <script type="text/javascript">
+
+            // console.log(JSON.parse(pictures);
 
             var canvas = document.getElementById('myCanvas');
             var context = canvas.getContext('2d');
@@ -2569,8 +2568,6 @@ border-top-color: #343a40;
 
                 let thumbnail_link = $(this).find('.card-image-top').attr('src');
 
-                // get this image from photo
-
                 $.post('http://localhost/themepic/give_me_image_data.php', {
                     link: thumbnail_link
                 }, function(msg) {
@@ -2659,7 +2656,7 @@ border-top-color: #343a40;
             				    }
             					}).done((res) => {
             						console.log(res);
-                        $(this).data({'public_id':res.public_id})
+                        $(this).data({'public_id':res.public_id});
             					}).fail((e) => {
             						console.log('error', e.responseText);
             					});
@@ -2759,7 +2756,6 @@ border-top-color: #343a40;
               var ctx = StorageCanvas.getContext("2d");
               ctx.drawImage(img, 0, 0, width, height);
               var dataurl = StorageCanvas.toDataURL("image/png");
-              console.log(`*****`,dataurl);
 
               let public_id = $('.image').data().public_id;
 
@@ -3100,7 +3096,7 @@ border-top-color: #343a40;
 
                     }
 
-                })
+                });
 
                 console.log(circleData);
 
@@ -3110,12 +3106,15 @@ border-top-color: #343a40;
 
                 let data = {
                   "query": 'updateImageData',
-                  "public_id": $('.image').data().public_id,
+                  // "public_id": $('.image').data().public_id,
+                  "public_id": "5c69671f44839e0fa1a60cfb",
                   "token": `{{token}}`,
-                  "data": imageData
+                  "imageData": imageData
                 };
 
                 data = JSON.stringify(data);
+
+                console.log(data);
 
                 $.ajax({
                     url: '/loggedin',
@@ -3127,10 +3126,8 @@ border-top-color: #343a40;
                   }).done((res) => {
                     console.log(res);
                   }).fail((e) => {
-                    console.log('error', e.responseText);
+                    console.log(e.responseText);
                   });
-
-
 
             }
 
