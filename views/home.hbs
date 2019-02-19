@@ -280,13 +280,10 @@
 
             .card img {
 
+                /* flex-shrink: 0; */
                 max-width: 100%;
 
             }
-
-            /* .grid {
-              float: left;
-            } */
 
             .grid-item a:hover {
                 text-decoration: none;
@@ -488,10 +485,10 @@
 
                   <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
                     <div class="card p-0 bg-dark bg-shadow">
-                      <div class="badge badge-success draft-badge">{{status}}</div>
-                      <img class="card-image-top rounded-top border border-dark image-thumnail" src="{{thumbnail}}"  alt="">
+                      <div class="badge badge-danger draft-badge">{{status}}</div>
+                      <img class="card-image-top rounded-top border border-dark" src="{{thumbnail}}"  alt="">
 											<div class="card-body p-1">
-												<h6 class="card-text image-title">1 Battle of holluki</h6>
+												<h6 class="card-text image-title">Battle of holluki</h6>
 												<div class="mb-1"><small class="text-muted image-created">created on 25 Apr 2018</small></div>
 											</div>
 										</div>
@@ -2422,7 +2419,7 @@ border-top-color: #343a40;
 
                     if (!(textreq)) {
 
-                        $('.custom-hide').children('.detailBox-Big').remove();
+                        return $('.custom-hide').children('.detailBox-Big').remove();
 
                     }
 
@@ -2657,6 +2654,7 @@ border-top-color: #343a40;
             					}).done((res) => {
             						console.log(res);
                         $(this).data({'public_id':res.public_id});
+                        console.log('public id saved in image data');
             					}).fail((e) => {
             						console.log('error', e.responseText);
             					});
@@ -2733,8 +2731,8 @@ border-top-color: #343a40;
 
               ctx.drawImage(img, 0, 0);
 
-              var MAX_WIDTH = 250;
-              var MAX_HEIGHT = 250;
+              var MAX_WIDTH = 450;
+              var MAX_HEIGHT = 2500;
               var width = img.width;
               var height = img.height;
 
@@ -3032,7 +3030,7 @@ border-top-color: #343a40;
 
                 $('body').append(aTag);
 
-                printhidendisplay.execute(true);
+                printhidendisplay.execute(false);
 
                 let div = document.querySelector('.custom-hide');
 
@@ -3042,7 +3040,7 @@ border-top-color: #343a40;
 
                     useCORS: true,
                     backgroundColor: 'null',
-                    scale: 0.6,
+                    scale: 1,
                     logging: true
 
                 }).then(function(drawnPic) {
@@ -3106,8 +3104,7 @@ border-top-color: #343a40;
 
                 let data = {
                   "query": 'updateImageData',
-                  // "public_id": $('.image').data().public_id,
-                  "public_id": "5c69671f44839e0fa1a60cfb",
+                  "public_id": $('.image').data().public_id,
                   "token": `{{token}}`,
                   "imageData": imageData
                 };

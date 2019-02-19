@@ -41,7 +41,7 @@ let authenticate = (req,res,next) => {
 app.get('/home/:token', authenticate, (req,res) => {
 
   let pictures = req.params.user.pictures;
-  
+
   res.render('home.hbs',{
     token: req.params.token,
     name: req.params.user.name,
@@ -169,7 +169,6 @@ app.post('/loggedin',authenticate,(req,res) => {
 
   if (req.body.query === 'uploadThumbnail') {
     var user = req.params.user;
-    console.log('starting uploading of thumbnail...',req.body);
     uploadCloudinary(req.body.img).then((msg) => {
       console.log(msg);
       return Users.findOneAndUpdate({
@@ -200,7 +199,6 @@ app.post('/loggedin',authenticate,(req,res) => {
 
   if (req.body.query === 'updateImageData') {
     var user = req.params.user;
-    console.log(req.body);
     Users.updateOne({
       _id: user._id,
       "pictures._id": req.body.public_id
