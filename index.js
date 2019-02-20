@@ -41,11 +41,17 @@ let authenticate = (req,res,next) => {
 app.get('/home/:token', authenticate, (req,res) => {
 
   let pictures = req.params.user.pictures;
+  let dates = [];
+  _.forEach(pictures,(picture,n) => {
+    let date = picture._id.getTimestamp().toString().split(' ');
+    picture['dates'] = `${date[2]} ${date[1]} ${date[3]}`
+  })
+  console.log(pictures);
 
   res.render('home.hbs',{
     token: req.params.token,
     name: req.params.user.name,
-    pictures: pictures
+    pictures: pictures,
   });
 });
 
@@ -169,6 +175,7 @@ app.post('/loggedin',authenticate,(req,res) => {
 
   if (req.body.query === 'uploadThumbnail') {
     var user = req.params.user;
+    console.log('starting uploading of thumbnail...',req.body);
     uploadCloudinary(req.body.img).then((msg) => {
       console.log(msg);
       return Users.findOneAndUpdate({
@@ -199,6 +206,7 @@ app.post('/loggedin',authenticate,(req,res) => {
 
   if (req.body.query === 'updateImageData') {
     var user = req.params.user;
+    console.log(req.body);
     Users.updateOne({
       _id: user._id,
       "pictures._id": req.body.public_id
@@ -211,7 +219,7 @@ app.post('/loggedin',authenticate,(req,res) => {
       console.log(e);
       res.status(400).send(e);
     })
-  }
+  };
 
 });
 

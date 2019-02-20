@@ -486,10 +486,10 @@
                   <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
                     <div class="card p-0 bg-dark bg-shadow">
                       <div class="badge badge-danger draft-badge">{{status}}</div>
-                      <img class="card-image-top rounded-top border border-dark" src="{{thumbnail}}"  alt="">
+                      <img class="card-image-top rounded-top border border-dark" src="{{thumbnail}}"  data-id="{{_id}}" data-comments= "{{data}}" data-image={{image}}>
 											<div class="card-body p-1">
-												<h6 class="card-text image-title">Battle of holluki</h6>
-												<div class="mb-1"><small class="text-muted image-created">created on 25 Apr 2018</small></div>
+												<h6 class="card-text image-title"></h6>
+												<div class="mb-1"><small class="text-muted image-created">Created on {{dates}}</small></div>
 											</div>
 										</div>
 				          </div>
@@ -1655,8 +1655,6 @@ border-top-color: #343a40;
 
                         spaceAval = 12;
 
-                        //						console.log(needed,item);
-
                         return giveSpace(needed, item);
 
                     }
@@ -1671,8 +1669,6 @@ border-top-color: #343a40;
                     });
 
                     rowArray[rowAlloted] = cArray;
-
-                    //					console.log($(this).data());
 
                 });
 
@@ -2563,28 +2559,22 @@ border-top-color: #343a40;
 
                 spinner.start();
 
-                let thumbnail_link = $(this).find('.card-image-top').attr('src');
+                let imageData = $(this).find('.card-image-top').attr('data-comments');
+                let imageURL = $(this).find('.card-image-top').attr('data-image');
+                let imageID = $(this).find('.card-image-top').attr('data-id');
 
-                $.post('http://localhost/themepic/give_me_image_data.php', {
-                    link: thumbnail_link
-                }, function(msg) {
+                dataforimageexists.status = true;
+                dataforimageexists.data = JSON.parse(imageData);
 
-                    let obj = JSON.parse(msg);
+                $('.btn-container').hide();
+                $("#dialog-final").dialog('open');
 
-                    $('.btn-container').hide();
+                $('.image').attr({
+                  src: $(this).find('.card-image-top').attr('data-image'),
+                  firstLoad: false
+                }).data({public_id: imageID});
 
-                    $("#dialog-final").dialog('open');
-
-                    $('.image').attr({
-                        src: obj.img_cloudinary_link,
-                        firstLoad: false
-                    });
-
-                    dataforimageexists.status = true;
-
-                    dataforimageexists.data = obj;
-
-                })
+                spinner.end();
 
             })
 
@@ -2670,9 +2660,11 @@ border-top-color: #343a40;
 
                     let obj = dataforimageexists.data;
 
-                    $.each(obj.circledata, function(key, value) {
+                    $.each(obj, function(key, value) {
 
-                        let newObj = JSON.parse(value.rawdata);
+                        let newObj = value.data;
+
+                        console.log(newObj);
 
                         $('#for-printing').prepend(elem);
 
@@ -2689,15 +2681,13 @@ border-top-color: #343a40;
                             'mFontSize': newObj.mFontSize,
                             'mHeight': newObj.mHeight,
                             'mWidth': newObj.mWidth,
-                            comment: newObj.comment,
+                            comment: value.comment,
                             editFlag: false
-                        }).find('elem').html(value.html);
+                        }).find('elem').html(key+1);
 
                         $('.circleAndNo').removeClass().addClass(newObj.classs);
 
                     })
-
-                    //					console.log($('.circleAndNo').classList);
 
                     let fullClassesNew = $('.circleAndNo').attr('class').split(' ');
 
