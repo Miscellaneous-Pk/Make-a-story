@@ -297,6 +297,14 @@
 
             }
 
+            .delete-badge {
+              position: absolute;
+              top: 0.5em;
+              left: 0.5em;
+              z-index: 10;
+              cursor: pointer;
+            }
+
             .modal-spinner {
 
                 position: absolute;
@@ -484,7 +492,9 @@
                   {{#each pictures}}
 
                   <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
+                    <div class="badge text-secondary delete-badge"><i class="fas fa-trash"></i></div>
                     <div class="card p-0 bg-dark bg-shadow">
+
                       <div class="badge badge-danger draft-badge">{{status}}</div>
                       <img class="card-image-top rounded-top border border-dark" src="{{thumbnail}}"  data-id="{{_id}}" data-comments= "{{data}}" data-image={{image}}>
 											<div class="card-body p-1">
@@ -738,6 +748,35 @@
         <script type="text/javascript">
 
             // console.log(JSON.parse(pictures);
+
+            $('.delete-badge').on('mouseenter mouseleave', function() {
+              $(this).toggleClass('text-secondary text-warning').siblings('.card').toggleClass('bg-dark bg-warning');
+            });
+
+            $('.delete-badge').on('click', function() {
+
+              let data = {
+                "query": 'deleteImage',
+                "token": `{{token}}`,
+                "public_id": $(this).siblings('.card').find('.card-image-top').attr('data-id'),
+              };
+
+              data = JSON.stringify(data);
+
+              $.ajax({
+                  url: '/loggedin',
+                  type: 'post',
+                  data,
+                  headers: {
+                      'content-type': 'application/json',
+                  }
+                }).done((res) => {
+                  console.log(res);
+                  window.location.reload(true);
+                }).fail((e) => {
+                  console.log('ERROR', e.responseText);
+                });
+            });
 
             var canvas = document.getElementById('myCanvas');
             var context = canvas.getContext('2d');
@@ -2555,7 +2594,7 @@ border-top-color: #343a40;
 
             })
 
-            $('.grid-item .card').on('click', function() {
+            $('.card').on('click', function() {
 
                 spinner.start();
 
@@ -2563,8 +2602,10 @@ border-top-color: #343a40;
                 let imageURL = $(this).find('.card-image-top').attr('data-image');
                 let imageID = $(this).find('.card-image-top').attr('data-id');
 
-                dataforimageexists.status = true;
-                dataforimageexists.data = JSON.parse(imageData);
+                if (imageData) {
+                  dataforimageexists.status = true;
+                  dataforimageexists.data = JSON.parse(imageData);
+                }
 
                 $('.btn-container').hide();
                 $("#dialog-final").dialog('open');
@@ -2619,11 +2660,11 @@ border-top-color: #343a40;
 
                 spinner.end();
 
-                if ($(this).attr('firstLoad') == 'true') {
+                console.log($(this).data().public_id);
 
-                    console.log('-- This image is laoded for the first time: ' + $(this).attr('firstLoad') + '. Storing this image as draft');
+                if (!($(this).data().public_id)) {
 
-                    // Todo: Create thumbnail -> store image in cloudinary -> store thumbnail in cloudinary -> save urls in local database
+                    console.log('-- storing this image to get its public_id');
 
                     let data = {
             					"query": 'uploadImage',
@@ -2643,14 +2684,17 @@ border-top-color: #343a40;
             				    }
             					}).done((res) => {
             						console.log(res);
-                        $(this).data({'public_id':res.public_id});
-                        console.log('public id saved in image data');
+                        $(this).data({'public_id':res.public_id, 'thumbnail_saved': true});
+                        update_image_table_db('save_draft');
             					}).fail((e) => {
-            						console.log('error', e.responseText);
+            						console.log('ERROR', e.responseText);
             					});
 
+                } else if ($(this).attr('firstLoad')) {
 
-                }
+                  update_image_table_db('save_draft');
+
+                };
 
                 console.log(`Data for img exist: ${dataforimageexists.status}`);
 
@@ -2707,7 +2751,7 @@ border-top-color: #343a40;
 
                     dataforimageexists.status = false;
 
-                }
+                };
 
             });
 
@@ -2789,8 +2833,6 @@ border-top-color: #343a40;
                             opacity: 1,
 
                         }, 500, 'linear');
-
-                        console.log(reader.result);
 
                         $('.image-for-storage').attr({
                             src: reader.result
@@ -2876,29 +2918,33 @@ border-top-color: #343a40;
 
                     console.log('3. image-for-storage when placed in canvas, it is tainted.');
 
-                    console.log('4. Displayed error on the menu and sent request to save image in cloudinary directly from its unsplash sourse.');
-
                     $('.ok-btn-box .error-span').find('small').html('<i class="text-warning fas fa-exclamation-circle"></i> Sorry, canvas is tainted! I will save these images in local database. Wait a moment please.');
 
-                    $.post('https://www.qasimfromchammala.com/books/img-annotation/store_generated_picture.php', {
+                    let data = {
+                      "query": 'uploadImage',
+                      "token": `{{token}}`,
+                      "status": "Draft",
+                      "img": $("#image-link").val(),
+                    };
 
-                        main_img_link: img.src,
-                        pic_id: $('.grid-item').length,
-                        user_id: `<?php echo $_SESSION["idUser"]; ?>`,
+                    data = JSON.stringify(data);
 
-                    }, function(msg) {
+                    $.ajax({
+                        url: '/loggedin',
+                        type: 'post',
+                        data,
+                        headers: {
+                            'content-type': 'application/json',
+                        }
+                      }).done((res) => {
+                        console.log(res);
+                        $('.image').data({'public_id':res.public_id}).attr({src: res.image});
 
-                        let myObj = JSON.parse(msg);
+                      }).fail((e) => {
+                        console.log('error', e.responseText);
+                      });
 
-                        $('.image').attr({
-                            src: myObj.image_link
-                        });
-
-                        console.log('5. Image is stored in cloudinary now: ' + myObj.image_link + '. Therefore placed .image src as this cloudinary link.');
-
-                    })
-
-                    return;
+                    return true;
 
                 }
 
@@ -2961,24 +3007,6 @@ border-top-color: #343a40;
                 $('.image').attr({
                     firstLoad: true
                 });
-
-                images_cloudinary.image_link= '';
-
-                // images_cloudinary.image_link = `http://res.cloudinary.com/miscellaneous/image/upload/visualstory/images/` + $('.grid-item').length + <?php echo $_SESSION["idUser"]; ?> + `image.png`;
-
-                console.log('7. Image link will be: ' + images_cloudinary.image_link + '. Now storing this cloudinary link in store_images.php');
-
-                $.post('http://localhost/themepic/store_images.php', {
-
-                    unsetSession: 'idPicture',
-                    img_link: images_cloudinary.image_link,
-                    edit_status: 0
-
-                }, function(msg) {
-
-                    //                    console.log(msg);
-
-                })
 
                 return 'dialog final is being opened';
 

@@ -27,7 +27,6 @@ app.get('/',(req,res) => {
 
 let authenticate = (req,res,next) => {
   let token = req.params.token || req.body.token;
-  console.log(token);
   Users.findByToken(token).then((user) => {
     req.params.user = user;
     console.log(`Authenticated. ${user.name} !`);
@@ -45,8 +44,7 @@ app.get('/home/:token', authenticate, (req,res) => {
   _.forEach(pictures,(picture,n) => {
     let date = picture._id.getTimestamp().toString().split(' ');
     picture['dates'] = `${date[2]} ${date[1]} ${date[3]}`
-  })
-  console.log(pictures);
+  });
 
   res.render('home.hbs',{
     token: req.params.token,
@@ -158,6 +156,7 @@ app.post('/loggedin',authenticate,(req,res) => {
     uploadCloudinary(req.body.img).then((msg) => {
       var user = req.params.user;
       req.body.public_id = msg.public_id;
+      req.body.image = msg.url;
       var picture = {
         _id: msg.public_id,
         status: req.body.status,
@@ -165,7 +164,8 @@ app.post('/loggedin',authenticate,(req,res) => {
       };
       return user.addPicture(picture);
     }).then((msg) => {
-      msg.public_id = req.body.public_id;
+      msg.public_id= req.body.public_id;
+      msg.image = req.body.image;
       return res.status(200).send(msg);
     }).catch((e) => {
       console.log(e);
@@ -175,9 +175,7 @@ app.post('/loggedin',authenticate,(req,res) => {
 
   if (req.body.query === 'uploadThumbnail') {
     var user = req.params.user;
-    console.log('starting uploading of thumbnail...',req.body);
     uploadCloudinary(req.body.img).then((msg) => {
-      console.log(msg);
       return Users.findOneAndUpdate({
         "_id": user._id,
         "pictures._id": req.body.public_id,
@@ -206,7 +204,6 @@ app.post('/loggedin',authenticate,(req,res) => {
 
   if (req.body.query === 'updateImageData') {
     var user = req.params.user;
-    console.log(req.body);
     Users.updateOne({
       _id: user._id,
       "pictures._id": req.body.public_id
