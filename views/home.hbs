@@ -59,6 +59,10 @@
                 /*				pointer-events: none;*/
             }
 
+            .saving-div {
+              pointer-events: none;
+            }
+
             .img-block {
                 background: transparent;
 
@@ -596,6 +600,15 @@
 
           <div id="dialog-final" class="pt-md-2 pt-0 d-flex flex-wrap align-items-stretch justify-content-center">
 
+            <div class="position-fixed saving-div" style="z-index: 12">
+              <div class="position-absolute text-right" style="right:5px; bottom:10px; z-index: 12">
+                <small class="badge badge-pill badge-light saving-data shadow d-none">saving data</small>
+                <small class="badge badge-pill badge-light saving-image d-none">saving image</small>
+                <small class="badge badge-pill badge-light saving-thumbnail d-none">saving thumbnail</small>
+                <small class="badge badge-pill badge-success saving-done saving-badge"><i class="fas fa-check-circle"></i> Saved</small><br>
+              </div>
+            </div>
+
               <div class="col-lg-8 col-md-10 col-12 order-mdm-1 order-2 mx-0 p-0 rounded-top">
 
                   <div class="img-block">
@@ -629,15 +642,6 @@
                           <div class="position-relative mx-auto detailBox-Big">
 
                               <div class="d-flex flex-wrap bg-dark rounded-bottom">
-
-
-                                  <div class="col-md-4 col-sm-6 col-12 text-left p-2">
-
-                                  <span class="badge badge-light"></span>
-                                  <small></small>
-
-                                  </div>
-
 
                               </div>
 
@@ -747,36 +751,13 @@
 
         <script type="text/javascript">
 
-            // console.log(JSON.parse(pictures);
+        $(document).ajaxStop(function() {
+          $('.saving-done').removeClass('d-none');
+        });
 
-            $('.delete-badge').on('mouseenter mouseleave', function() {
-              $(this).toggleClass('text-secondary text-warning').siblings('.card').toggleClass('bg-dark bg-warning');
-            });
-
-            $('.delete-badge').on('click', function() {
-
-              let data = {
-                "query": 'deleteImage',
-                "token": `{{token}}`,
-                "public_id": $(this).siblings('.card').find('.card-image-top').attr('data-id'),
-              };
-
-              data = JSON.stringify(data);
-
-              $.ajax({
-                  url: '/loggedin',
-                  type: 'post',
-                  data,
-                  headers: {
-                      'content-type': 'application/json',
-                  }
-                }).done((res) => {
-                  console.log(res);
-                  window.location.reload(true);
-                }).fail((e) => {
-                  console.log('ERROR', e.responseText);
-                });
-            });
+        $( document ).ajaxStart(function(e) {
+          $('.saving-done').addClass('d-none');
+        });
 
             var canvas = document.getElementById('myCanvas');
             var context = canvas.getContext('2d');
@@ -822,6 +803,7 @@
 
                 this.undoInCommand = function undo() {
 
+                    if (!(allFunctions.length)) return console.log('no function in undo array');
                     var command = allFunctions.pop();
                     undoneFunctions.push(command);
                     circleAndNo.hide().css({
@@ -834,6 +816,7 @@
 
                 this.redoInCommand = function redo() {
 
+                    if (!(undoneFunctions.length)) return console.log('no function in redo array');
                     var command = undoneFunctions.pop();
                     allFunctions.push(command);
                     circleAndNo.hide().css({
@@ -897,6 +880,11 @@
             }
 
             $(document).ready(function() {
+
+                wht = $(window).height();
+                wwt = $(window).width();
+
+                $('.saving-div').css({width:wwt,height:wht});
 
                 $('.btn-container').height(wht);
 
@@ -1035,6 +1023,8 @@
                 });
 
             })
+
+
 
             canvas.addEventListener('mousemove', function(evt) {
 
@@ -2449,7 +2439,6 @@ border-top-color: #343a40;
 
                     $('body').append(elem);
 
-                    // Custom Hide is image cloned from printing area and placed out of visible DOMs. Image width is given the width of its original image.
                     $('.custom-hide').children('.image').width(imgWt);
 
                     if (!(textreq)) {
@@ -2664,7 +2653,9 @@ border-top-color: #343a40;
 
                 if (!($(this).data().public_id)) {
 
-                    console.log('-- storing this image to get its public_id');
+                    $('.saving-image').removeClass('d-none').animate({opacity: 1}, 500, 'linear');
+
+                    return console.log('***** NOT STORING IMAGE -- storing this image to get its public_id');
 
                     let data = {
             					"query": 'uploadImage',
@@ -2686,11 +2677,12 @@ border-top-color: #343a40;
             						console.log(res);
                         $(this).data({'public_id':res.public_id, 'thumbnail_saved': true});
                         update_image_table_db('save_draft');
+                        $('.saving-image').addClass('d-none').animate({opacity: 1}, 500, 'linear');
             					}).fail((e) => {
             						console.log('ERROR', e.responseText);
             					});
 
-                } else if ($(this).attr('firstLoad')) {
+                } else if ($(this).attr('firstLoad') === 'true') {
 
                   update_image_table_db('save_draft');
 
@@ -2791,6 +2783,8 @@ border-top-color: #343a40;
 
               let public_id = $('.image').data().public_id;
 
+              $('.saving-thumbnail').removeClass('d-none').animate({opacity: 1}, 500, 'linear');
+
               let data = {
                 "query": 'uploadThumbnail',
                 "public_id": public_id,
@@ -2809,6 +2803,7 @@ border-top-color: #343a40;
                   }
                 }).done((res) => {
                   console.log(res);
+                  $('.saving-thumbnail').addClass('d-none').animate({opacity: 1}, 500, 'linear');
                 }).fail((e) => {
                   console.log('error', e.responseText);
                 });
@@ -2939,7 +2934,7 @@ border-top-color: #343a40;
                       }).done((res) => {
                         console.log(res);
                         $('.image').data({'public_id':res.public_id}).attr({src: res.image});
-
+                        $('.saving-image').addClass('d-none').animate({opacity: 1}, 500, 'linear');
                       }).fail((e) => {
                         console.log('error', e.responseText);
                       });
@@ -2990,6 +2985,8 @@ border-top-color: #343a40;
 
                 console.log('1. Image is valid, add source to .image-for-storage');
 
+                $('.saving-image').removeClass('d-none').animate({opacity: 1}, 500, 'linear');
+
                 $('.image-for-storage').attr({
                     src: $("#image-link").val()
                 });
@@ -3035,6 +3032,8 @@ border-top-color: #343a40;
             })
 
             let update_image_table_db = function(call) {
+
+                $('.saving-thumbnail').removeClass('d-none').animate({opacity: 1}, 500, 'linear');
 
                 if ($('.image').height() < 10) {
 
@@ -3118,6 +3117,8 @@ border-top-color: #343a40;
 
                 update_image_table_db('save_draft');
 
+                $('.saving-data').removeClass('d-none').animate({opacity: 1}, 500, 'linear');
+
                 let imageData = JSON.stringify(circleData);
 
                 let data = {
@@ -3140,6 +3141,7 @@ border-top-color: #343a40;
                     }
                   }).done((res) => {
                     console.log(res);
+                    $('.saving-data').addClass('d-none').animate({opacity: 1}, 500, 'linear');
                   }).fail((e) => {
                     console.log(e.responseText);
                   });
@@ -3262,6 +3264,35 @@ border-top-color: #343a40;
                 }
 
             })
+
+            $('.delete-badge').on('mouseenter mouseleave', function() {
+              $(this).toggleClass('text-secondary text-warning').siblings('.card').toggleClass('bg-dark bg-warning');
+            });
+
+            $('.delete-badge').on('click', function() {
+
+              let data = {
+                "query": 'deleteImage',
+                "token": `{{token}}`,
+                "public_id": $(this).siblings('.card').find('.card-image-top').attr('data-id'),
+              };
+
+              data = JSON.stringify(data);
+
+              $.ajax({
+                  url: '/loggedin',
+                  type: 'post',
+                  data,
+                  headers: {
+                      'content-type': 'application/json',
+                  }
+                }).done((res) => {
+                  console.log(res);
+                  window.location.reload(true);
+                }).fail((e) => {
+                  console.log('ERROR', e.responseText);
+                });
+            });
 
         </script>
 

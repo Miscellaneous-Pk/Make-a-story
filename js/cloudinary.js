@@ -13,6 +13,9 @@ let uploadCloudinary = (img) => {
         resource_type: "image",
         public_id: mongoose.Types.ObjectId().toString(),
         overwrite: true,
+        transformation: [
+          { width: 1200, height: 800, crop: "limit" }
+        ],
       });
 };
 
