@@ -63,6 +63,71 @@
               pointer-events: none;
             }
 
+            @keyframes blink {
+                /**
+                 * At the start of the animation the dot
+                 * has an opacity of .2
+                 */
+                0% {
+                  opacity: .2;
+                }
+                /**
+                 * At 20% the dot is fully visible and
+                 * then fades out slowly
+                 */
+                20% {
+                  opacity: 1;
+                }
+                /**
+                 * Until it reaches an opacity of .2 and
+                 * the animation can start again
+                 */
+                100% {
+                  opacity: .2;
+                }
+            }
+
+            .saving span {
+                /**
+                 * Use the blink animation, which is defined above
+                 */
+                animation-name: blink;
+                /**
+                 * The animation should take 1.4 seconds
+                 */
+                animation-duration: 1.4s;
+                /**
+                 * It will repeat itself forever
+                 */
+                animation-iteration-count: infinite;
+                /**
+                 * This makes sure that the starting style (opacity: .2)
+                 * of the animation is applied before the animation starts.
+                 * Otherwise we would see a short flash or would have
+                 * to set the default styling of the dots to the same
+                 * as the animation. Same applies for the ending styles.
+                 */
+                animation-fill-mode: both;
+            }
+
+            .saving span:nth-child(2) {
+                /**
+                 * Starts the animation of the third dot
+                 * with a delay of .2s, otherwise all dots
+                 * would animate at the same time
+                 */
+                animation-delay: .2s;
+            }
+
+            .saving span:nth-child(3) {
+                /**
+                 * Starts the animation of the third dot
+                 * with a delay of .4s, otherwise all dots
+                 * would animate at the same time
+                 */
+                animation-delay: .4s;
+            }
+
             .img-block {
                 background: transparent;
 
@@ -301,6 +366,16 @@
 
             }
 
+            .Published {
+              background-color: #DB3445;
+              /* color: #E2E6EA; */
+            }
+
+            .Draft {
+              background-color: #28A645;
+              /* color: #E2E6EA; */
+            }
+
             .delete-badge {
               position: absolute;
               top: 0.5em;
@@ -499,7 +574,7 @@
                     <div class="badge text-secondary delete-badge"><i class="fas fa-trash"></i></div>
                     <div class="card p-0 bg-dark bg-shadow">
 
-                      <div class="badge badge-danger draft-badge">{{status}}</div>
+                      <div class="badge draft-badge {{status}}">{{status}}</div>
                       <img class="card-image-top rounded-top border border-dark" src="{{thumbnail}}"  data-id="{{_id}}" data-comments= "{{data}}" data-image={{image}}>
 											<div class="card-body p-1">
 												<h6 class="card-text image-title"></h6>
@@ -601,10 +676,10 @@
           <div id="dialog-final" class="pt-md-2 pt-0 d-flex flex-wrap align-items-stretch justify-content-center">
 
             <div class="position-fixed saving-div" style="z-index: 12">
-              <div class="position-absolute text-right" style="right:5px; bottom:10px; z-index: 12">
-                <small class="badge badge-pill badge-light saving-data shadow d-none">saving data</small>
-                <small class="badge badge-pill badge-light saving-image d-none">saving image</small>
-                <small class="badge badge-pill badge-light saving-thumbnail d-none">saving thumbnail</small>
+              <div class="position-absolute text-right" style="right:20px; bottom:10px; z-index: 12">
+                <small class="saving badge badge-pill badge-light saving-data shadow d-none">saving data <span>.</span><span>.</span><span>.</span> </small>
+                <small class="saving badge badge-pill badge-light saving-image d-none">saving image <span>.</span><span>.</span><span>.</span></small>
+                <small class="saving badge badge-pill badge-light saving-thumbnail d-none">saving thumbnail <span>.</span><span>.</span><span>.</span></small>
                 <small class="badge badge-pill badge-success saving-done saving-badge"><i class="fas fa-check-circle"></i> Saved</small><br>
               </div>
             </div>
@@ -701,7 +776,7 @@
 
                           <div class="pt-1">
 
-                              <small class="text-muted">Title is recommended as it will help you and others find your story easily</small>
+                              <small class="text-muted">Title is recommended as it will help you find your notes easily</small>
 
                           </div>
 
@@ -726,6 +801,13 @@
 
                       <button type="button" class="publish-btn btn btn-info">Publish</button>
                       <button type="button" class="edit-btn btn btn-outline-light">Edit</button>
+
+                      <div class="position-absolute text-right" style="right:20px; bottom:20px; z-index: 12">
+                        <small class="saving badge badge-pill badge-light saving-data shadow d-none">saving data <span>.</span><span>.</span><span>.</span> </small>
+                        <small class="saving badge badge-pill badge-light saving-image d-none">saving image <span>.</span><span>.</span><span>.</span></small>
+                        <small class="saving badge badge-pill badge-light saving-thumbnail d-none">saving thumbnail <span>.</span><span>.</span><span>.</span></small>
+                        <small class="badge badge-pill badge-success saving-done saving-badge"><i class="fas fa-check-circle"></i> Saved</small>
+                      </div>
 
                   </form>
 
@@ -2655,8 +2737,6 @@ border-top-color: #343a40;
 
                     $('.saving-image').removeClass('d-none').animate({opacity: 1}, 500, 'linear');
 
-                    return console.log('***** NOT STORING IMAGE -- storing this image to get its public_id');
-
                     let data = {
             					"query": 'uploadImage',
             					"token": `{{token}}`,
@@ -3074,17 +3154,17 @@ border-top-color: #343a40;
 
                     }
 
-                    $("#dialog-final").dialog('close');
-
                     spinner.end();
 
-                    $('#link2page').html(myObj.link2page);
+                    $('#link2page').html(`https://${window.location.hostname}/${$('.image').data().public_id}`);
+
+                    $('.share-btn').tooltip('hide');
+
+                    $("#dialog-final").dialog('close');
 
                     $("#dialog-share").dialog('open');
 
-                    // images_cloudinary.thumbnail_link = `http://res.cloudinary.com/miscellaneous/image/upload/visualstory/thumbnails/` + $('.grid-item').length + <?php echo $_SESSION["idUser"]; ?> + `thumb.jpg`;
-
-                    })
+                  });
 
                 return true;
             };
@@ -3152,28 +3232,33 @@ border-top-color: #343a40;
 
             $('.publish-btn').on('click', function() {
 
-                // close this dialog
+                let data = {
+                  "query": 'updateImageStatus',
+                  "public_id": $('.image').data().public_id,
+                  "token": `{{token}}`,
+                  "status": 'Published'
+                };
 
-                $('.btn-container').show();
+                data = JSON.stringify(data);
 
-                $("#dialog-share").dialog('close');
+                console.log(data);
 
-                // save title and edit_flag
+                $.ajax({
+                    url: '/loggedin',
+                    type: 'post',
+                    data,
+                    headers: {
+                        'content-type': 'application/json',
+                    }
+                  }).done((res) => {
+                    console.log(res);
+                    $('.saving-data').addClass('d-none').animate({opacity: 1}, 500, 'linear');
+                    $('.saving-done').html('<i class="fas fa-check-circle"></i> Published');
+                  }).fail((e) => {
+                    console.log(e.responseText);
+                  });
 
-                $.post('http://localhost/themepic/store_images.php', {
-                    thumbnail_link: images_cloudinary.thumbnail_link,
-                    edit_status: 1
-                }, function(msg) {
-
-                    console.log(msg);
-
-                })
-
-                // display this card with published heading in story_baord
-
-
-
-            })
+            });
 
             var $grid = $('.grid').masonry({
 
@@ -3195,9 +3280,9 @@ border-top-color: #343a40;
 
             $('.drafts-btn').on('click', function() {
 
-                $('.badge-success').closest('.grid-item').hide();
+                $('.Published').closest('.grid-item').hide();
 
-                $('.badge-danger').closest('.grid-item').show();
+                $('.Draft').closest('.grid-item').show();
 
                 $grid.masonry('layout');
 
@@ -3210,7 +3295,6 @@ border-top-color: #343a40;
                 $('.badge-danger').closest('.grid-item').hide();
 
                 $grid.masonry('layout');
-
 
             })
 
@@ -3292,6 +3376,11 @@ border-top-color: #343a40;
                 }).fail((e) => {
                   console.log('ERROR', e.responseText);
                 });
+            });
+
+            $(window).on("load", function() {
+              console.log('All images loaded');
+              $grid.masonry('layout');
             });
 
         </script>

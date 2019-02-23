@@ -218,6 +218,22 @@ app.post('/loggedin',authenticate,(req,res) => {
     })
   };
 
+  if (req.body.query === 'updateImageStatus') {
+    var user = req.params.user;
+    Users.updateOne({
+      _id: user._id,
+      "pictures._id": req.body.public_id
+    },{
+      $set: {'pictures.$.status':req.body.status}
+    },{new: true}).then((msg) => {
+      if (!msg.n) return Promise.reject('Image do not exist. Status upload failed.');
+      res.status(200).send(msg);
+    }).catch((e) => {
+      console.log(e);
+      res.status(400).send(e);
+    });
+  };
+
 });
 
 serverRunning();
