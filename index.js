@@ -224,7 +224,10 @@ app.post('/loggedin',authenticate,(req,res) => {
       _id: user._id,
       "pictures._id": req.body.public_id
     },{
-      $set: {'pictures.$.status':req.body.status}
+      $set: {
+        'pictures.$.status':req.body.status,
+        'pictures.$.title': req.body.title
+      }
     },{new: true}).then((msg) => {
       if (!msg.n) return Promise.reject('Image do not exist. Status upload failed.');
       res.status(200).send(msg);

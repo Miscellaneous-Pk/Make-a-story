@@ -366,12 +366,12 @@
 
             }
 
-            .Published {
+            .Draft {
               background-color: #DB3445;
               /* color: #E2E6EA; */
             }
 
-            .Draft {
+            .Published {
               background-color: #28A645;
               /* color: #E2E6EA; */
             }
@@ -577,7 +577,7 @@
                       <div class="badge draft-badge {{status}}">{{status}}</div>
                       <img class="card-image-top rounded-top border border-dark" src="{{thumbnail}}"  data-id="{{_id}}" data-comments= "{{data}}" data-image={{image}}>
 											<div class="card-body p-1">
-												<h6 class="card-text image-title"></h6>
+												<h6 class="mt-1 card-text image-title">{{title}}</h6>
 												<div class="mb-1"><small class="text-muted image-created">Created on {{dates}}</small></div>
 											</div>
 										</div>
@@ -3236,7 +3236,8 @@ border-top-color: #343a40;
                   "query": 'updateImageStatus',
                   "public_id": $('.image').data().public_id,
                   "token": `{{token}}`,
-                  "status": 'Published'
+                  "status": 'Published',
+                  "title" : $('#in-title').val(),
                 };
 
                 data = JSON.stringify(data);

@@ -51,6 +51,9 @@ var UsersSchema = new mongoose.Schema({
     },
     data: {
       type: String,
+    },
+    title: {
+      type: String,
     }
   }]
 });
