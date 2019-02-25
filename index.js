@@ -239,6 +239,21 @@ app.post('/loggedin',authenticate,(req,res) => {
 
 });
 
+app.get('/picture/:id',(req,res) => {
+  let getId = req.params.id;
+  Users.findOne({
+    "pictures._id": getId,
+  }).then((msg) => {
+    var result = _.find(msg.pictures,{_id: mongoose.Types.ObjectId(getId)});
+    res.status(200).render('public_page.hbs',{
+      image: result.image
+    });
+  }).catch((e) => {
+    console.log(e);
+  })
+
+})
+
 serverRunning();
 
 app.listen(port, () => {

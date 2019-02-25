@@ -4,7 +4,7 @@ session_start();
 
 ?>
 
-<!doctype html>  
+<!doctype html>
 
 <html lang="en">
 	<head>
@@ -27,17 +27,17 @@ session_start();
 
 			/* Track */
 			::-webkit-scrollbar-track {
-				background: #f1f1f1; 
+				background: #f1f1f1;
 			}
 
 			/* Handle */
 			::-webkit-scrollbar-thumb {
-				background: #888; 
+				background: #888;
 			}
 
 			/* Handle on hover */
 			::-webkit-scrollbar-thumb:hover {
-				background: #555; 
+				background: #555;
 			}
 
 			.canvas-btn {
@@ -211,7 +211,7 @@ session_start();
 			}
 
 			.custom-popover-header::before {
-				width: 0rem !important; 
+				width: 0rem !important;
 			}
 
 			.settings-btn {
@@ -309,7 +309,7 @@ session_start();
 				border-top: 0.1rem solid #ffc107 !important;
 				border-right: 0.1rem solid #ffc107 !important;
 				border-bottom: 0.1rem solid #ffc107 !important;
-				margin-top: -2rem; 
+				margin-top: -2rem;
 				margin-left: -2rem;
 				pointer-events: none;
 				animation: spin 2s linear infinite;
@@ -417,7 +417,7 @@ session_start();
 	</head>
 
 	<body class="bg-info text-light">
-		
+
 		<div class="container-fluid mainPage">
 
 			<div id="dialog-public" class="pt-md-2 pt-0 d-flex flex-wrap align-items-stretch justify-content-center">
@@ -437,7 +437,7 @@ session_start();
 
 							</div>
 
-							<canvas data-html2canvas-ignore class="" id="myCanvas"></canvas> 
+							<canvas data-html2canvas-ignore class="" id="myCanvas"></canvas>
 
 						</div>
 
@@ -448,11 +448,7 @@ session_start();
 								<elem>1</elem>
 							</div>
 
-							<!--<img class="image mx-auto border border-dark rounded-top" id="blah" src="01f.%20img.jpg" alt="">-->
-
-							<!--<img class="image mx-auto border border-dark rounded-top" id="blah" src="http://res.cloudinary.com/miscellaneous/image/upload/v1528352946/7185GrAb4uL._SL1406_.jpg" alt="">-->
-
-							<img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="http://res.cloudinary.com/miscellaneous/image/upload/v1528352946/7185GrAb4uL._SL1406_.jpg" alt="">
+							<img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="{{image}}" alt="">
 
 
 							<div class="position-relative mx-auto detailBox-Big">
@@ -505,7 +501,7 @@ session_start();
 
 					</div>
 
-				</div> 
+				</div>
 
 			</div>
 
@@ -526,7 +522,7 @@ session_start();
 			let wwt = $(window).width();
 
 			$( document ).ready(function() {
-				
+
 				$('.image').trigger('load');
 
 				$('[data-toggle="popover"]').popover({
@@ -584,10 +580,10 @@ session_start();
 						let percent = $(this).data();
 
 						$('.circleAndNo:eq('+key+')').css({
-							left: percent.percentX * $('#myCanvas').width() + $('#overlay').position().left, 
+							left: percent.percentX * $('#myCanvas').width() + $('#overlay').position().left,
 							top: percent.percentY * $('#myCanvas').height(),
-							'font-size': percent.mFontSize * $('#myCanvas').width(), 
-							height: percent.mHeight * $('#myCanvas').width(), 
+							'font-size': percent.mFontSize * $('#myCanvas').width(),
+							height: percent.mHeight * $('#myCanvas').width(),
 							width: percent.mWidth * $('#myCanvas').width()
 						})
 
@@ -601,14 +597,14 @@ session_start();
 
 			$(document).on('mouseenter mouseleave','.circleAndNo', function() {
 
-				// if own popover is being edited return 
+				// if own popover is being edited return
 
 				$(this).toggleClass('bg-dark').toggleClass('bg-light');
 
 				if ($(this).data().editFlag) { return };
 
 				let elem = '';
-  
+
 				if ($(this).data().comment) {
 
 					$(this).children().popover('toggle');
@@ -698,9 +694,9 @@ session_start();
 					useCORS: true,
 					backgroundColor: 'null'
 
-				}).then(function(drawnPic) { 
+				}).then(function(drawnPic) {
 
-					let link = drawnPic.toDataURL('image/jpeg'); 
+					let link = drawnPic.toDataURL('image/jpeg');
 
 					$('.aTag:eq(0)').attr({href: link, download:'newImage'}).click();
 
@@ -734,7 +730,7 @@ session_start();
 				}
 
 			}
-			
+
 			$('.image').on('load', function(){
 
 				$(this).css({'max-height': wht/1.1, 'max-width' : '100%'});

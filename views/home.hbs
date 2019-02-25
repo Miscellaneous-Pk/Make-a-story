@@ -3255,6 +3255,7 @@ border-top-color: #343a40;
                     console.log(res);
                     $('.saving-data').addClass('d-none').animate({opacity: 1}, 500, 'linear');
                     $('.saving-done').html('<i class="fas fa-check-circle"></i> Published');
+                    window.location.assign('/picture/'+$('.image').data().public_id);
                   }).fail((e) => {
                     console.log(e.responseText);
                   });
