@@ -413,16 +413,14 @@ session_start();
 
 		</style>
 
-		<title>Get the region to show</title>
+		<title>Make a story - Picture</title>
 	</head>
 
 	<body class="bg-info text-light">
 
-		<div class="container-fluid mainPage">
+		<div class="container-fluid mainPage py-3 mb-4">
 
-			<div id="dialog-public" class="pt-md-2 pt-0 d-flex flex-wrap align-items-stretch justify-content-center">
-
-				<div class="col-lg-8 col-md-10 col-12 order-mdm-1 order-2 mx-0 p-0 rounded-top">
+				<div class="col-lg-8 col-md-10 col-12 order-md-1 order-2 mx-0 p-0 rounded">
 
 					<div class="img-block">
 
@@ -430,67 +428,19 @@ session_start();
 
 							<div class="detailBox d-flex bg-dark rounded">
 
-								<small class="border-right px-1 rounded-left">1</small>
-								<small class="border-right px-1">2</small>
-								<small class="border-right px-1">3</small>
-								<small class=" px-1 rounded-right">4</small>
-
 							</div>
 
-							<canvas data-html2canvas-ignore class="" id="myCanvas"></canvas>
+							<canvas data-html2canvas-ignore id="myCanvas"></canvas>
 
 						</div>
 
 						<div class="" id="for-printing">
 
-							<div class="circleAndNo rounded-circle bg-info text-light" >
-								<span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span>
-								<elem>1</elem>
-							</div>
-
-							<img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="{{image}}" alt="">
-
+							<img class="image bg-shadow mx-auto border border-dark rounded" id="blah" src="{{image}}" data-id="{{id}}" data-comments= "{{comments}}">
 
 							<div class="position-relative mx-auto detailBox-Big">
 
 								<div class="d-flex flex-wrap justify-content-center bg-dark rounded-bottom">
-
-									<div class="col-md-4 col-sm-6 col-12 text-left p-2">
-
-										<span class="badge badge-light">1</span>
-										<small >Quickly manage the layout, alignment, and sizing of grid columbox utilities. For more complex implementations, custom CSS may be necessary.</small>
-
-									</div>
-									<div class="col-md-4 col-sm-6 col-12 text-left p-2">
-
-										<span class="badge badge-light">2</span>
-										<small>Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.</small>
-
-									</div>
-									<div class="col-md-4 col-sm-6 col-12 text-left p-2">
-
-										<span class="badge badge-light">3</span>
-										<small>Quickly mities. For more complex implementations, custom CSS may be necessary.</small>
-
-									</div>
-									<div class="col-md-4 col-sm-6 col-12 text-left p-2">
-
-										<span class="badge badge-light">4</span>
-										<small >Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.</small>
-
-									</div>
-									<div class="col-md-4 col-sm-6 col-12 text-left p-2">
-
-										<span class="badge badge-light">5</span>
-										<small>Quickly manage the layout, align, custom CSS may be necessary.</small>
-
-									</div>
-									<div class="col-md-4 col-sm-6 col-12 text-left p-2">
-
-										<span class="badge badge-light">1</span>
-										<small>Quickly manage the layout, alignment, and sizing of grid columns, navigation, components, and more with a full suite of responsive flexbox utilities. For more complex implementations, custom CSS may be necessary.</small>
-
-									</div>
 
 								</div>
 
@@ -502,8 +452,6 @@ session_start();
 					</div>
 
 				</div>
-
-			</div>
 
 		</div>
 
@@ -521,6 +469,8 @@ session_start();
 			let wht = $(window).height();
 			let wwt = $(window).width();
 
+			$('.mainPage').height(wht);
+
 			$( document ).ready(function() {
 
 				$('.image').trigger('load');
@@ -532,20 +482,6 @@ session_start();
 				});
 
 				$('[data-toggle="tooltip"]').tooltip();
-
-				$( "#dialog-public" ).dialog({
-					resizable: false,
-					height: 'auto',
-					width: 'auto',
-					position: { my: "center top", at: "center top", of: window },
-					//					modal: true,
-					autoOpen: true,
-					appendTo: ".mainPage",
-					show: {
-						effect: "fade",
-						duration: 500
-					},
-				})
 
 			}) // DOCUMENT IS READY AND RECIZE
 
@@ -597,8 +533,6 @@ session_start();
 
 			$(document).on('mouseenter mouseleave','.circleAndNo', function() {
 
-				// if own popover is being edited return
-
 				$(this).toggleClass('bg-dark').toggleClass('bg-light');
 
 				if ($(this).data().editFlag) { return };
@@ -611,17 +545,11 @@ session_start();
 
 					elem = `
 <div rows="3" class="p-2 w-100 bg-dark rounded text-light">`+$(this).data('comment')+`</div>
-<div class="px-2"><small class="text-muted notify-in-pop py-2 text-light text-left">Press to edit or delete</small></div>
+<div class="px-2"><small class="text-muted notify-in-pop py-2 text-light text-left">Login to edit or delete</small></div>
 `;
 					$('.popover:eq(-1)').addClass('custom-dark-popover bg-dark');
 
 					$('.popover-body:eq(-1)').html(elem);
-
-				}
-
-				if (oneInProgress) {
-
-					$('.notify-in-pop').html('An edit is open')
 
 				}
 
@@ -738,8 +666,6 @@ session_start();
 				let imgWt = $(this).width();
 				let imgHt = $(this).height();
 
-				console.log(imgWt, imgHt);
-
 				$('.carry-menu').height(imgHt);
 
 				if (wwt < 767 || imgHt < 300) {
@@ -754,7 +680,249 @@ session_start();
 
 				$('.detailBox').css({right: '2%',bottom: '2%'});
 
+				let elem = `<div class="circleAndNo rounded-circle bg-info text-light" ><span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span><elem>1</elem></div>`;
+
+				let obj = JSON.parse($('.image').attr('data-comments'));
+
+				$.each(obj, function(key, value) {
+
+						let newObj = value.data;
+
+						$('#for-printing').prepend(elem);
+
+						$('.circleAndNo:eq(0)').css({
+								'z-index': 4,
+								left: newObj.percentX * $('.image').width() + $('#overlay').position().left,
+								top: newObj.percentY * $('.image').height(),
+								'font-size': newObj.mFontSize * $('.image').width(),
+								height: newObj.mHeight * $('.image').width(),
+								width: newObj.mWidth * $('.image').width()
+						}).data({
+								'percentX': newObj.percentX,
+								'percentY': newObj.percentY,
+								'mFontSize': newObj.mFontSize,
+								'mHeight': newObj.mHeight,
+								'mWidth': newObj.mWidth,
+								comment: value.comment,
+								editFlag: false
+						}).find('elem').html(key+1);
+
+						$('.circleAndNo').removeClass().addClass(newObj.classs);
+
+				})
+
+				let fullClassesNew = $('.circleAndNo').attr('class').split(' ');
+
+				let foundClassesNew = $.grep(fullClassesNew, function(item) {
+
+						if (item.indexOf('bg-') != -1 || item.indexOf('text-') != -1) {
+
+								return item
+
+						}
+
+				})
+
+				foundClassesNew = foundClassesNew.join(' ');
+
+				givedatatotextbox();
+
 			});
+
+			let givedatatotextbox = function() {
+
+					let comments = new Array();
+
+					let smallelem = ``;
+					let bigelems = ``;
+
+					$.each($('.circleAndNo'), function(key, value) {
+
+							if ($(this).data().comment && $(this).css('display') != 'none') {
+
+									comments[$(this).find('elem').html() - 1] = $(this).data().comment;
+
+							}
+
+					})
+
+					let needColAdjustments = false;
+
+					$('.detailBox-Big').find('.rounded-bottom').children().remove();
+
+					$('.detailBox').children().remove();
+
+					$.each(comments, function(key, value) {
+
+							smallelem = `<span class="small-elem border-right px-1">` + (key + 1) + `</span>`;
+
+							bigelems = `<div class="big-text-here col-md-4 col-sm-6 col-12 text-left p-2">
+<span class="badge badge-light">` + (key + 1) + `</span>
+<small>` + value + `</small>
+			</div>`;
+
+							$('.detailBox').append(smallelem);
+
+							$('.detailBox-Big').find('.rounded-bottom').append(bigelems);
+
+							$('.big-text-here').last().data({
+									textLength: value.length,
+									textBlock: Math.floor(key / 3)
+							});
+
+							if (value.length > 125) {
+
+									needColAdjustments = true;
+
+							}
+
+					})
+
+					$('.small-elem:eq(-1)').removeClass('border-right');
+
+					if (!needColAdjustments) {
+
+							return;
+
+					}
+
+					needColAdjustments = false;
+
+					let spaceAval = 12;
+					let rowNo = 0;
+					let rowAlloted = 0;
+					let cArray = [];
+					let rowArray = [];
+
+					$.each($('.big-text-here'), function(key, value) {
+
+							let currentBlock = $(value).data().textBlock;
+
+							let sumLength = 0;
+
+							let totalSize = $.grep($('.big-text-here'), function(item) {
+
+									if ($(item).data().textBlock == currentBlock) {
+
+											sumLength += $(item).data().textLength;
+
+									}
+
+							});
+
+							let ownPercent = $(value).data().textLength / sumLength * 100;
+
+							let ineed = function() {
+
+									if (ownPercent <= 60) {
+
+											return 4;
+
+									}
+
+									if (ownPercent <= 90) {
+
+											return 8;
+
+									}
+
+									if (ownPercent <= 100) {
+
+											return 12;
+
+									}
+
+							}
+
+							let giveSpace = function(needed, item) {
+
+									if (needed <= spaceAval) {
+
+											spaceAval = spaceAval - needed;
+
+											cArray.push(item);
+
+											return rowNo;
+
+									}
+
+									cArray = [];
+
+									rowNo = rowNo + 1;
+
+									spaceAval = 12;
+
+									return giveSpace(needed, item);
+
+							}
+
+							let needed = ineed();
+
+							rowAlloted = giveSpace(needed, $(this));
+
+							$(this).data({
+									neededSpace: needed,
+									rowAlloted: rowAlloted
+							});
+
+							rowArray[rowAlloted] = cArray;
+
+					});
+
+					$.each(rowArray, function(key, value) {
+
+							let className = function() {
+
+									if (value.length == 1) {
+
+											value[0].toggleClass('col-md-4 col-md-12 col-sm-6 col-sm-12');
+
+											return 'col-md-12';
+
+									}
+
+									if (value.length == 3) {
+
+											value[2].toggleClass('col-sm-6 col-sm-12');
+											return 'col-md-4';
+
+									}
+
+									if (value.length == 2) {
+
+											if (value[0].data().neededSpace == value[1].data().neededSpace) {
+
+													value[0].toggleClass('col-md-4 col-md-6');
+													value[1].toggleClass('col-md-4 col-md-6');
+
+													return 'col-md-6 col-md-6';
+
+											}
+
+											if (value[0].data().neededSpace == 8) {
+
+													value[0].toggleClass('col-md-4 col-md-8');
+
+													return 'col-md-8 col-md-4';
+
+											}
+
+											value[1].toggleClass('col-md-4 col-md-8');
+
+											return 'col-md-4 col-md-8';
+
+
+									}
+
+							}
+
+							//					console.log(className());
+
+							className();
+
+					})
+
+			}
 
 
 		</script>

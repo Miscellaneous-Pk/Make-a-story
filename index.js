@@ -245,8 +245,11 @@ app.get('/picture/:id',(req,res) => {
     "pictures._id": getId,
   }).then((msg) => {
     var result = _.find(msg.pictures,{_id: mongoose.Types.ObjectId(getId)});
+    console.log(result);
     res.status(200).render('public_page.hbs',{
-      image: result.image
+      image: result.image,
+      comments: result.data,
+      id: result.id
     });
   }).catch((e) => {
     console.log(e);
