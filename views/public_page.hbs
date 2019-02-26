@@ -410,6 +410,97 @@ session_start();
 
 			}
 
+			.cube {
+			  width: 30px;
+			  height: 30px;
+			  background: #f45c41;
+			  border-radius: 6px;
+			  display: flex;
+			  align-items: center;
+			  justify-content: center;
+			  position: relative;
+			  cursor: pointer;
+			  transition: background 0.2s;
+			}
+
+			.plus-vertical,
+			.plus-horizontal {
+			  background: #fff;
+			  border-radius: 4px;
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+			  z-index: 10;
+			}
+
+			.plus-vertical {
+			  height: 50%;
+			  width: 3px;
+			}
+
+			.plus-horizontal {
+			  width: 50%;
+			  height: 3px;
+			}
+
+			.quadrant {
+			  position: absolute;
+			  width: 60%;
+			  height: 60%;
+			  display: flex;
+			  flex-wrap: wrap;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%);
+			}
+
+			.quadrant__item {
+			  width: 50%;
+			  height: 50%;
+			  display: flex;
+			  align-items: center;
+			  justify-content: center;
+			  background: #f45c41;
+			  border-radius: 6px;
+			  position: relative;
+			}
+
+			.quadrant__item__content {
+			  width: 100%;
+			  height: 100%;
+			  position: absolute;
+			  top: 50%;
+			  left: 50%;
+			  transform: translate(-50%, -50%) rotate(-45deg);
+			  display: flex;
+			  align-items: center;
+			  justify-content: center;
+			}
+
+			.arrow-down,
+			.arrow-left,
+			.arrow-right,
+			.arrow-up {
+			  opacity: 0;
+			}
+
+			.arrow-up {
+			  transform: translateY(10px);
+			}
+
+			.arrow-down {
+			  transform: translateY(-10px);
+			}
+
+			.arrow-left {
+			  transform: translateX(10px);
+			}
+
+			.arrow-right {
+			  transform: translateX(-10px);
+			}
+
 
 		</style>
 
@@ -418,15 +509,20 @@ session_start();
 
 	<body class="bg-info text-light">
 
-		<div class="container-fluid mainPage py-3 mb-4">
+		<div class="container-fluid mainPage py-3 d-flex justify-content-center">
 
-				<div class="col-lg-8 col-md-10 col-12 order-md-1 order-2 mx-0 p-0 rounded">
+				<div class="col-lg-8 col-md-10 col-12 order-md-1 order-2 mx-0 p-0">
 
 					<div class="img-block">
 
 						<div id="overlay" class="position-absolute">
 
-							<div class="detailBox d-flex bg-dark rounded">
+							<div class="detailBox bg-dark rounded">
+
+									<small class="border-right px-1 rounded-left">1</small>
+									<small class="border-right px-1">2</small>
+									<small class="border-right px-1">3</small>
+									<small class=" px-1 rounded-right">4</small>
 
 							</div>
 
@@ -436,9 +532,9 @@ session_start();
 
 						<div class="" id="for-printing">
 
-							<img class="image bg-shadow mx-auto border border-dark rounded" id="blah" src="{{image}}" data-id="{{id}}" data-comments= "{{comments}}">
+							<img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="{{image}}" data-id="{{id}}" data-comments= "{{comments}}">
 
-							<div class="position-relative mx-auto detailBox-Big">
+							<div class="position-relative mx-auto detailBox-Big rounded-bottom">
 
 								<div class="d-flex flex-wrap justify-content-center bg-dark rounded-bottom">
 
@@ -446,7 +542,10 @@ session_start();
 
 							</div>
 
+						</div>
 
+						<div class="menu-btn position-fixed" style="right: 10px; bottom: 20px">
+								{{> menuBtn}}
 						</div>
 
 					</div>
@@ -462,14 +561,13 @@ session_start();
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TimelineLite.min.js" type="text/javascript"></script>
 
 		<script type="text/javascript">
 
 			let wht = $(window).height();
 			let wwt = $(window).width();
-
-			$('.mainPage').height(wht);
 
 			$( document ).ready(function() {
 
@@ -489,8 +587,6 @@ session_start();
 
 				wht = $(window).height();
 				wwt = $(window).width();
-
-				$('.mainPage').height(wht);
 
 				$('.image').css({'max-height': wht/1.1, 'max-width' : '100%'});
 
@@ -676,7 +772,7 @@ session_start();
 
 				$('#overlay').css({height: imgHt, width: imgWt});
 
-				$('.detailBox-Big').css({width: imgWt + 2});
+				$('.detailBox-Big').css({width: imgWt + 1});
 
 				$('.detailBox').css({right: '2%',bottom: '2%'});
 
@@ -754,7 +850,7 @@ session_start();
 
 					$.each(comments, function(key, value) {
 
-							smallelem = `<span class="small-elem border-right px-1">` + (key + 1) + `</span>`;
+							smallelem = `<small><span class="small-elem border-right px-1">` + (key + 1) + `</span></small>`;
 
 							bigelems = `<div class="big-text-here col-md-4 col-sm-6 col-12 text-left p-2">
 <span class="badge badge-light">` + (key + 1) + `</span>
@@ -922,6 +1018,42 @@ session_start();
 
 					})
 
+			}
+
+			var quadrantItems = document.querySelectorAll('.quadrant__item');
+			var svgs = document.querySelectorAll('svg');
+			var cube = document.querySelector('.cube');
+			var closeButton = document.querySelector('.quadrant__item__content--close');
+			var isInside = false;
+
+			var tl = new TimelineLite({paused: true});
+			tl.timeScale(1.6);
+
+			tl.to('.cube', 0.4, {rotation: 45, width: '120px', height: '120px', ease: Expo.easeOut}, 'first');
+			tl.to('.plus .plus-vertical', 0.3, {height: '0', backgroundColor: '#f45c41', ease: Power1.easeIn}, 'first');
+			tl.to('.plus .plus-horizontal', 0.3, {width: '0', backgroundColor: '#f45c41', ease: Power1.easeIn}, 'first');
+			tl.to('.cube', 0, {backgroundColor: 'transparent'});
+			tl.to(quadrantItems[0], 0.15, {x: -5, y: -5}, 'seperate');
+			tl.to('.arrow-up', 0.2, {opacity: 1, y: 0}, 'seperate+=0.2');
+			tl.to(quadrantItems[1], 0.15, {x: 5, y: -5}, 'seperate');
+			tl.to('.arrow-right', 0.2, {opacity: 1, x: 0}, 'seperate+=0.2');
+			tl.to(quadrantItems[3], 0.15, {x: 5, y: 5}, 'seperate');
+			tl.to('.arrow-down', 0.2, {opacity: 1, y: 0}, 'seperate+=0.2');
+			tl.to(quadrantItems[2], 0.15, {x: -5, y: 5}, 'seperate');
+			tl.to('.arrow-left', 0.2, {opacity: 1, x: 0}, 'seperate+=0.2');
+
+			cube.addEventListener('mouseenter', playTimeline);
+			cube.addEventListener('mouseleave', reverseTimeline);
+
+			function playTimeline(e) {
+			  e.stopPropagation();
+			  tl.play();
+			}
+
+			function reverseTimeline(e) {
+			  e.stopPropagation();
+			  tl.timeScale(1.8);
+			  tl.reverse();
 			}
 
 
