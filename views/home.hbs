@@ -2667,6 +2667,12 @@ border-top-color: #343a40;
 
             $('.card').on('click', function() {
 
+              let myArray = $(this).find('.draft-badge').attr('class').split(' ');
+
+                if ($.inArray('Published', myArray) !== -1) {
+                  return window.location.assign('/picture/'+$(this).find('.card-image-top').attr('data-id'));
+                };
+
                 spinner.start();
 
                 let imageData = $(this).find('.card-image-top').attr('data-comments');

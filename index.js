@@ -28,8 +28,8 @@ app.get('/',(req,res) => {
 let authenticate = (req,res,next) => {
   let token = req.params.token || req.body.token;
   Users.findByToken(token).then((user) => {
+    if (!user) return Promise.reject('No user found');
     req.params.user = user;
-    console.log(`Authenticated. ${user.name} !`);
     next();
   }).catch((e) => {
     console.log(e);
@@ -38,6 +38,8 @@ let authenticate = (req,res,next) => {
 };
 
 app.get('/home/:token', authenticate, (req,res) => {
+
+  console.log(req.params.user.name,'entered home');
 
   let pictures = req.params.user.pictures;
   let dates = [];
@@ -54,6 +56,7 @@ app.get('/home/:token', authenticate, (req,res) => {
 });
 
 app.get('/logout/:token', authenticate, (req,res) => {
+  console.log(req.params.user.name,'logged out');
   let user = req.params.user;
   user.removeToken(req.params.token).then((user) => {
     res.render('index.hbs');
