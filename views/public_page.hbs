@@ -1106,14 +1106,18 @@ session_start();
 			var tl = new TimelineLite()
 
 			$('.menu-btn').on('click', () => {
-				tl.to('.menu-btn', 0, {opacity: 0.01, ease:Power2.easeInOut})
+				tl.to('.menu-btn', 0, {opacity: 0.01, display:'none', ease:Power2.easeInOut})
 					.to('.dark-overlay', 0.1, {display: 'block', ease:Power2.easeInOut})
 					.to('.opened-menu', 0.3, {display: 'block', ease:Power2.easeInOut})
 			});
 
 			$('svg').on('mouseenter mouseleave', function() {
 
-				console.log($(this).find('use').attr('fill'));
+				console.log(
+					$(this).find('use:eq(1)').attr('fill'),
+					$(this).find('path').attr('fill') ||
+					$(this).find('polygon').attr('stroke')
+				);
 
 			})
 
