@@ -415,6 +415,11 @@ session_start();
 				opacity: 0.75;
 				background: #000000;
 				z-index: 999;
+				/* display: none; */
+			}
+
+			.opened-menu {
+				/* display: none; */
 			}
 
 
@@ -478,10 +483,9 @@ session_start();
 
 		<div class="position-fixed" style="right: 10px; bottom: 10px; z-index:1000">
 
-			<div class="menu-btn position-absolute" style="right: 0px; bottom: 0px; z-index: 12">
+			<div class="menu-btn position-absolute" style="right: 0px; bottom: 0px; z-index: 100">
 
 				<svg width="92px" height="92px" viewBox="0 0 92 92" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-						<!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
 						<desc>Created with Sketch.</desc>
 						<defs>
 								<circle id="path-1" cx="35" cy="35" r="35"></circle>
@@ -508,120 +512,126 @@ session_start();
 
 			</div>
 
-			<div class="open-menu-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 13">
+			<div class="opened-menu">
 
-<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<desc>Created with Sketch.</desc>
-<defs>
-<circle id="path-2" cx="18" cy="18" r="18"></circle>
-<filter x="-29.2%" y="-29.2%" width="158.3%" height="158.3%" filterUnits="objectBoundingBox" id="filter-2">
-		<feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-		<feGaussianBlur stdDeviation="3.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-		<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-</filter>
-</defs>
-<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-<g id="Mobile" transform="translate(-300.000000, -738.000000)">
-		<g id="Group-6" transform="translate(307.000000, 745.000000)">
-				<g id="Oval-Copy-5">
-						<use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-2"></use>
-						<use fill="#000000" fill-rule="evenodd" xlink:href="#path-2"></use>
-				</g>
-				<path d="M19.4782609,19.4782609 L19.4782609,25.0625 C19.4782609,25.580267 19.0402786,26 18.5,26 C17.9597214,26 17.5217391,25.580267 17.5217391,25.0625 L17.5217391,19.4782609 L11.9375,19.4782609 C11.419733,19.4782609 11,19.0402786 11,18.5 C11,17.9597214 11.419733,17.5217391 11.9375,17.5217391 L17.5217391,17.5217391 L17.5217391,11.9375 C17.5217391,11.419733 17.9597214,11 18.5,11 C19.0402786,11 19.4782609,11.419733 19.4782609,11.9375 L19.4782609,17.5217391 L25.0625,17.5217391 C25.580267,17.5217391 26,17.9597214 26,18.5 C26,19.0402786 25.580267,19.4782609 25.0625,19.4782609 L19.4782609,19.4782609 Z" id="Combined-Shape" fill="#FFFFFF" transform="translate(18.500000, 18.500000) rotate(45.000000) translate(-18.500000, -18.500000) "></path>
-		</g>
-</g>
-</g>
-</svg>
+				<div class="open-menu-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 99">
+
+					<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<desc>Created with Sketch.</desc>
+					<defs>
+					<circle id="path-2" cx="18" cy="18" r="18"></circle>
+					<filter x="-29.2%" y="-29.2%" width="158.3%" height="158.3%" filterUnits="objectBoundingBox" id="filter-2">
+							<feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+							<feGaussianBlur stdDeviation="3.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+							<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+					</filter>
+					</defs>
+					<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+					<g id="Mobile" transform="translate(-300.000000, -738.000000)">
+							<g id="Group-6" transform="translate(307.000000, 745.000000)">
+									<g id="Oval-Copy-5">
+											<use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-2"></use>
+											<use fill="#000000" fill-rule="evenodd" xlink:href="#path-2"></use>
+									</g>
+									<path d="M19.4782609,19.4782609 L19.4782609,25.0625 C19.4782609,25.580267 19.0402786,26 18.5,26 C17.9597214,26 17.5217391,25.580267 17.5217391,25.0625 L17.5217391,19.4782609 L11.9375,19.4782609 C11.419733,19.4782609 11,19.0402786 11,18.5 C11,17.9597214 11.419733,17.5217391 11.9375,17.5217391 L17.5217391,17.5217391 L17.5217391,11.9375 C17.5217391,11.419733 17.9597214,11 18.5,11 C19.0402786,11 19.4782609,11.419733 19.4782609,11.9375 L19.4782609,17.5217391 L25.0625,17.5217391 C25.580267,17.5217391 26,17.9597214 26,18.5 C26,19.0402786 25.580267,19.4782609 25.0625,19.4782609 L19.4782609,19.4782609 Z" id="Combined-Shape" fill="#FFFFFF" transform="translate(18.500000, 18.500000) rotate(45.000000) translate(-18.500000, -18.500000) "></path>
+							</g>
+					</g>
+					</g>
+					</svg>
+				</div>
+
+				<div class="home-btn position-absolute" style="right: 95px; bottom: 20px; z-index: 13">
+
+					<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+							<desc>Created with Sketch.</desc>
+							<defs>
+									<circle id="path-3" cx="21" cy="21" r="21"></circle>
+									<filter x="-39.3%" y="-39.3%" width="178.6%" height="178.6%" filterUnits="objectBoundingBox" id="filter-2">
+											<feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+											<feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+											<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+									</filter>
+							</defs>
+							<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="Mobile" transform="translate(-216.000000, -728.000000)">
+											<g id="Home-Icon" transform="translate(227.000000, 739.000000)">
+													<g id="Oval-Copy-9">
+															<use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-3"></use>
+															<use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+													</g>
+													<polygon id="Path-9" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" points="20.9806206 11 10 22.5997074 13.1679181 22.5997074 13.1679181 32 28.4216726 32 28.4216726 22.5997074 31.9612412 22.5997074 26.9371871 17.456474 26.9371871 12.5700073 24.2937279 12.5700073 24.2937279 14.8558888"></polygon>
+													<path d="M17,32 L17,26.2141829 C17.8958496,25.4999657 18.5625163,25.1428571 19,25.1428571 C19.4374837,25.1428571 20.1041504,25.4999657 21,26.2141829 L21,32 L17,32 Z" id="Path-10" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path>
+											</g>
+									</g>
+							</g>
+					</svg>
+
+				</div>
+
+				<div class="download-btn position-absolute" style="right: 70px; bottom: 70px; z-index: 13">
+
+
+					<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+							<desc>Created with Sketch.</desc>
+							<defs>
+									<circle id="path-4" cx="21" cy="21" r="21"></circle>
+									<filter x="-39.3%" y="-39.3%" width="178.6%" height="178.6%" filterUnits="objectBoundingBox" id="filter-2">
+											<feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+											<feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+											<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+									</filter>
+							</defs>
+							<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="Mobile" transform="translate(-237.000000, -675.000000)">
+											<g id="save-icon" transform="translate(248.000000, 686.000000)">
+													<g id="Oval-Copy-10">
+															<use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-4"></use>
+															<use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+													</g>
+													<polygon id="Path-2" stroke="#000000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" points="9 33.125 33 33.125 33 30 27.1680838 30 21 31.1228941 15.1326653 30 9 30"></polygon>
+													<polygon id="Path-5" stroke="#000000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" points="18.2102499 5.61255889 23.6444934 10 23.6444934 18.1512947 29 18.1512947 21 27.4086021 13 18.2850071 18.2102499 18.2850071"></polygon>
+											</g>
+									</g>
+							</g>
+					</svg>
+
+				</div>
+
+				<div class="text-btn position-absolute" style="right: 20px; bottom: 95px; z-index: 13">
+
+
+					<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+							<!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+							<desc>Created with Sketch.</desc>
+							<defs>
+									<circle id="path-5" cx="21" cy="21" r="21"></circle>
+									<filter x="-39.3%" y="-39.3%" width="178.6%" height="178.6%" filterUnits="objectBoundingBox" id="filter-2">
+											<feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+											<feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+											<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+									</filter>
+							</defs>
+							<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<g id="Mobile-Copy-2" transform="translate(-290.000000, -654.000000)">
+											<g id="text-icon" transform="translate(301.000000, 665.000000)">
+													<g id="Oval-Copy-8">
+															<use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-5"></use>
+															<use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+													</g>
+													<path d="M13.3074725,28.56 L18.5594725,11.376 C18.5724725,11.334 18.6124725,11.304 18.6564725,11.304 L23.7564725,11.304 C23.8014725,11.304 23.8404725,11.333 23.8524725,11.376 L29.1814725,28.558 C29.1914725,28.591 29.1864725,28.625 29.1694725,28.648 C29.1484725,28.676 29.1174725,28.692 29.0844725,28.692 L24.9034725,28.692 C24.8584725,28.692 24.8184725,28.663 24.8064725,28.619 L23.6424725,24.745 C23.5594725,24.47 23.3054725,24.28 23.0174725,24.28 L19.2304725,24.28 C18.9374725,24.28 18.6804725,24.475 18.6024725,24.758 L17.5304725,28.617 C17.5184725,28.661 17.4774725,28.692 17.4324725,28.692 L13.4044725,28.692 C13.3724725,28.692 13.3404725,28.676 13.3234725,28.653 C13.3044725,28.626 13.2984725,28.591 13.3074725,28.56 Z M13.4044725,29.997 L17.4324725,29.997 C18.0614725,29.997 18.6184725,29.573 18.7874725,28.966 L19.7264725,25.585 L22.5324725,25.585 L23.5564725,28.993 C23.7324725,29.584 24.2864725,29.997 24.9034725,29.997 L29.0844725,29.997 C29.5274725,29.997 29.9504725,29.783 30.2184725,29.423 C30.4794725,29.066 30.5584725,28.599 30.4284725,28.174 L25.0984725,10.989 C24.9144725,10.397 24.3754725,10 23.7564725,10 L18.6564725,10 C18.0344725,10 17.4934725,10.4 17.3114725,10.995 L12.0604725,28.181 C11.9314725,28.603 12.0114725,29.068 12.2754725,29.429 C12.5414725,29.785 12.9634725,29.997 13.4044725,29.997 Z" id="Fill-388-Copy" fill="#000000"></path>
+													<path d="M20.6521809,21.4540039 L22.4501809,21.4540039 C22.6561809,21.4540039 22.8501809,21.3570039 22.9721809,21.1920039 C23.0961809,21.0280039 23.1341809,20.8150039 23.0761809,20.6180039 L22.2651809,17.8560039 C22.2291809,17.7310039 22.1911809,17.6040039 22.1541809,17.4730039 C22.0731809,17.1900039 21.8001809,16.9990039 21.5171809,17.0000039 C21.2221809,17.0040039 20.9671809,17.2060039 20.8951809,17.4920039 C20.8551809,17.6440039 20.8171809,17.7930039 20.7761809,17.9360039 L20.0241809,20.6260039 C19.9691809,20.8220039 20.0091809,21.0330039 20.1321809,21.1960039 C20.2551809,21.3580039 20.4481809,21.4540039 20.6521809,21.4540039" id="Fill-389-Copy" stroke="#000000"></path>
+											</g>
+									</g>
+							</g>
+					</svg>
+
+				</div>
+
 			</div>
 
-			<div class="home-btn position-absolute" style="right: 95px; bottom: 20px; z-index: 13">
 
-				<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-						<!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-						<desc>Created with Sketch.</desc>
-						<defs>
-								<circle id="path-3" cx="21" cy="21" r="21"></circle>
-								<filter x="-39.3%" y="-39.3%" width="178.6%" height="178.6%" filterUnits="objectBoundingBox" id="filter-2">
-										<feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-										<feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-										<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-								</filter>
-						</defs>
-						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<g id="Mobile" transform="translate(-216.000000, -728.000000)">
-										<g id="Home-Icon" transform="translate(227.000000, 739.000000)">
-												<g id="Oval-Copy-9">
-														<use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-3"></use>
-														<use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
-												</g>
-												<polygon id="Path-9" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" points="20.9806206 11 10 22.5997074 13.1679181 22.5997074 13.1679181 32 28.4216726 32 28.4216726 22.5997074 31.9612412 22.5997074 26.9371871 17.456474 26.9371871 12.5700073 24.2937279 12.5700073 24.2937279 14.8558888"></polygon>
-												<path d="M17,32 L17,26.2141829 C17.8958496,25.4999657 18.5625163,25.1428571 19,25.1428571 C19.4374837,25.1428571 20.1041504,25.4999657 21,26.2141829 L21,32 L17,32 Z" id="Path-10" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"></path>
-										</g>
-								</g>
-						</g>
-				</svg>
-
-			</div>
-
-			<div class="download-btn position-absolute" style="right: 70px; bottom: 70px; z-index: 13">
-
-
-				<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-						<!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-						<desc>Created with Sketch.</desc>
-						<defs>
-								<circle id="path-4" cx="21" cy="21" r="21"></circle>
-								<filter x="-39.3%" y="-39.3%" width="178.6%" height="178.6%" filterUnits="objectBoundingBox" id="filter-2">
-										<feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-										<feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-										<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-								</filter>
-						</defs>
-						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<g id="Mobile" transform="translate(-237.000000, -675.000000)">
-										<g id="save-icon" transform="translate(248.000000, 686.000000)">
-												<g id="Oval-Copy-10">
-														<use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-4"></use>
-														<use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
-												</g>
-												<polygon id="Path-2" stroke="#000000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" points="9 33.125 33 33.125 33 30 27.1680838 30 21 31.1228941 15.1326653 30 9 30"></polygon>
-												<polygon id="Path-5" stroke="#000000" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" points="18.2102499 5.61255889 23.6444934 10 23.6444934 18.1512947 29 18.1512947 21 27.4086021 13 18.2850071 18.2102499 18.2850071"></polygon>
-										</g>
-								</g>
-						</g>
-				</svg>
-
-			</div>
-
-			<div class="text-btn position-absolute" style="right: 20px; bottom: 95px; z-index: 13">
-
-
-				<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-						<!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-						<desc>Created with Sketch.</desc>
-						<defs>
-								<circle id="path-5" cx="21" cy="21" r="21"></circle>
-								<filter x="-39.3%" y="-39.3%" width="178.6%" height="178.6%" filterUnits="objectBoundingBox" id="filter-2">
-										<feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-										<feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-										<feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
-								</filter>
-						</defs>
-						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<g id="Mobile-Copy-2" transform="translate(-290.000000, -654.000000)">
-										<g id="text-icon" transform="translate(301.000000, 665.000000)">
-												<g id="Oval-Copy-8">
-														<use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-5"></use>
-														<use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
-												</g>
-												<path d="M13.3074725,28.56 L18.5594725,11.376 C18.5724725,11.334 18.6124725,11.304 18.6564725,11.304 L23.7564725,11.304 C23.8014725,11.304 23.8404725,11.333 23.8524725,11.376 L29.1814725,28.558 C29.1914725,28.591 29.1864725,28.625 29.1694725,28.648 C29.1484725,28.676 29.1174725,28.692 29.0844725,28.692 L24.9034725,28.692 C24.8584725,28.692 24.8184725,28.663 24.8064725,28.619 L23.6424725,24.745 C23.5594725,24.47 23.3054725,24.28 23.0174725,24.28 L19.2304725,24.28 C18.9374725,24.28 18.6804725,24.475 18.6024725,24.758 L17.5304725,28.617 C17.5184725,28.661 17.4774725,28.692 17.4324725,28.692 L13.4044725,28.692 C13.3724725,28.692 13.3404725,28.676 13.3234725,28.653 C13.3044725,28.626 13.2984725,28.591 13.3074725,28.56 Z M13.4044725,29.997 L17.4324725,29.997 C18.0614725,29.997 18.6184725,29.573 18.7874725,28.966 L19.7264725,25.585 L22.5324725,25.585 L23.5564725,28.993 C23.7324725,29.584 24.2864725,29.997 24.9034725,29.997 L29.0844725,29.997 C29.5274725,29.997 29.9504725,29.783 30.2184725,29.423 C30.4794725,29.066 30.5584725,28.599 30.4284725,28.174 L25.0984725,10.989 C24.9144725,10.397 24.3754725,10 23.7564725,10 L18.6564725,10 C18.0344725,10 17.4934725,10.4 17.3114725,10.995 L12.0604725,28.181 C11.9314725,28.603 12.0114725,29.068 12.2754725,29.429 C12.5414725,29.785 12.9634725,29.997 13.4044725,29.997 Z" id="Fill-388-Copy" fill="#000000"></path>
-												<path d="M20.6521809,21.4540039 L22.4501809,21.4540039 C22.6561809,21.4540039 22.8501809,21.3570039 22.9721809,21.1920039 C23.0961809,21.0280039 23.1341809,20.8150039 23.0761809,20.6180039 L22.2651809,17.8560039 C22.2291809,17.7310039 22.1911809,17.6040039 22.1541809,17.4730039 C22.0731809,17.1900039 21.8001809,16.9990039 21.5171809,17.0000039 C21.2221809,17.0040039 20.9671809,17.2060039 20.8951809,17.4920039 C20.8551809,17.6440039 20.8171809,17.7930039 20.7761809,17.9360039 L20.0241809,20.6260039 C19.9691809,20.8220039 20.0091809,21.0330039 20.1321809,21.1960039 C20.2551809,21.3580039 20.4481809,21.4540039 20.6521809,21.4540039" id="Fill-389-Copy" stroke="#000000"></path>
-										</g>
-								</g>
-						</g>
-				</svg>
-
-			</div>
 
 		</div>
 
@@ -1093,6 +1103,19 @@ session_start();
 
 			}
 
+			var tl = new TimelineLite()
+
+			$('.menu-btn').on('click', () => {
+				tl.to('.menu-btn', 0, {opacity: 0.01, ease:Power2.easeInOut})
+					.to('.dark-overlay', 0.1, {display: 'block', ease:Power2.easeInOut})
+					.to('.opened-menu', 0.3, {display: 'block', ease:Power2.easeInOut})
+			});
+
+			$('svg').on('mouseenter mouseleave', function() {
+
+				console.log($(this).find('use').attr('fill'));
+
+			})
 
 		</script>
 
