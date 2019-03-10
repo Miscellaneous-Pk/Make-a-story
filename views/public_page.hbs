@@ -410,97 +410,6 @@ session_start();
 
 			}
 
-			.cube {
-			  width: 30px;
-			  height: 30px;
-			  background: #f45c41;
-			  border-radius: 6px;
-			  display: flex;
-			  align-items: center;
-			  justify-content: center;
-			  position: relative;
-			  cursor: pointer;
-			  transition: background 0.2s;
-			}
-
-			.plus-vertical,
-			.plus-horizontal {
-			  background: #fff;
-			  border-radius: 4px;
-			  position: absolute;
-			  top: 50%;
-			  left: 50%;
-			  transform: translate(-50%, -50%);
-			  z-index: 10;
-			}
-
-			.plus-vertical {
-			  height: 50%;
-			  width: 3px;
-			}
-
-			.plus-horizontal {
-			  width: 50%;
-			  height: 3px;
-			}
-
-			.quadrant {
-			  position: absolute;
-			  width: 60%;
-			  height: 60%;
-			  display: flex;
-			  flex-wrap: wrap;
-			  top: 50%;
-			  left: 50%;
-			  transform: translate(-50%, -50%);
-			}
-
-			.quadrant__item {
-			  width: 50%;
-			  height: 50%;
-			  display: flex;
-			  align-items: center;
-			  justify-content: center;
-			  background: #f45c41;
-			  border-radius: 6px;
-			  position: relative;
-			}
-
-			.quadrant__item__content {
-			  width: 100%;
-			  height: 100%;
-			  position: absolute;
-			  top: 50%;
-			  left: 50%;
-			  transform: translate(-50%, -50%) rotate(-45deg);
-			  display: flex;
-			  align-items: center;
-			  justify-content: center;
-			}
-
-			.arrow-down,
-			.arrow-left,
-			.arrow-right,
-			.arrow-up {
-			  opacity: 0;
-			}
-
-			.arrow-up {
-			  transform: translateY(10px);
-			}
-
-			.arrow-down {
-			  transform: translateY(-10px);
-			}
-
-			.arrow-left {
-			  transform: translateX(10px);
-			}
-
-			.arrow-right {
-			  transform: translateX(-10px);
-			}
-
 
 		</style>
 
@@ -544,8 +453,68 @@ session_start();
 
 						</div>
 
-						<div class="menu-btn position-fixed" style="right: 10px; bottom: 20px">
-								{{> menuBtn}}
+						<!-- MENU BTN  -->
+
+						<div class="position-fixed" style="right: 10px; bottom: 10px">
+
+							<div class="menu-btn position-absolute" style="right: 0px; bottom: 0px; z-index: 12">
+
+
+								<svg width="92px" height="92px" viewBox="0 0 92 92" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+								    <desc>Created with Sketch.</desc>
+								    <defs>
+								        <circle id="path-1" cx="35" cy="35" r="35"></circle>
+								        <filter x="-23.6%" y="-23.6%" width="147.1%" height="147.1%" filterUnits="objectBoundingBox" id="filter-2">
+								            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+								            <feGaussianBlur stdDeviation="5.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+								            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+								        </filter>
+								    </defs>
+								    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								        <g id="Mobile-Copy" transform="translate(-279.000000, -717.000000)">
+								            <g id="Menu-btn" transform="translate(290.000000, 728.000000)">
+								                <g id="Oval-Copy-4">
+								                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+								                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+								                </g>
+								                <path d="M38.39,48.04 L44.65,48.04 L44.65,24.529 L38.39,24.529 L38.39,48.04 Z M38.39,22.394 C38.39,22.381 38.39,21.088 39.26,20.211 C39.8,19.664 40.57,19.388 41.55,19.388 C42.5,19.388 43.24,19.662 43.77,20.203 C43.84,20.275 43.9,20.351 43.96,20.429 C44.08,20.584 44.18,20.746 44.27,20.91 C44.27,20.922 44.28,20.933 44.28,20.945 C44.42,21.237 44.51,21.531 44.56,21.788 C44.58,21.868 44.59,21.942 44.6,22.014 C44.61,22.062 44.62,22.109 44.62,22.154 C44.63,22.211 44.64,22.264 44.64,22.311 C44.65,22.428 44.65,22.514 44.65,22.552 C44.65,22.563 44.65,22.571 44.65,22.573 L44.65,23.082 L41.62,23.082 C41.57,23.072 41.52,23.067 41.48,23.067 L38.39,23.067 L38.39,22.394 Z M42.38,52.063 L40.79,52.063 C40.76,52.063 40.73,52.069 40.7,52.073 L38.83,49.427 L44.24,49.427 L42.38,52.063 Z M37,48.917 C37,49.217 37.12,49.503 37.34,49.717 L40.38,54.032 C40.41,54.083 40.44,54.133 40.47,54.185 L40.59,54.355 C40.81,54.658 41.16,54.838 41.53,54.838 C41.9,54.838 42.25,54.658 42.46,54.354 L45.82,49.595 C45.86,49.535 45.9,49.473 45.91,49.431 C45.93,49.402 45.94,49.371 45.95,49.34 C45.97,49.304 45.97,49.268 45.98,49.239 C46,49.194 46.01,49.147 46.02,49.097 C46.03,49.038 46.04,48.97 46.04,48.917 L46.04,24.203 C46.04,24.059 46.01,23.921 45.96,23.794 C46.01,23.667 46.04,23.532 46.04,23.393 L46.04,22.59 C46.04,22.386 46.05,20.554 44.76,19.235 C43.97,18.416 42.88,18 41.55,18 C40.19,18 39.09,18.416 38.28,19.234 C37.02,20.504 37,22.217 37,22.4 L37,23.394 C37,23.537 37.03,23.672 37.08,23.798 C37.03,23.924 37,24.059 37,24.203 L37,48.917 Z" id="Fill-289-Copy" fill="#1C1B19"></path>
+								                <path d="M24.7500939,14.9230466 L32.0500939,14.8690466 C32.5400939,14.8650466 32.9400939,15.2610466 32.9500939,15.7530466 L32.9900939,21.3160466 C31.9700939,21.3240466 30.9600939,21.3320466 29.9500939,21.3390466 C29.4800939,21.3420466 29.4800939,22.0670466 29.9500939,22.0630466 C30.9700939,22.0550466 31.9800939,22.0470466 32.9900939,22.0410466 L33.0100939,24.1160466 C31.9900939,24.1240466 30.9800939,24.1310466 29.9700939,24.1380466 C29.5000939,24.1420466 29.5100939,24.8670466 29.9700939,24.8630466 C30.9900939,24.8550466 32.0000939,24.8470466 33.0100939,24.8400466 L33.0300939,26.9160466 C32.0200939,26.9230466 31.0000939,26.9310466 29.9900939,26.9390466 C29.5200939,26.9420466 29.5300939,27.6670466 29.9900939,27.6630466 C31.0100939,27.6550466 32.0200939,27.6470466 33.0400939,27.6400466 L33.0500939,29.7150466 C31.3300939,29.7280466 29.6100939,29.7420466 27.8900939,29.7540466 C27.4200939,29.7580466 27.4200939,30.4820466 27.8900939,30.4790466 C29.6100939,30.4650466 31.3300939,30.4530466 33.0600939,30.4400466 L33.0700939,32.5150466 C32.0600939,32.5230466 31.0400939,32.5310466 30.0300939,32.5390466 C29.5600939,32.5420466 29.5700939,33.2660466 30.0400939,33.2620466 C31.0500939,33.2540466 32.0600939,33.2480466 33.0800939,33.2400466 L33.0900939,35.3150466 C32.0800939,35.3230466 31.0700939,35.3310466 30.0500939,35.3380466 C29.5900939,35.3410466 29.5900939,36.0660466 30.0600939,36.0620466 C31.0700939,36.0540466 32.0800939,36.0470466 33.1000939,36.0400466 L33.1100939,38.1150466 C32.1000939,38.1230466 31.0900939,38.1300466 30.0700939,38.1380466 C29.6100939,38.1410466 29.6100939,38.8660466 30.0800939,38.8620466 C31.0900939,38.8550466 32.1100939,38.8470466 33.1200939,38.8390466 L33.1400939,40.9150466 C31.4100939,40.9280466 29.6900939,40.9410466 27.9700939,40.9550466 C27.5000939,40.9580466 27.5100939,41.6810466 27.9800939,41.6780466 C29.7000939,41.6660466 31.4200939,41.6520466 33.1400939,41.6390466 L33.1600939,43.7140466 C32.1400939,43.7220466 31.1300939,43.7300466 30.1200939,43.7380466 C29.6500939,43.7410466 29.6500939,44.4650466 30.1200939,44.4610466 C31.1300939,44.4550466 32.1500939,44.4470466 33.1600939,44.4390466 L33.1800939,46.5140466 C32.1600939,46.5220466 31.1500939,46.5300466 30.1400939,46.5380466 C29.6700939,46.5420466 29.6800939,47.2650466 30.1400939,47.2610466 C31.1600939,47.2540466 32.1700939,47.2470466 33.1800939,47.2390466 L33.2300939,53.6620466 C33.2400939,54.1530466 32.8400939,54.5550466 32.3500939,54.5590466 L25.0500939,54.6140466 C24.5600939,54.6180466 24.1600939,54.2210466 24.1600939,53.7310466 L23.8700939,15.8210466 C23.8700939,15.3300466 24.2600939,14.9270466 24.7500939,14.9230466 Z M25.0600939,55.4830466 L32.3500939,55.4280466 C33.3200939,55.4200466 34.1100939,54.6260466 34.1000939,53.6560466 L33.8100939,15.7460466 C33.8100939,14.7760466 33.0100939,13.9930466 32.0400939,14.0000466 L24.7500939,14.0550466 C23.7800939,14.0620466 22.9900939,14.8570466 23.0000939,15.8270466 L23.2900939,53.7370466 C23.2900939,54.7080466 24.0900939,55.4900466 25.0600939,55.4830466 Z" id="Fill-290-Copy" fill="#1C1B19"></path>
+								                <path d="M28.43,16.868042 C28.74,16.866042 29,17.117042 29,17.428042 C29,17.739042 28.75,17.993042 28.44,17.996042 C28.13,17.998042 27.87,17.747042 27.87,17.437042 C27.87,17.126042 28.12,16.871042 28.43,16.868042 Z M28.45,18.865042 C29.24,18.859042 29.87,18.211042 29.87,17.422042 C29.86,16.632042 29.21,15.994042 28.42,16.000042 C27.63,16.006042 27,16.654042 27,17.444042 C27.01,18.233042 27.66,18.870042 28.45,18.865042 Z" id="Fill-291-Copy" fill="#1C1B19"></path>
+								            </g>
+								        </g>
+								    </g>
+								</svg>
+
+							</div>
+
+							<div class="open-menu-btn position-absolute" style="right: 20px; bottom: 20px; z-index: 13">
+
+<svg width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-2" cx="18" cy="18" r="18"></circle>
+        <filter x="-29.2%" y="-29.2%" width="158.3%" height="158.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile" transform="translate(-300.000000, -738.000000)">
+            <g id="Group-6" transform="translate(307.000000, 745.000000)">
+                <g id="Oval-Copy-5">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-2"></use>
+                    <use fill="#000000" fill-rule="evenodd" xlink:href="#path-2"></use>
+                </g>
+                <path d="M19.4782609,19.4782609 L19.4782609,25.0625 C19.4782609,25.580267 19.0402786,26 18.5,26 C17.9597214,26 17.5217391,25.580267 17.5217391,25.0625 L17.5217391,19.4782609 L11.9375,19.4782609 C11.419733,19.4782609 11,19.0402786 11,18.5 C11,17.9597214 11.419733,17.5217391 11.9375,17.5217391 L17.5217391,17.5217391 L17.5217391,11.9375 C17.5217391,11.419733 17.9597214,11 18.5,11 C19.0402786,11 19.4782609,11.419733 19.4782609,11.9375 L19.4782609,17.5217391 L25.0625,17.5217391 C25.580267,17.5217391 26,17.9597214 26,18.5 C26,19.0402786 25.580267,19.4782609 25.0625,19.4782609 L19.4782609,19.4782609 Z" id="Combined-Shape" fill="#FFFFFF" transform="translate(18.500000, 18.500000) rotate(45.000000) translate(-18.500000, -18.500000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>
+							</div>
+
 						</div>
 
 					</div>
@@ -1018,42 +987,6 @@ session_start();
 
 					})
 
-			}
-
-			var quadrantItems = document.querySelectorAll('.quadrant__item');
-			var svgs = document.querySelectorAll('svg');
-			var cube = document.querySelector('.cube');
-			var closeButton = document.querySelector('.quadrant__item__content--close');
-			var isInside = false;
-
-			var tl = new TimelineLite({paused: true});
-			tl.timeScale(1.6);
-
-			tl.to('.cube', 0.4, {rotation: 45, width: '120px', height: '120px', ease: Expo.easeOut}, 'first');
-			tl.to('.plus .plus-vertical', 0.3, {height: '0', backgroundColor: '#f45c41', ease: Power1.easeIn}, 'first');
-			tl.to('.plus .plus-horizontal', 0.3, {width: '0', backgroundColor: '#f45c41', ease: Power1.easeIn}, 'first');
-			tl.to('.cube', 0, {backgroundColor: 'transparent'});
-			tl.to(quadrantItems[0], 0.15, {x: -5, y: -5}, 'seperate');
-			tl.to('.arrow-up', 0.2, {opacity: 1, y: 0}, 'seperate+=0.2');
-			tl.to(quadrantItems[1], 0.15, {x: 5, y: -5}, 'seperate');
-			tl.to('.arrow-right', 0.2, {opacity: 1, x: 0}, 'seperate+=0.2');
-			tl.to(quadrantItems[3], 0.15, {x: 5, y: 5}, 'seperate');
-			tl.to('.arrow-down', 0.2, {opacity: 1, y: 0}, 'seperate+=0.2');
-			tl.to(quadrantItems[2], 0.15, {x: -5, y: 5}, 'seperate');
-			tl.to('.arrow-left', 0.2, {opacity: 1, x: 0}, 'seperate+=0.2');
-
-			cube.addEventListener('mouseenter', playTimeline);
-			cube.addEventListener('mouseleave', reverseTimeline);
-
-			function playTimeline(e) {
-			  e.stopPropagation();
-			  tl.play();
-			}
-
-			function reverseTimeline(e) {
-			  e.stopPropagation();
-			  tl.timeScale(1.8);
-			  tl.reverse();
 			}
 
 
