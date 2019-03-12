@@ -406,10 +406,10 @@
 
 			.dark-overlay {
 				/* Rectangle: */
-				opacity: 0.75;
+				opacity: 0;
 				background: #000000;
 				z-index: 999;
-				/* display: none; */
+				border-top-left-radius: 50%;
 			}
 
 			.text-overlay {
@@ -430,12 +430,17 @@
 				padding-top: 30px;
 			}
 
-			.opened-menu {
-				/* display: none; */
+			.open-menu-btn {
+				transform: scale(0);
 			}
 
 			svg {
 				cursor: pointer;
+			}
+
+			.home-btn .download-btn .text-btn {
+				opacity: 0;
+				transform: scale(0);
 			}
 
 
@@ -537,7 +542,7 @@
 
 			<div class="opened-menu">
 
-				<div class="open-menu-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 99" scale="0">
+				<div class="open-menu-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 100" scale="0">
 
 					<svg data-name="Close Menu." width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 					<desc>Created with Sketch.</desc>
@@ -563,7 +568,7 @@
 					</svg>
 				</div>
 
-				<div class="home-btn position-absolute" style="right: 95px; bottom: 20px; z-index: 13">
+				<div class="home-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 13">
 
 					<svg data-name="Home." width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 							<!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
@@ -592,7 +597,7 @@
 
 				</div>
 
-				<div class="download-btn position-absolute" style="right: 70px; bottom: 70px; z-index: 13">
+				<div class="download-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 13">
 
 
 					<svg data-name="Download Image." width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -622,7 +627,7 @@
 
 				</div>
 
-				<div class="text-btn position-absolute" style="right: 20px; bottom: 95px; z-index: 13">
+				<div class="text-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 13">
 
 
 					<svg data-name="Text Position." width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -1126,13 +1131,20 @@
 
 			}
 
-			var tl = new TimelineLite()
+			var tl1 = new TimelineLite();
+			var tl2 = new TimelineLite();
+			var tl3 = new TimelineLite();
+			var tl4 = new TimelineLite();
+			var tl5 = new TimelineLite();
+			var tl6 = new TimelineLite();
 
 			$('.menu-btn').on('click', () => {
-				tl.to('.menu-btn', 0.1, {scale: 0, ease:Power2.easeInOut, transformOrigin:"50% 50%"})
-					.to('.open-menu-btn', 1, {scale: 1, ease:Power2.easeInOut, transformOrigin:"50% 50%"})
-					.to('.dark-overlay', 0.1, {display: 'block', ease:Power2.easeInOut})
-					// .to('.opened-menu', 0.3, {display: 'block', ease:Power2.easeInOut})
+				tl1.to('.menu-btn', 0.2, {scale: 0, opacity: 0,ease:Power2.easeInOut, transformOrigin:"50% 50%"})
+					 .to('.open-menu-btn', 0.1, {scale: 1, ease:Power2.easeInOut, transformOrigin:"50% 50%"});
+				tl2.to('.dark-overlay', 0.3, {opacity: 0.75, borderTopLeftRadius: 0, ease:Power2.easeInOut, transformOrigin:"60% 60%"});
+				tl3.to('.home-btn',0.6, {right:95, bottom:20, scale: 1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1})
+				tl4.to('.download-btn',0.6, {right:70, bottom:70, scale:1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1})
+				tl5.to('.text-btn',0.6, {right: 20, bottom:95, scale:1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1});
 			});
 
 			$('svg').on('mouseenter mouseleave', function() {
@@ -1148,15 +1160,12 @@
 				}
 
 				$('.text-overlay>p').html($(this).attr('data-name'));
-				// tl.to($(this).find('use:eq(1)'), 0.1, {fill: presentColor.stroke, ease:Power2.easeInOut, transformOrigin:"50% 50%"});
-				// tl.to($(this).find('path'), 0.1, {fill: presentColor.circle, ease:Power2.easeInOut, transformOrigin:"50% 50%"});
-				// tl.to($(this).find('polygon'), 0.1, {fill: presentColor.circle, ease:Power2.easeInOut, transformOrigin:"50% 50%"});
 				$(this).find('use:eq(1)').attr('fill', presentColor.stroke);
 				$(this).find('path').attr('fill', presentColor.circle);
 				$(this).find('polygon').attr('stroke', presentColor.circle);
+				tl5.to($(this),0.1, {scale:1.1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%"});
 
-
-			})
+			});
 
 		</script>
 
