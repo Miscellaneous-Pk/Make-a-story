@@ -443,6 +443,10 @@
 				transform: scale(0);
 			}
 
+			.text-banner-icon {
+				max-width: 154px;
+			}
+
 
 		</style>
 
@@ -468,6 +472,49 @@
 
 					<div class="text-overlay position-absolute">
 						<p></p>
+
+						<div class="d-flex align-items-start">
+
+							<div class="offset-md-1 col-md-4 col-6 px-1">
+
+								<svg class="d-none text-banner-icon mx-auto" width="100%" viewBox="0 0 156 143" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+								    <desc>Created with Sketch.</desc>
+								    <defs></defs>
+								    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+								        <g id="Mobile" transform="translate(-27.000000, -224.000000)">
+								            <g id="Text-Banner" transform="translate(28.000000, 225.000000)">
+								                <polygon id="Path-7" stroke="#FFFBFB" stroke-width="2" fill-opacity="0.58" fill="#D8D8D8" points="0.00848424617 0.0441051973 153.618071 0.0441051973 153.618071 141 0.00848424617 141"></polygon>
+								                <polygon id="Path-8" stroke="#FFFFFF" stroke-width="3" fill="#FFFFFF" points="76.8132776 12 141 12 141 32.2427856 76.8132776 32.2427856"></polygon>
+								            </g>
+								        </g>
+								    </g>
+								</svg>
+							</div>
+
+							<div class="offset-md-1 col-md-4 col-6 px-1">
+
+								<svg class="d-none text-banner-icon mx-auto" width="100%" viewBox="0 0 156 231" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+								    <desc>Created with Sketch.</desc>
+								    <defs></defs>
+								    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+								        <g id="Mobile" transform="translate(-192.000000, -224.000000)">
+								            <g id="Text-Block" transform="translate(193.000000, 225.000000)">
+								                <polygon id="Path-7-Copy" stroke="#FFFBFB" stroke-width="2" fill-opacity="0.58" fill="#D8D8D8" stroke-linejoin="round" points="0 0 154 0 154 229 0 229"></polygon>
+								                <polygon id="Path-8-Copy" fill="#FFFFFF" points="0 143 154 143 154 229 0 229"></polygon>
+								                <path d="M138.5,159 L71.5,159" id="Line-2" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+								                <path d="M138.5,186 L15.5,186" id="Line-2-Copy" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+								                <path d="M110.5,212 L15.5,212" id="Line-2-Copy-2" stroke="#000000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+								            </g>
+								        </g>
+								    </g>
+								</svg>
+
+							</div>
+						</div>
+
+
 					</div>
 
 					<div class="img-block">
@@ -542,7 +589,7 @@
 
 			<div class="opened-menu">
 
-				<div class="open-menu-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 100" scale="0">
+				<div class="open-menu-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 99" scale="0">
 
 					<svg data-name="Close Menu." width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 					<desc>Created with Sketch.</desc>
@@ -1131,40 +1178,63 @@
 
 			}
 
-			var tl1 = new TimelineLite();
-			var tl2 = new TimelineLite();
-			var tl3 = new TimelineLite();
-			var tl4 = new TimelineLite();
-			var tl5 = new TimelineLite();
-			var tl6 = new TimelineLite();
+			var tl1 = new TimelineLite({paused:true});
+			var tl2 = new TimelineLite({paused:true});
+			var tl3 = new TimelineLite({paused:true});
+			var tl4 = new TimelineLite({paused:true});
+			var tl5 = new TimelineLite({paused:true});
+			var tl6 = new TimelineLite({paused:true});
+
+			tl1.to('.menu-btn', 0.2, {scale: 0, opacity: 0,ease:Power2.easeInOut, transformOrigin:"50% 50%"})
+				 .to('.open-menu-btn', 0.1, {scale: 1, ease:Power2.easeInOut, transformOrigin:"50% 50%"});
+			tl2.to('.dark-overlay', 0.3, {opacity: 0.75, borderTopLeftRadius: 0, ease:Power2.easeInOut, transformOrigin:"60% 60%"});
+			tl3.to('.home-btn',0.6, {right:95, bottom:20, scale: 1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1});
+			tl4.to('.download-btn',0.6, {right:70, bottom:70, scale:1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1});
+			tl5.to('.text-btn',0.6, {right: 20, bottom:95, scale:1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1});
 
 			$('.menu-btn').on('click', () => {
-				tl1.to('.menu-btn', 0.2, {scale: 0, opacity: 0,ease:Power2.easeInOut, transformOrigin:"50% 50%"})
-					 .to('.open-menu-btn', 0.1, {scale: 1, ease:Power2.easeInOut, transformOrigin:"50% 50%"});
-				tl2.to('.dark-overlay', 0.3, {opacity: 0.75, borderTopLeftRadius: 0, ease:Power2.easeInOut, transformOrigin:"60% 60%"});
-				tl3.to('.home-btn',0.6, {right:95, bottom:20, scale: 1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1})
-				tl4.to('.download-btn',0.6, {right:70, bottom:70, scale:1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1})
-				tl5.to('.text-btn',0.6, {right: 20, bottom:95, scale:1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1});
+				tl1.play();
+				tl2.play();
+				tl3.play();
+				tl4.play();
+				tl5.play();
+				$('.open-menu-btn').find('svg').data('status','open');
 			});
 
 			$('svg').on('mouseenter mouseleave', function() {
 
-				let presentColor = {
-					circle: $(this).find('use:eq(1)').attr('fill'),
-					stroke: $(this).find('path').attr('fill') || $(this).find('polygon').attr('stroke')
-				};
+				if ($(this).parent('.menu-btn').length) return console.log('Menu btn pressed');
+
+				if ($('.open-menu-btn').find('svg').data().status === 'closed') return console.log('close button pressed.');
 
 				if ($(this).attr('data-name') === 'Close Menu.') {
 					$('.text-overlay>p').html($(this).attr('data-name'));
 					return console.log('close hovering');
 				}
 
+				if ($(this).attr('data-name') === 'Text Position.') $('.text-overlay').find('svg').toggleClass('d-none');
+
+				let presentColor = {
+					circle: $(this).find('use:eq(1)').attr('fill'),
+					stroke: $(this).find('path').attr('fill') || $(this).find('polygon').attr('stroke')
+				};
+
 				$('.text-overlay>p').html($(this).attr('data-name'));
 				$(this).find('use:eq(1)').attr('fill', presentColor.stroke);
 				$(this).find('path').attr('fill', presentColor.circle);
 				$(this).find('polygon').attr('stroke', presentColor.circle);
-				tl5.to($(this),0.1, {scale:1.1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%"});
 
+			});
+
+			$('.open-menu-btn').on('click',function() {
+				$(this).find('svg').data('status','closed');
+				console.log('closed menu');
+				$('.text-overlay>p').html('');
+				tl1.reverse();
+				tl2.reverse();
+				tl3.reverse();
+				tl4.reverse();
+				tl5.reverse();
 			});
 
 		</script>
