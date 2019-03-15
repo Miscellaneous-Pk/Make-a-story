@@ -134,7 +134,7 @@
 
 				top: 100%;
 				left: 0%;
-				/*				display: none;*/
+				/* display: none; */
 				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 			}
@@ -516,13 +516,13 @@
 					<svg class="d-none text-banner-icon mx-auto" width="100%" viewBox="0 0 156 231" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd" clip-rule="evenodd" d="M1 1H155V230H1V1Z" fill="#D8D8D8" fill-opacity="0.58" stroke="#FFFBFB" stroke-width="2" stroke-linejoin="round"/>
 					<path fill-rule="evenodd" clip-rule="evenodd" d="M1 144H155V230H1V144Z" fill="#FFFFFF"/>
-					<path class="banner-lines" d="M139.5 160H72.5" stroke="#DADADA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+					<path data-show-text="detailBox-Big" class="banner-lines" d="M139.5 160H72.5" stroke="#DADADA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
 					<path class="banner-lines" d="M139.5 187H16.5" stroke="#DADADA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
 					<path class="banner-lines" d="M111.5 213H16.5" stroke="#DADADA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-					<path class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M10 15C10 13.3431 11.3431 12 13 12H71C72.6569 12 74 13.3431 74 15V29C74 30.6569 72.6569 32 71 32H13C11.3431 32 10 30.6569 10 29V15Z" fill="#000000"/>
-					<path class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M82 15C82 13.3431 83.3431 12 85 12H143.187C144.844 12 146.187 13.3431 146.187 15V29.2428C146.187 30.8996 144.844 32.2428 143.187 32.2428H85C83.3431 32.2428 82 30.8996 82 29.2428V15Z" fill="#FFFFFF"/>
-					<path class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M10 116C10 114.343 11.3431 113 13 113H71C72.6569 113 74 114.343 74 116V130C74 131.657 72.6569 133 71 133H13C11.3431 133 10 131.657 10 130V116Z" fill="#FFFFFF"/>
-					<path class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M82 116C82 114.343 83.3431 113 85 113H143C144.657 113 146 114.343 146 116V130C146 131.657 144.657 133 143 133H85C83.3431 133 82 131.657 82 130V116Z" fill="#FFFFFF"/>
+					<path data-show-text="detailBox left top" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M10 15C10 13.3431 11.3431 12 13 12H71C72.6569 12 74 13.3431 74 15V29C74 30.6569 72.6569 32 71 32H13C11.3431 32 10 30.6569 10 29V15Z" fill="#000000"/>
+					<path data-show-text="detailBox right top" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M82 15C82 13.3431 83.3431 12 85 12H143.187C144.844 12 146.187 13.3431 146.187 15V29.2428C146.187 30.8996 144.844 32.2428 143.187 32.2428H85C83.3431 32.2428 82 30.8996 82 29.2428V15Z" fill="#FFFFFF"/>
+					<path data-show-text="detailBox left bottom" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M10 116C10 114.343 11.3431 113 13 113H71C72.6569 113 74 114.343 74 116V130C74 131.657 72.6569 133 71 133H13C11.3431 133 10 131.657 10 130V116Z" fill="#FFFFFF"/>
+					<path data-show-text="detailBox right bottom" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M82 116C82 114.343 83.3431 113 85 113H143C144.657 113 146 114.343 146 116V130C146 131.657 144.657 133 143 133H85C83.3431 133 82 131.657 82 130V116Z" fill="#FFFFFF"/>
 					</svg>
 
 				</div>
@@ -917,7 +917,7 @@
 
 				$('.detailBox-Big').css({width: imgWt + 1});
 
-				$('.detailBox').css({right: '2%',bottom: '2%'});
+				// $('.detailBox').css({right: '2%',bottom: '2%'});
 
 				let elem = `<div class="circleAndNo rounded-circle bg-info text-light" ><span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span><elem>1</elem></div>`;
 
@@ -1226,8 +1226,13 @@
 				if (ctr == 4) {
 					$(this).attr({ctr:0});
 					$('.banner-inBox').attr('fill','white');
-					return console.log($(`.banner-lines`).attr({stroke:'black'}));
+					$('.detailBox').css({display:'none'});
+					console.log($('.detailBox-big').css({display:'block'}));
+					return $(`.banner-lines`).attr({stroke:'black'});
 				};
+				let myData = $(`.banner-inBox:eq(${ctr})`).attr('data-show-text').split(' ');
+				$('.detailBox-big').css({display:'none'});
+				$('.detailBox').css({left:'',right:'',top:'',bottom:'',[myData[1]]: '2%',[myData[2]]: '2%',display:'block'});
 				$(`.banner-lines`).attr('stroke','#DADADA');
 				$(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox').attr('fill','white');
 				ctr++;
