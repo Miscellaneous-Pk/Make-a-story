@@ -135,6 +135,7 @@
 				top: 100%;
 				left: 0%;
 				/* display: none; */
+				word-wrap: break-word;
 				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 			}
@@ -491,7 +492,7 @@
 
 							<img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="{{image}}" data-id="{{id}}" data-comments= "{{comments}}">
 
-							<div class="position-relative mx-auto detailBox-Big rounded-bottom">
+							<div class="detailBox-Big position-relative mx-auto rounded-bottom">
 
 								<div class="d-flex flex-wrap justify-content-center bg-dark rounded-bottom">
 
@@ -917,7 +918,7 @@
 
 				$('.detailBox-Big').css({width: imgWt + 1});
 
-				// $('.detailBox').css({right: '2%',bottom: '2%'});
+				$('.detailBox').css({right: '2%',bottom: '2%'});
 
 				let elem = `<div class="circleAndNo rounded-circle bg-info text-light" ><span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span><elem>1</elem></div>`;
 
@@ -995,10 +996,11 @@
 
 							smallelem = `<small><span class="small-elem border-right px-1">` + (key + 1) + `</span></small>`;
 
-							bigelems = `<div class="big-text-here col-md-4 col-sm-6 col-12 text-left p-2">
+							bigelems = `
+<div class="big-text-here col-md-4 col-sm-6 col-12 text-left p-2">
 <span class="badge badge-light">` + (key + 1) + `</span>
 <small>` + value + `</small>
-			</div>`;
+</div>`;
 
 							$('.detailBox').append(smallelem);
 
@@ -1222,21 +1224,27 @@
 
 			$('.text-btn').on('click',function() {
 				let ctr = $(this).attr('ctr');
-				console.log(ctr);
 				if (ctr == 4) {
 					$(this).attr({ctr:0});
 					$('.banner-inBox').attr('fill','white');
 					$('.detailBox').css({display:'none'});
-					console.log($('.detailBox-big').css({display:'block'}));
+					$('.detailBox-Big').css({display:'block'});
 					return $(`.banner-lines`).attr({stroke:'black'});
 				};
+				$('.detailBox-Big').css({display:'none'});
 				let myData = $(`.banner-inBox:eq(${ctr})`).attr('data-show-text').split(' ');
-				$('.detailBox-big').css({display:'none'});
 				$('.detailBox').css({left:'',right:'',top:'',bottom:'',[myData[1]]: '2%',[myData[2]]: '2%',display:'block'});
 				$(`.banner-lines`).attr('stroke','#DADADA');
-				$(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox').attr('fill','white');
+				// $(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox').attr('fill','white');
+				$(`.banner-inBox:eq(${ctr})`).animate({
+					'fill':'black'},
+					2000,
+					"linear",
+					step: function(now) { $(this).attr("fill", now);}
+				).siblings('.banner-inBox').attr('fill','white');
 				ctr++;
 				$(this).attr({ctr});
+
 			})
 
 		</script>
