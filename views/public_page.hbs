@@ -448,6 +448,10 @@
 				max-width: 154px;
 			}
 
+			.banner-lines {
+				transform: scale(1);
+			}
+
 
 		</style>
 
@@ -1168,7 +1172,6 @@
 			var tl3 = new TimelineLite({paused:true});
 			var tl4 = new TimelineLite({paused:true});
 			var tl5 = new TimelineLite({paused:true});
-			var tl6 = new TimelineLite({paused:true});
 
 			tl1.to('.menu-btn', 0.2, {scale: 0, opacity: 0,ease:Power2.easeInOut, transformOrigin:"50% 50%"})
 				 .to('.open-menu-btn', 0.1, {scale: 1, ease:Power2.easeInOut, transformOrigin:"50% 50%"});
@@ -1223,29 +1226,25 @@
 			});
 
 			$('.text-btn').on('click',function() {
+				var tl6 = new TimelineLite();
 				let ctr = $(this).attr('ctr');
 				if (ctr == 4) {
 					$(this).attr({ctr:0});
-					$('.banner-inBox').attr('fill','white');
 					$('.detailBox').css({display:'none'});
 					$('.detailBox-Big').css({display:'block'});
-					return $(`.banner-lines`).attr({stroke:'black'});
+					tl6.to(`.banner-inBox`,0.05,{fill:'white', ease:Power2.easeInOut})
+						 .to(`.banner-lines`,0.05,{stroke:'black', ease:Power2.easeInOut});
+					return console.log('done');
 				};
 				$('.detailBox-Big').css({display:'none'});
 				let myData = $(`.banner-inBox:eq(${ctr})`).attr('data-show-text').split(' ');
 				$('.detailBox').css({left:'',right:'',top:'',bottom:'',[myData[1]]: '2%',[myData[2]]: '2%',display:'block'});
-				$(`.banner-lines`).attr('stroke','#DADADA');
-				// $(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox').attr('fill','white');
-				$(`.banner-inBox:eq(${ctr})`).animate({
-					'fill':'black'},
-					2000,
-					"linear",
-					step: function(now) { $(this).attr("fill", now);}
-				).siblings('.banner-inBox').attr('fill','white');
+				tl6.to(`.banner-inBox:eq(${ctr})`,0.05,{fill:'black', ease:Power2.easeInOut})
+					 .to(`.banner-lines`,0.05,{stroke:'#DADADA', ease:Power2.easeInOut})
+					 .to($(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox'),0.05,{fill:'white',ease:Power2.easeInOut})
 				ctr++;
 				$(this).attr({ctr});
-
-			})
+			});
 
 		</script>
 
