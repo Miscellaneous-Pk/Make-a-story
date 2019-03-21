@@ -407,6 +407,7 @@
 
 			.dark-overlay {
 				/* Rectangle: */
+				display: none;
 				opacity: 0;
 				background: #000000;
 				z-index: 999;
@@ -431,7 +432,7 @@
 				padding-top: 30px;
 			}
 
-			.open-menu-btn {
+			.close-menu-btn {
 				transform: scale(0);
 			}
 
@@ -580,7 +581,7 @@
 
 			<div class="opened-menu">
 
-				<div class="open-menu-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 99" scale="0">
+				<div class="close-menu-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 99" scale="0">
 
 					<svg data-name="Close Menu." width="50px" height="50px" viewBox="0 0 50 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 					<desc>Created with Sketch.</desc>
@@ -1174,8 +1175,8 @@
 			var tl5 = new TimelineLite({paused:true});
 
 			tl1.to('.menu-btn', 0.2, {scale: 0, opacity: 0,ease:Power2.easeInOut, transformOrigin:"50% 50%"})
-				 .to('.open-menu-btn', 0.1, {scale: 1, ease:Power2.easeInOut, transformOrigin:"50% 50%"});
-			tl2.to('.dark-overlay', 0.3, {opacity: 0.75, borderTopLeftRadius: 0, ease:Power2.easeInOut, transformOrigin:"60% 60%"});
+				 .to('.close-menu-btn', 0.1, {scale: 1, ease:Power2.easeInOut, transformOrigin:"50% 50%"});
+			tl2.to('.dark-overlay', 0.3, {opacity: 0.75, borderTopLeftRadius: 0, display: 'block', ease:Power2.easeInOut, transformOrigin:"60% 60%"});
 			tl3.to('.home-btn',0.6, {right:95, bottom:20, scale: 1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1});
 			tl4.to('.download-btn',0.6, {right:70, bottom:70, scale:1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1});
 			tl5.to('.text-btn',0.6, {right: 20, bottom:95, scale:1, opacity: 1, ease:Elastic.easeOut.config(1,0.9), transformOrigin:"50% 50%",delay:0.1});
@@ -1186,14 +1187,14 @@
 				tl3.play();
 				tl4.play();
 				tl5.play();
-				$('.open-menu-btn').find('svg').data('status','open');
+				$('.close-menu-btn').find('svg').data('status','open');
 			});
 
 			$('svg').on('mouseenter mouseleave', function() {
 
 				if ($(this).parent('.menu-btn').length) return console.log('Menu btn pressed');
 
-				if ($('.open-menu-btn').find('svg').data().status === 'closed') return console.log('close button pressed.');
+				if ($('.close-menu-btn').find('svg').data().status === 'closed') return console.log('close button pressed.');
 
 				if ($(this).attr('data-name') === 'Close Menu.') {
 					$('.text-overlay>p').html($(this).attr('data-name'));
@@ -1214,7 +1215,7 @@
 
 			});
 
-			$('.open-menu-btn').on('click',function() {
+			$('.close-menu-btn').on('click',function() {
 				$(this).find('svg').data('status','closed');
 				console.log('closed menu');
 				$('.text-overlay>p').html('');
@@ -1245,6 +1246,10 @@
 				ctr++;
 				$(this).attr({ctr});
 			});
+
+			$('.dark-overlay').on('click',() => {
+				$('.close-menu-btn').trigger('click');
+			})
 
 		</script>
 
