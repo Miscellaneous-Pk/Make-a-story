@@ -2412,7 +2412,7 @@ border-top-color: #343a40;
                     right: '',
                     top: '',
                     bottom: '2%'
-                }).attr({ctr:1});;
+                }).attr({ctr:2});;
 
             })
 
@@ -2429,7 +2429,7 @@ border-top-color: #343a40;
                     right: '2%',
                     top: '',
                     bottom: '2%'
-                }).attr({ctr:1});;
+                }).attr({ctr:3});;
 
             })
 
@@ -2439,7 +2439,7 @@ border-top-color: #343a40;
 
                 console.log(event);
 
-                $('.detailBox').hide().removeClass('d-flex');
+                $('.detailBox').hide().removeClass('d-flex').attr({ctr:4});
                 $('.detailBox-Big').show();
 
             })
@@ -2661,7 +2661,8 @@ border-top-color: #343a40;
               let myArray = $(this).find('.draft-badge').attr('class').split(' ');
 
                 if ($.inArray('Published', myArray) !== -1) {
-                  return window.location.assign('/picture/'+$(this).find('.card-image-top').attr('data-id'));
+                  let picId = $(this).find('.card-image-top').attr('data-id');
+                  return window.location.assign(`/picture/${picId},{{token}}`);
                 };
 
                 spinner.start();
@@ -3235,6 +3236,7 @@ border-top-color: #343a40;
                   "token": `{{token}}`,
                   "status": 'Published',
                   "title" : $('#in-title').val(),
+                  "ctr": $('detailBox').attr('ctr'),
                 };
 
                 data = JSON.stringify(data);

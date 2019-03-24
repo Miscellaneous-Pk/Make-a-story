@@ -32,7 +32,7 @@ let authenticate = (req,res,next) => {
     req.params.user = user;
     next();
   }).catch((e) => {
-    console.log(e);
+    console.log(e.message);
     return res.status(404).render('index.hbs');
   });
 };
@@ -229,7 +229,8 @@ app.post('/loggedin',authenticate,(req,res) => {
     },{
       $set: {
         'pictures.$.status':req.body.status,
-        'pictures.$.title': req.body.title
+        'pictures.$.title': req.body.title,
+        'pictures.$.ctr': req.body.ctr,
       }
     },{new: true}).then((msg) => {
       if (!msg.n) return Promise.reject('Image do not exist. Status upload failed.');
@@ -243,7 +244,9 @@ app.post('/loggedin',authenticate,(req,res) => {
 });
 
 app.get('/picture/:id',(req,res) => {
-  let getId = req.params.id;
+  let getId = req.params.id.split(',')[0];
+  let token = req.params.id.split(',')[1] || '';
+  console.log(token);
   Users.findOne({
     "pictures._id": getId,
   }).then((msg) => {
@@ -251,7 +254,8 @@ app.get('/picture/:id',(req,res) => {
     res.status(200).render('public_page.hbs',{
       image: result.image,
       comments: result.data,
-      id: result.id
+      id: result.id,
+      token: token,
     });
   }).catch((e) => {
     console.log(e);

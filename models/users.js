@@ -54,6 +54,9 @@ var UsersSchema = new mongoose.Schema({
     },
     title: {
       type: String,
+    },
+    ctr: {
+      type: String,
     }
   }]
 });

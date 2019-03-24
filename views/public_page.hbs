@@ -1251,6 +1251,12 @@
 				$('.close-menu-btn').trigger('click');
 			})
 
+			$('.home-btn').on('click',() => {
+				let token = '{{token}}';
+				if (token.length > 0) return window.location.assign(`/home/{{token}}`);
+				return window.location.assign('/home/notloggedin');
+			})
+
 		</script>
 
 	</body>
