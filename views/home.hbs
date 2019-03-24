@@ -2440,7 +2440,7 @@ border-top-color: #343a40;
 
                 console.log(event);
 
-                $('.detailBox').hide().removeClass('d-flex').attr({ctr:4});
+                $('.detailBox').attr({ctr:4}).hide().removeClass('d-flex')
                 $('.detailBox-Big').show();
 
             })
@@ -3233,6 +3233,8 @@ border-top-color: #343a40;
 
             $('.publish-btn').on('click', function() {
 
+              return console.log($('.detailBox').attr('ctr'));
+              
                 let data = {
                   "query": 'updateImageStatus',
                   "public_id": $('.image').data().public_id,

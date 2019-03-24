@@ -485,7 +485,7 @@
 									<small class="border-right px-1 rounded-left">1</small>
 									<small class="border-right px-1">2</small>
 									<small class="border-right px-1">3</small>
-									<small class=" px-1 rounded-right">4</small>
+									<small class="px-1 rounded-right">4</small>
 
 							</div>
 
@@ -730,16 +730,6 @@
 
 				$('[data-toggle="tooltip"]').tooltip();
 
-				let key = $('.detailBox').attr('ctr');
-
-				let textPosn = {
-					0: 'left top',
-					1: 'right top',
-					2: 'left bottom',
-					3: 'right bottom'
-				};
-
-				console.log(textPosn[key]);
 
 			}) // DOCUMENT IS READY AND RECIZE
 
@@ -934,7 +924,32 @@
 
 				$('.detailBox-Big').css({width: imgWt + 1});
 
-				$('.detailBox').css({right: '2%',bottom: '2%'});
+				let key = $('.detailBox').attr('ctr');
+
+				let textPosn = {
+					0: 'left top',
+					1: 'right top',
+					2: 'left bottom',
+					3: 'right bottom',
+					4: 'bottom',
+				};
+
+				let posn = textPosn[key].split(' ');
+
+				if (key == 4) {
+
+					$('.detailBox').css({display: 'none'});
+					$('.detailBox-Big').css({display: 'block'});
+					$('.banner-inBox').attr({fill: '#DADADA'});
+					$('.banner-lines').attr({stroke: 'black'});
+
+				} else {
+
+					$('.detailBox-Big').css({display: 'none'});
+					$('.detailBox').css({[posn[0]]: '2%',[posn[1]]: '2%'});
+					$(`.banner-inBox:eq(${key})`).attr({fill: 'black'}).siblings('.banner-inBox').attr({fill: '#DADADA'});
+
+				};
 
 				let elem = `<div class="circleAndNo rounded-circle bg-info text-light" ><span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span><elem>1</elem></div>`;
 
@@ -1208,8 +1223,7 @@
 				if ($('.close-menu-btn').find('svg').data().status === 'closed') return console.log('close button pressed.');
 
 				if ($(this).attr('data-name') === 'Close Menu.') {
-					$('.text-overlay>p').html($(this).attr('data-name'));
-					return console.log('close hovering');
+					return $('.text-overlay>p').html($(this).attr('data-name'));
 				}
 
 				if ($(this).attr('data-name') === 'Text Position.') $('.text-overlay').find('svg').toggleClass('d-none');
@@ -1240,21 +1254,22 @@
 			$('.text-btn').on('click',function() {
 				var tl6 = new TimelineLite();
 				let ctr = $(this).attr('ctr');
+				ctr++;
 				if (ctr == 4) {
-					$(this).attr({ctr:0});
+					$(this).attr({ctr:-1});
 					$('.detailBox').css({display:'none'});
 					$('.detailBox-Big').css({display:'block'});
-					tl6.to(`.banner-inBox`,0.05,{fill:'white', ease:Power2.easeInOut})
+					tl6.to(`.banner-inBox`,0.05,{fill:'#DADADA', ease:Power2.easeInOut})
 						 .to(`.banner-lines`,0.05,{stroke:'black', ease:Power2.easeInOut});
 					return console.log('done');
 				};
 				$('.detailBox-Big').css({display:'none'});
+				console.log(ctr);
 				let myData = $(`.banner-inBox:eq(${ctr})`).attr('data-show-text').split(' ');
 				$('.detailBox').css({left:'',right:'',top:'',bottom:'',[myData[1]]: '2%',[myData[2]]: '2%',display:'block'});
 				tl6.to(`.banner-inBox:eq(${ctr})`,0.05,{fill:'black', ease:Power2.easeInOut})
 					 .to(`.banner-lines`,0.05,{stroke:'#DADADA', ease:Power2.easeInOut})
-					 .to($(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox'),0.05,{fill:'white',ease:Power2.easeInOut})
-				ctr++;
+					 .to($(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox'),0.05,{fill:'#DADADA',ease:Power2.easeInOut})
 				$(this).attr({ctr});
 			});
 
