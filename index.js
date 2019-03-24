@@ -223,6 +223,7 @@ app.post('/loggedin',authenticate,(req,res) => {
 
   if (req.body.query === 'updateImageStatus') {
     var user = req.params.user;
+    console.log(req.body.ctr);
     Users.updateOne({
       _id: user._id,
       "pictures._id": req.body.public_id
@@ -246,7 +247,6 @@ app.post('/loggedin',authenticate,(req,res) => {
 app.get('/picture/:id',(req,res) => {
   let getId = req.params.id.split(',')[0];
   let token = req.params.id.split(',')[1] || '';
-  console.log(token);
   Users.findOne({
     "pictures._id": getId,
   }).then((msg) => {
@@ -255,6 +255,7 @@ app.get('/picture/:id',(req,res) => {
       image: result.image,
       comments: result.data,
       id: result.id,
+      ctr: result.ctr,
       token: token,
     });
   }).catch((e) => {

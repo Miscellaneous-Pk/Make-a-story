@@ -209,6 +209,7 @@
                 top: 100%;
                 left: 0%;
                 /*								display: none;*/
+                word-wrap: break-word;
                 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
             }
@@ -681,7 +682,7 @@
 
                       <div id="overlay" class="position-absolute">
 
-                          <div class="detailBox bg-dark rounded" ctr="5">
+                          <div class="detailBox bg-dark rounded" ctr="4">
 
 
                               <small class="border-right px-1 rounded-left">1</small>
@@ -3228,6 +3229,8 @@ border-top-color: #343a40;
 
             let images_cloudinary = new Object();
 
+
+
             $('.publish-btn').on('click', function() {
 
                 let data = {
@@ -3236,7 +3239,7 @@ border-top-color: #343a40;
                   "token": `{{token}}`,
                   "status": 'Published',
                   "title" : $('#in-title').val(),
-                  "ctr": $('detailBox').attr('ctr'),
+                  "ctr": $('.detailBox').attr('ctr'),
                 };
 
                 data = JSON.stringify(data);
@@ -3254,7 +3257,8 @@ border-top-color: #343a40;
                     console.log(res);
                     $('.saving-data').addClass('d-none').animate({opacity: 1}, 500, 'linear');
                     $('.saving-done').html('<i class="fas fa-check-circle"></i> Published');
-                    window.location.assign('/picture/'+$('.image').data().public_id);
+                    let picId = $('.image').data().public_id;
+                    return window.location.assign(`/picture/${picId},{{token}}`);
                   }).fail((e) => {
                     console.log(e.responseText);
                   });

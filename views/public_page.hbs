@@ -480,7 +480,7 @@
 
 						<div id="overlay" class="position-absolute">
 
-							<div class="detailBox bg-dark rounded">
+							<div class="detailBox bg-dark rounded" ctr='{{ctr}}'>
 
 									<small class="border-right px-1 rounded-left">1</small>
 									<small class="border-right px-1">2</small>
@@ -666,7 +666,7 @@
 
 				</div>
 
-				<div class="text-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 13" ctr="0">
+				<div class="text-btn position-absolute" style="right: 21px; bottom: 21px; z-index: 13" ctr="{{ctr}}">
 
 					<svg data-name="Text Position." width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 							<!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
@@ -729,6 +729,17 @@
 				});
 
 				$('[data-toggle="tooltip"]').tooltip();
+
+				let key = $('.detailBox').attr('ctr');
+
+				let textPosn = {
+					0: 'left top',
+					1: 'right top',
+					2: 'left bottom',
+					3: 'right bottom'
+				};
+
+				console.log(textPosn[key]);
 
 			}) // DOCUMENT IS READY AND RECIZE
 
