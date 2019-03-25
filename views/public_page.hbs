@@ -489,13 +489,13 @@
 
 							</div>
 
-							<canvas data-html2canvas-ignore id="myCanvas"></canvas>
-
 						</div>
 
 						<div class="" id="for-printing">
 
-							<img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="{{image}}" data-id="{{id}}" data-comments= "{{comments}}">
+							<div class="title bg-dark rounded-top py-2 px-2 mx-auto"><span class="badge badge-dark">Title</span><span class="title-badge badge">{{title}}</span></div>
+
+							<img class="image bg-shadow mx-auto border border-dark" id="blah" src="{{image}}" data-id="{{id}}" data-comments= "{{comments}}">
 
 							<div class="detailBox-Big position-relative mx-auto rounded-bottom">
 
@@ -853,13 +853,13 @@
 
 			});
 
-			$(document).on('click','.download-pic',function(e) {
+			$(document).on('click','.download-btn',function(e) {
 
 				let aTag = `<a class="aTag" style="display:none">Click Me</a>`;
 
 				$('body').append(aTag);
 
-				printhidendisplay.execute(false);
+				printhidendisplay.execute(true);
 
 				let div = document.querySelector('.custom-hide');
 
@@ -872,7 +872,7 @@
 
 					let link = drawnPic.toDataURL('image/jpeg');
 
-					$('.aTag:eq(0)').attr({href: link, download:'newImage'}).click();
+					$('.aTag:eq(0)').attr({href: link, download:'{{title}}'}).click();
 
 					printhidendisplay.undo();
 
@@ -920,7 +920,7 @@
 
 				}
 
-				$('#overlay').css({height: imgHt, width: imgWt});
+				$('#overlay').css({height: imgHt, width: imgWt, top: $('.title').outerHeight()});
 
 				$('.detailBox-Big').css({width: imgWt + 1});
 
@@ -959,13 +959,15 @@
 				$.each(obj, function(key, value) {
 
 						let newObj = value.data;
+						console.log(newObj);
+						// $('#for-printing').prepend(elem);
 
-						$('#for-printing').prepend(elem);
+						$(elem).insertBefore('.image');
 
-						$('.circleAndNo:eq(0)').css({
+						$('.circleAndNo:eq(-1)').css({
 								'z-index': 4,
 								left: newObj.percentX * $('.image').width() + $('#overlay').position().left,
-								top: newObj.percentY * $('.image').height(),
+								top: newObj.percentY * $('.image').height() + $('.title').outerHeight(),
 								'font-size': newObj.mFontSize * $('.image').width(),
 								height: newObj.mHeight * $('.image').width(),
 								width: newObj.mWidth * $('.image').width()
@@ -981,6 +983,7 @@
 
 						$('.circleAndNo').removeClass().addClass(newObj.classs);
 
+
 				})
 
 				let fullClassesNew = $('.circleAndNo').attr('class').split(' ');
@@ -993,9 +996,11 @@
 
 						}
 
-				})
+				});
 
 				foundClassesNew = foundClassesNew.join(' ');
+
+				$('.title').find('.title-badge').addClass(foundClassesNew);
 
 				givedatatotextbox();
 
@@ -1050,6 +1055,22 @@
 							}
 
 					})
+
+					$(document).on('mouseenter mouseleave', '.big-text-here', function() {
+
+							let serNo = parseInt($(this).find('.badge').html());
+
+							let thisCircle = $.grep($('.circleAndNo'), function(item) {
+
+									return $(item).find('elem').html() == serNo;
+
+							})
+
+							$(thisCircle).trigger('mouseenter');
+
+							$(this).toggleClass('bg-light text-dark');
+
+					});
 
 					$('.small-elem:eq(-1)').removeClass('border-right');
 

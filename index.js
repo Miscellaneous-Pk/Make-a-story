@@ -257,6 +257,7 @@ app.get('/picture/:id',(req,res) => {
       id: result.id,
       ctr: result.ctr,
       token: token,
+      title: result.title,
     });
   }).catch((e) => {
     console.log(e);
