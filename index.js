@@ -223,7 +223,6 @@ app.post('/loggedin',authenticate,(req,res) => {
 
   if (req.body.query === 'updateImageStatus') {
     var user = req.params.user;
-    console.log(req.body.ctr);
     Users.updateOne({
       _id: user._id,
       "pictures._id": req.body.public_id

@@ -113,8 +113,8 @@
 
 			.detailBox {
 				position: absolute;
-				z-index: 0;
-				display: block;
+				z-index: 5;
+				cursor: pointer;
 			}
 
 			.detailBox-text {
@@ -386,12 +386,6 @@
 
 			}
 
-			small {
-
-				pointer-events: none;
-
-			}
-
 			#upload-error {
 
 				display: none;
@@ -453,6 +447,13 @@
 				transform: scale(1);
 			}
 
+			.popover {
+					pointer-events: none;
+			}
+
+			.small-elem {
+				font-size: 80%;
+			}
 
 		</style>
 
@@ -480,12 +481,7 @@
 
 						<div id="overlay" class="position-absolute">
 
-							<div class="detailBox bg-dark rounded" ctr='{{ctr}}'>
-
-									<small class="border-right px-1 rounded-left">1</small>
-									<small class="border-right px-1">2</small>
-									<small class="border-right px-1">3</small>
-									<small class="px-1 rounded-right">4</small>
+							<div class="detailBox d-flex bg-dark rounded" ctr='{{ctr}}'>
 
 							</div>
 
@@ -533,15 +529,12 @@
 
 				</div>
 
-				<div class="col-6">
+				<div class="col-6"></div>
 
-
-
-				</div>
 			</div>
 
 
-			<p></p>
+			<p class="d-none"></p>
 
 
 		</div>
@@ -922,7 +915,7 @@
 
 				$('#overlay').css({height: imgHt, width: imgWt, top: $('.title').outerHeight()});
 
-				$('.detailBox-Big').css({width: imgWt + 1});
+				$('.detailBox-Big').css({width: imgWt + 2});
 
 				let key = $('.detailBox').attr('ctr');
 
@@ -939,7 +932,7 @@
 				if (key == 4) {
 
 					$('.text-btn').attr({ctr:-1});
-					$('.detailBox').css({display: 'none'});
+					$('.detailBox').toggleClass('d-none d-flex');
 					$('.detailBox-Big').css({display: 'block'});
 					$('.banner-inBox').attr({fill: '#DADADA'});
 					$('.banner-lines').attr({stroke: 'black'});
@@ -959,8 +952,6 @@
 				$.each(obj, function(key, value) {
 
 						let newObj = value.data;
-						console.log(newObj);
-						// $('#for-printing').prepend(elem);
 
 						$(elem).insertBefore('.image');
 
@@ -979,7 +970,7 @@
 								'mWidth': newObj.mWidth,
 								comment: value.comment,
 								editFlag: false
-						}).find('elem').html(key+1);
+						}).find('elem').html(value.label);
 
 						$('.circleAndNo').removeClass().addClass(newObj.classs);
 
@@ -1021,7 +1012,7 @@
 
 							}
 
-					})
+					});
 
 					let needColAdjustments = false;
 
@@ -1031,7 +1022,7 @@
 
 					$.each(comments, function(key, value) {
 
-							smallelem = `<small><span class="small-elem border-right px-1">` + (key + 1) + `</span></small>`;
+							smallelem = `<span class="small-elem border-right px-1">` + (key + 1) + `</span>`;
 
 							bigelems = `
 <div class="big-text-here col-md-4 col-sm-6 col-12 text-left p-2">
@@ -1054,7 +1045,25 @@
 
 							}
 
-					})
+					});
+
+					$(document).on('mouseenter mouseleave', '.small-elem', function() {
+
+						console.log('hello');
+
+							let serNo = parseInt($(this).html());
+
+							let thisCircle = $.grep($('.circleAndNo'), function(item) {
+
+									return $(item).find('elem').html() == serNo;
+
+							})
+
+							$(thisCircle).trigger('mouseenter');
+
+							$(this).toggleClass('bg-light text-dark');
+
+					});
 
 					$(document).on('mouseenter mouseleave', '.big-text-here', function() {
 
@@ -1245,7 +1254,7 @@
 				if ($('.close-menu-btn').find('svg').data().status === 'closed') return console.log('close button pressed.');
 
 				if ($(this).attr('data-name') === 'Close Menu.') {
-					return $('.text-overlay>p').html($(this).attr('data-name'));
+					return $('.text-overlay>p').toggleClass('d-none').html($(this).attr('data-name'));
 				}
 
 				if ($(this).attr('data-name') === 'Text Position.') $('.text-overlay').find('svg').toggleClass('d-none');
@@ -1255,7 +1264,7 @@
 					stroke: $(this).find('path').attr('fill') || $(this).find('polygon').attr('stroke')
 				};
 
-				$('.text-overlay>p').html($(this).attr('data-name'));
+				$('.text-overlay>p').toggleClass('d-none').html($(this).attr('data-name'));
 				$(this).find('use:eq(1)').attr('fill', presentColor.stroke);
 				$(this).find('path').attr('fill', presentColor.circle);
 				$(this).find('polygon').attr('stroke', presentColor.circle);
@@ -1279,7 +1288,7 @@
 				ctr++;
 				if (ctr == 4) {
 					$(this).attr({ctr:-1});
-					$('.detailBox').css({display:'none'});
+					$('.detailBox').toggleClass('d-none d-flex');
 					$('.detailBox-Big').css({display:'block'});
 					tl6.to(`.banner-inBox`,0.05,{fill:'#DADADA', ease:Power2.easeInOut})
 						 .to(`.banner-lines`,0.05,{stroke:'black', ease:Power2.easeInOut});
@@ -1288,7 +1297,7 @@
 				$('.detailBox-Big').css({display:'none'});
 				console.log(ctr);
 				let myData = $(`.banner-inBox:eq(${ctr})`).attr('data-show-text').split(' ');
-				$('.detailBox').css({left:'',right:'',top:'',bottom:'',[myData[1]]: '2%',[myData[2]]: '2%',display:'block'});
+				$('.detailBox').css({left:'',right:'',top:'',bottom:'',[myData[1]]: '2%',[myData[2]]: '2%'}).removeClass('d-none').addClass('d-flex');
 				tl6.to(`.banner-inBox:eq(${ctr})`,0.05,{fill:'black', ease:Power2.easeInOut})
 					 .to(`.banner-lines`,0.05,{stroke:'#DADADA', ease:Power2.easeInOut})
 					 .to($(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox'),0.05,{fill:'#DADADA',ease:Power2.easeInOut})

@@ -2779,8 +2779,6 @@ border-top-color: #343a40;
 
                         let newObj = value.data;
 
-                        console.log(newObj);
-
                         $('#for-printing').prepend(elem);
 
                         $('.circleAndNo:eq(0)').css({
@@ -3233,8 +3231,6 @@ border-top-color: #343a40;
 
             $('.publish-btn').on('click', function() {
 
-              return console.log($('.detailBox').attr('ctr'));
-              
                 let data = {
                   "query": 'updateImageStatus',
                   "public_id": $('.image').data().public_id,
