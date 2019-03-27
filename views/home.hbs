@@ -293,7 +293,7 @@
 
                 left: 50%;
                 transform: translate(-50%, 0);
-                z-index: 3;
+                z-index: 10;
 
             }
 
@@ -372,7 +372,7 @@
               position: absolute;
               top: 0.5em;
               left: 0.5em;
-              z-index: 10;
+              z-index: 1;
               cursor: pointer;
             }
 
@@ -513,6 +513,23 @@
                 font-size: 80%;
             }
 
+            .blackish-overlay {
+              background-color: black;
+              opacity: 0.5;
+              display: none;
+              position: absolute;
+              z-index: 8;
+            }
+
+            #dialog-final {
+              /* z-index: 10; */
+            }
+
+            #for-printing {
+              position: absolute;
+              z-index: 9;
+            }
+
         </style>
 
         <title>Home - Make a story</title>
@@ -584,318 +601,227 @@
 
         </div>
 
-        <div class="container-fluid mainPage">
+        <div id="dialog-uploadImage" class="container dialog d-flex align-items-center justify-content-center">
 
-          <div id="dialog-uploadImage" class="container dialog d-flex align-items-center justify-content-center">
+            <div class="col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded text-light bg-shadow p-0 m-0">
 
-              <div class="col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded text-light bg-shadow p-0 m-0">
+                <div class="p-0 m-0 upload-image-box">
 
-                  <div class="p-0 m-0 upload-image-box">
+                    <div class="my-0 position-relative h-50 bg-dark rounded-top ">
 
-                      <div class="my-0 position-relative h-50 bg-dark rounded-top ">
+                        <label class="position-absolute upload-btn-wrapper w-100 h-100 d-flex align-items-center justify-content-center flex-wrap">
 
-                          <label class="position-absolute upload-btn-wrapper w-100 h-100 d-flex align-items-center justify-content-center flex-wrap">
+                            <div class="upload-error-here text-light text-center">
+                                <h5 class="upload-btn-text"><i class="fas fa-upload"></i></h5>
+                                <small>Click here to upload your image</small>
+                            </div>
 
-                              <div class="upload-error-here text-light text-center">
-                                  <h5 class="upload-btn-text"><i class="fas fa-upload"></i></h5>
-                                  <small>Click here to upload your image</small>
-                              </div>
+                            <input id="imgInp" type="file" name="myfile"/>
 
-                              <input id="imgInp" type="file" name="myfile"/>
+                        </label>
 
-                          </label>
+                        <div class="preview-image-box position-absolute rounded-top bg-dark w-100 h-100 align-items-center justify-content-center">
 
-                          <div class="preview-image-box position-absolute rounded-top bg-dark w-100 h-100 align-items-center justify-content-center">
+                            <div class="position-relative w-50 h-50 d-flex align-items-center justify-content-center flex-wrap">
 
-                              <div class="position-relative w-50 h-50 d-flex align-items-center justify-content-center flex-wrap">
+                                <img class="bg-light rounded p-1 text-dark" id="imgPreview" src="" alt="Image preview...">
 
-                                  <img class="bg-light rounded p-1 text-dark" id="imgPreview" src="" alt="Image preview...">
+                                <small class="my-1"><i class="text-success fas fa-check-circle"></i> Yep looks good.</small>
 
-                                  <small class="my-1"><i class="text-success fas fa-check-circle"></i> Yep looks good.</small>
+                            </div>
 
-                              </div>
+                            <div class="ok-btn-file position-absolute d-flex align-items-end">
 
-                              <div class="ok-btn-file position-absolute d-flex align-items-end">
+                                <span class="change-upload-btn px-2 py-1 rounded mr-1 mb-1 bg-light text-dark "><small>Change</small></span>
 
-                                  <span class="change-upload-btn px-2 py-1 rounded mr-1 mb-1 bg-light text-dark "><small>Change</small></span>
+                                <span class="next-upload-btn px-2 py-1 rounded mr-1 mb-1 bg-light text-dark"><small>Next</small></span>
 
-                                  <span class="next-upload-btn px-2 py-1 rounded mr-1 mb-1 bg-light text-dark"><small>Next</small></span>
+                            </div>
 
-                              </div>
+                        </div>
 
-                          </div>
+                    </div>
 
-                      </div>
+                    <div class="my-0 position-relative upload-textarea-wrapper h-50 border border-dark rounded-bottom">
 
-                      <div class="my-0 position-relative upload-textarea-wrapper h-50 border border-dark rounded-bottom">
+                        <div class="heading position-absolute w-100 h-100 text-light d-flex align-items-center justify-content-center">
+                            <div class="text-dark text-center">
+                                <h5 class="upload-btn-text"><i class="fas fa-clipboard"></i></h5>
+                                <small>Paste the link to your image here</small>
+                            </div>
+                        </div>
 
-                          <div class="heading position-absolute w-100 h-100 text-light d-flex align-items-center justify-content-center">
-                              <div class="text-dark text-center">
-                                  <h5 class="upload-btn-text"><i class="fas fa-clipboard"></i></h5>
-                                  <small>Paste the link to your image here</small>
-                              </div>
-                          </div>
+                        <form class="validate-image-exists">
 
-                          <form class="validate-image-exists">
-
-                              <textarea id="image-link" name="image-link" class="border border-light bg-light position-absolute w-100 h-100 rounded-bottom p-4"></textarea>
+                            <textarea id="image-link" name="image-link" class="border border-light bg-light position-absolute w-100 h-100 rounded-bottom p-4"></textarea>
 
 
-                              <div class="ok-btn-box d-flex align-items-end rounded m-1 bg-dark">
+                            <div class="ok-btn-box d-flex align-items-end rounded m-1 bg-dark">
 
-                                  <span class="error-span px-2 py-1 text-light">
+                                <span class="error-span px-2 py-1 text-light">
 
-                                      <small>
-                                          <label for="image-link" generated="true" class="error"></label>
-                                      </small>
+                                    <small>
+                                        <label for="image-link" generated="true" class="error"></label>
+                                    </small>
 
-                                  </span>
+                                </span>
 
-                                  <span class="ok-btn px-2 py-1"><small>Next</small></span>
+                                <span class="ok-btn px-2 py-1"><small>Next</small></span>
 
-                              </div>
+                            </div>
 
-                          </form>
+                        </form>
 
-                      </div>
+                    </div>
 
-                  </div>
+                </div>
 
-              </div>
-
-          </div>
-
-          <div id="dialog-final" class="pt-md-2 pt-0 d-flex flex-wrap align-items-stretch justify-content-center">
-
-            <div class="position-fixed saving-div" style="z-index: 12">
-              <div class="position-absolute text-right" style="right:20px; bottom:10px; z-index: 12">
-                <small class="saving badge badge-pill badge-light saving-data shadow d-none">saving data <span>.</span><span>.</span><span>.</span> </small>
-                <small class="saving badge badge-pill badge-light saving-image d-none">saving image <span>.</span><span>.</span><span>.</span></small>
-                <small class="saving badge badge-pill badge-light saving-thumbnail d-none">saving thumbnail <span>.</span><span>.</span><span>.</span></small>
-                <small class="badge badge-pill badge-success saving-done saving-badge"><i class="fas fa-check-circle"></i> Saved</small><br>
-              </div>
             </div>
 
-              <div class="col-lg-8 col-md-10 col-12 order-mdm-1 order-2 mx-0 p-0 rounded-top">
+        </div>
 
-                  <div class="img-block">
+        <div id="dialog-final" class="pt-0 d-flex flex-wrap align-items-stretch justify-content-center">
 
-                      <div id="overlay" class="position-absolute">
+          <div class="blackish-overlay"></div>
 
-                          <div class="detailBox bg-dark rounded" ctr="4">
+          <div class="position-fixed saving-div" style="z-index: 12">
+            <div class="position-absolute text-right" style="right:20px; bottom:10px; z-index: 12">
+              <small class="saving badge badge-pill badge-light saving-data shadow d-none">saving data <span>.</span><span>.</span><span>.</span> </small>
+              <small class="saving badge badge-pill badge-light saving-image d-none">saving image <span>.</span><span>.</span><span>.</span></small>
+              <small class="saving badge badge-pill badge-light saving-thumbnail d-none">saving thumbnail <span>.</span><span>.</span><span>.</span></small>
+              <small class="badge badge-pill badge-success saving-done saving-badge"><i class="fas fa-check-circle"></i> Saved</small><br>
+            </div>
+          </div>
+
+          <div class="pt-md-3 col-lg-8 col-md-10 col-12 order-mdm-1 order-2 mx-0 p-0 rounded-top">
+
+              <div class="img-block">
+
+                  <div id="overlay" class="position-absolute">
+
+                      <div class="detailBox bg-dark rounded" ctr="4">
 
 
-                              <small class="border-right px-1 rounded-left">1</small>
-                              <small class="border-right px-1">2</small>
-                              <small class="border-right px-1">3</small>
-                              <small class="px-1 rounded-right">4</small>
+                          <small class="border-right px-1 rounded-left">1</small>
+                          <small class="border-right px-1">2</small>
+                          <small class="border-right px-1">3</small>
+                          <small class="px-1 rounded-right">4</small>
 
-
-                          </div>
-
-                          <canvas data-html2canvas-ignore class="" id="myCanvas"></canvas>
-
-                      </div>
-
-                      <div class="" id="for-printing">
-
-                          <div class="circleAndNo rounded-circle bg-info text-light">
-                              <span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span>
-                              <elem></elem>
-                          </div>
-
-                          <img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="" alt="">
-
-                          <div class="position-relative mx-auto detailBox-Big">
-
-                              <div class="d-flex flex-wrap bg-dark rounded-bottom">
-
-                              </div>
-
-                          </div>
 
                       </div>
+
+                      <canvas data-html2canvas-ignore class="" id="myCanvas"></canvas>
 
                   </div>
 
-              </div>
+                  <div class="" id="for-printing">
 
-              <div class="order-md-2 order-1">
+                      <div class="circleAndNo rounded-circle bg-info text-light">
+                          <span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span>
+                          <elem></elem>
+                      </div>
 
-                  <div class="carry-menu d-flex align-items-center">
+                      <img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="" alt="">
 
-                      <div class="d-md-block mx-auto d-flex justify-content-center col-md-12 col-11 mx-2 text-center align-items-center">
+                      <div class="position-relative mx-auto detailBox-Big">
 
-                        <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
-                          <svg width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g filter="url(#filter0_d)">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32 53C43.598 53 53 43.598 53 32C53 20.402 43.598 11 32 11C20.402 11 11 20.402 11 32C11 43.598 20.402 53 32 53Z" fill="white"/>
-                          </g>
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M24.2728 40.5628L29.3857 23.3762C29.3983 23.3342 29.4373 23.3042 29.4801 23.3042H34.4449C34.4888 23.3042 34.5267 23.3332 34.5384 23.3762L39.7262 40.5608C39.7359 40.5938 39.7311 40.6278 39.7145 40.6508C39.6941 40.6788 39.6639 40.6948 39.6318 40.6948H35.5615C35.5177 40.6948 35.4788 40.6658 35.4671 40.6218L34.334 36.7472C34.2532 36.4722 34.0059 36.2821 33.7255 36.2821H30.0389C29.7536 36.2821 29.5034 36.4772 29.4275 36.7602L28.3839 40.6198C28.3722 40.6638 28.3323 40.6948 28.2885 40.6948H24.3673C24.3361 40.6948 24.305 40.6788 24.2884 40.6558C24.2699 40.6288 24.2641 40.5938 24.2728 40.5628ZM24.3673 42H28.2885C28.9009 42 29.4431 41.5759 29.6076 40.9688L30.5217 37.5873H33.2534L34.2502 40.9958C34.4216 41.5869 34.9609 42 35.5616 42H39.6318C40.063 42 40.4748 41.786 40.7357 41.4259C40.9898 41.0689 41.0667 40.6018 40.9401 40.1767L35.7514 22.9891C35.5723 22.3971 35.0475 22 34.4449 22H29.4801C28.8746 22 28.3479 22.4001 28.1707 22.9951L23.0589 40.1837C22.9333 40.6058 23.0112 41.0709 23.2682 41.4319C23.5271 41.788 23.9379 42 24.3673 42Z" fill="black"/>
-                          <path d="M31.6306 33H33.369C33.5682 33 33.7558 32.9129 33.8738 32.7647C33.9937 32.6174 34.0304 32.4261 33.9743 32.2492L33.1902 29.7688C33.1554 29.6565 33.1186 29.5424 33.0828 29.4248C33.0045 29.1706 32.7406 28.9991 32.4669 29C32.1817 29.0036 31.9352 29.185 31.8655 29.4419C31.8269 29.5784 31.7901 29.7122 31.7505 29.8406L31.0234 32.2564C30.9702 32.4324 31.0089 32.6219 31.1278 32.7683C31.2467 32.9138 31.4333 33 31.6306 33" stroke="black"/>
-                          <defs>
-                          <filter id="filter0_d" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                          <feOffset/>
-                          <feGaussianBlur stdDeviation="5.5"/>
-                          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
-                          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                          </filter>
-                          </defs>
-                          </svg></div>
+                          <div class="d-flex flex-wrap bg-dark rounded-bottom">
 
-                        <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
-                          <svg width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g filter="url(#filter0_d)">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32 53C43.598 53 53 43.598 53 32C53 20.402 43.598 11 32 11C20.402 11 11 20.402 11 32C11 43.598 20.402 53 32 53Z" fill="black"/>
-                          </g>
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M22.1925 38.3488C22.2113 38.3535 22.2302 38.3582 22.2483 38.3621L23.7799 36.2433C23.8059 36.2237 23.8311 36.201 23.8531 36.1752L25.6035 34.1746C25.7239 34.3945 25.8915 34.5612 26.1032 34.6724C26.8761 35.0755 27.8386 34.4736 27.9464 34.4039C27.9645 34.3914 27.9819 34.3781 27.9992 34.364C28.5713 33.8693 28.8366 33.802 28.9106 33.7942C29.0302 33.9859 29.005 34.7295 28.8547 35.3737C28.8476 35.4034 28.8429 35.4332 28.8413 35.4629C28.798 36.3725 29.0349 37.0636 29.5449 37.5152C30.1808 38.078 31.0269 38.0522 31.3063 38.0256C32.2838 38.1923 32.9583 38.5445 33.3116 39.0744C33.6524 39.5855 33.6005 40.146 33.5714 40.3268L32.4372 42.127C32.4365 42.1278 32.4357 42.1278 32.4349 42.1286C31.965 42.5685 31.1709 43.5923 30.4374 42.9583C30.1131 42.6781 30.0942 42.1129 29.7165 41.8265C29.3843 41.5752 29.1278 41.5838 28.7272 41.5736C28.484 41.6621 28.2392 41.6613 27.9945 41.5697C27.693 41.6277 27.5238 41.5181 27.4845 41.241C27.3058 41.0625 27.3082 40.8606 27.1035 40.6813C26.81 40.4246 26.4558 40.362 26.0812 40.3596C25.8341 40.3581 25.5405 40.4849 25.2997 40.4457C24.2513 40.2751 24.7904 40.009 24.3324 39.6419C23.5666 39.0274 22.8339 39.274 22.0382 39.6513C22.0217 39.6591 22.0051 39.6669 21.9886 39.6748C21.9863 39.6591 21.9847 39.6442 21.9831 39.6294C21.9201 39.1965 21.9123 38.777 22.1925 38.3488ZM30.3154 29.1753L37.1248 34.0321L34.3497 38.9163C34.3222 38.8552 34.2923 38.7934 34.2584 38.7324C34.2254 38.6705 34.1884 38.6087 34.1482 38.5476C34.0821 38.4459 34.0082 38.3496 33.9279 38.2572C33.8507 38.168 33.7681 38.0843 33.6792 38.0036C33.2746 37.6373 32.7418 37.3626 32.0839 37.1849C31.8651 37.1246 31.6313 37.0761 31.385 37.0378C31.3598 37.0339 31.3346 37.0323 31.3094 37.0323C31.2811 37.0323 31.2528 37.0346 31.2252 37.0393C31.2252 37.0393 31.2221 37.0401 31.2166 37.0409C31.2055 37.0417 31.1851 37.044 31.1575 37.0464C31.1434 37.0472 31.1276 37.0479 31.1103 37.0487C31.0922 37.0495 31.0733 37.0503 31.0529 37.0503C30.9907 37.0511 30.9159 37.0487 30.8341 37.0393C30.6814 37.0205 30.5067 36.9775 30.3492 36.8859C30.2973 36.8554 30.2461 36.8186 30.1989 36.7763C30.1407 36.7247 30.0895 36.6644 30.0455 36.5963C29.9345 36.4257 29.8707 36.1995 29.844 35.9294C29.8385 35.8762 29.8298 35.8261 29.8282 35.7682C29.8267 35.7001 29.8274 35.6296 29.8306 35.5569C29.8306 35.5553 29.8298 35.5545 29.8306 35.5529C29.8337 35.5373 29.8385 35.5169 29.8416 35.4997C29.8589 35.4222 29.8778 35.3299 29.8967 35.2234C29.8975 35.2179 29.8991 35.2117 29.8999 35.2054C29.9054 35.1741 29.9101 35.1397 29.9148 35.1076C29.9211 35.07 29.9274 35.0356 29.9329 34.9949C29.9841 34.6411 29.9927 34.3452 29.9738 34.0979C29.9644 33.9703 29.9471 33.8552 29.9243 33.7527C29.8574 33.4505 29.7432 33.251 29.6307 33.1195C29.5551 33.0326 29.4804 32.9762 29.4206 32.9402C29.2545 32.84 29.0782 32.8001 28.8995 32.8056C28.8106 32.8079 28.7201 32.8212 28.6304 32.8447C28.2251 32.9457 27.8205 33.229 27.4868 33.5046C27.449 33.5351 27.4128 33.5656 27.3782 33.5961C27.3514 33.6118 27.3215 33.629 27.2893 33.6454C27.1933 33.6963 27.0744 33.7464 26.9579 33.7816C26.9194 33.7934 26.8808 33.8028 26.8438 33.8106C26.806 33.8184 26.7706 33.8239 26.736 33.8263C26.7021 33.8286 26.6699 33.8278 26.6408 33.8239C26.6116 33.8192 26.5857 33.8122 26.5636 33.7996C26.4881 33.7613 26.407 33.6141 26.3732 33.3277L30.3154 29.1753ZM34.9463 26.9532C35.025 26.9172 35.0927 26.8624 35.1431 26.7919L39.6834 20.5067C39.7881 20.4252 40.0832 20.2123 40.4469 20.0863C40.5374 20.055 40.6326 20.0292 40.7302 20.0112C40.7806 20.0026 40.8309 19.9963 40.8813 19.9932C41.1292 19.9744 41.3858 20.0221 41.6219 20.1896C41.6329 20.1967 41.6431 20.203 41.6542 20.2092C41.6557 20.2108 41.6573 20.2116 41.6589 20.2131C41.6612 20.2147 41.6636 20.217 41.666 20.2186C41.6715 20.2225 41.6762 20.2257 41.6801 20.2288C41.6896 20.2366 41.6998 20.2444 41.7108 20.253C41.7966 20.3149 41.8667 20.3853 41.9257 20.4605C41.98 20.5309 42.0233 20.6061 42.0587 20.6851C42.15 20.8886 42.183 21.1125 42.1807 21.3269C42.1807 21.3293 42.1807 21.3309 42.1807 21.3332C42.1791 21.4224 42.1728 21.5085 42.1626 21.5923C42.1461 21.7277 42.1201 21.8522 42.0949 21.9539C42.0689 22.0557 42.043 22.1355 42.0272 22.1832L37.4876 28.4677C37.4294 28.5476 37.3971 28.6438 37.3947 28.7432L37.3003 32.9457L33.2644 30.0668L31.2457 28.6274L34.9463 26.9532ZM21.1386 40.3847C21.1811 40.7588 21.5109 40.9647 21.8627 40.7988C22.1767 40.65 22.9921 40.0818 23.3415 40.1914C23.7516 40.3197 23.7043 40.6125 23.9428 40.8528C24.2742 41.1862 24.4977 41.3733 24.9966 41.4132C25.2997 41.4367 25.6365 41.2762 25.9285 41.3224C26.7572 41.4523 26.5699 41.7873 26.9131 42.2178C27.2058 42.5865 27.5388 42.7055 28.0055 42.6906C28.4273 42.6765 28.5619 42.527 28.9893 42.7321C29.4449 42.9497 29.4095 43.1853 29.6897 43.5602C29.9416 43.8991 30.2123 44.1355 30.6491 44.2013C31.6416 44.35 32.4695 43.4099 33.1157 42.8057C33.1668 42.7571 33.2022 42.7055 33.2266 42.653C33.2392 42.6577 33.251 42.664 33.2644 42.6679L34.4583 40.7745C34.4851 40.7314 34.5048 40.6853 34.5174 40.6375C34.5182 40.6344 34.5205 40.625 34.5237 40.6125L38.2054 34.1315C38.2227 34.101 38.2353 34.0697 38.2463 34.0368C38.2479 34.0305 38.2495 34.0235 38.2503 34.0165C38.2597 33.9836 38.2652 33.9507 38.2668 33.917C38.2668 33.9116 38.2691 33.9061 38.2691 33.9006L38.3809 28.9178L42.8701 22.703C42.8929 22.6717 42.9126 22.6372 42.9268 22.6004C42.9614 22.5167 43.7414 20.5505 42.3326 19.4852C42.3271 19.4797 42.3208 19.475 42.3153 19.4703C42.298 19.4562 42.2806 19.4445 42.261 19.4304C42.2507 19.4226 42.2413 19.4155 42.2311 19.4093C42.2177 19.3991 42.2051 19.3897 42.1909 19.3803C42.1775 19.3709 42.1642 19.3623 42.15 19.3545C40.6869 18.3729 39.0664 19.7349 38.9971 19.7936C38.9672 19.8186 38.9405 19.8476 38.9177 19.8789L34.4158 26.111L30.1383 28.0466C30.047 28.0678 29.9605 28.1147 29.892 28.1867L25.5853 32.7234C25.5515 32.7469 25.5177 32.7719 25.4901 32.804L23.1999 35.4214C23.1463 35.4551 23.0991 35.4981 23.0598 35.5522L21.4849 37.7328C21.4416 37.7657 21.3999 37.8056 21.3653 37.8581C21.3181 37.9293 21.2787 37.9997 21.2417 38.0686L21.2055 38.1203C21.2087 38.1203 21.2118 38.1211 21.215 38.1218C20.8474 38.867 21.0418 39.53 21.1386 40.3847Z" fill="white"/>
-                          <defs>
-                          <filter id="filter0_d" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                          <feOffset/>
-                          <feGaussianBlur stdDeviation="5.5"/>
-                          <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"/>
-                          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                          </filter>
-                          </defs>
-                          </svg>
-
-                        </div>
-
-                        <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
-                          <svg width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g filter="url(#filter0_d)">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32 53C43.598 53 53 43.598 53 32C53 20.402 43.598 11 32 11C20.402 11 11 20.402 11 32C11 43.598 20.402 53 32 53Z" fill="white"/>
-                          </g>
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M20 44.125H44V41H38.1681L32 42.1229L26.1327 41H20V44.125Z" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M29.2102 16.6126L34.6445 21V29.1513H40L32 38.4086L24 29.285H29.2102V16.6126Z" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                          <defs>
-                          <filter id="filter0_d" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                          <feOffset/>
-                          <feGaussianBlur stdDeviation="5.5"/>
-                          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
-                          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                          </filter>
-                          </defs>
-                          </svg>
-                        </div>
-
-                        <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
-                          <svg width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g filter="url(#filter0_d)">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32 53C43.598 53 53 43.598 53 32C53 20.402 43.598 11 32 11C20.402 11 11 20.402 11 32C11 43.598 20.402 53 32 53Z" fill="white"/>
-                          </g>
-                          <path d="M42 32.5H23.0373" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M30 41L23 32.4992L30 24" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                          <defs>
-                          <filter id="filter0_d" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                          <feOffset/>
-                          <feGaussianBlur stdDeviation="5.5"/>
-                          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
-                          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                          </filter>
-                          </defs>
-                          </svg>
-                        </div>
-
-                        <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
-                          <svg width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g filter="url(#filter0_d)">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32 53C43.598 53 53 43.598 53 32C53 20.402 43.598 11 32 11C20.402 11 11 20.402 11 32C11 43.598 20.402 53 32 53Z" fill="white"/>
-                          </g>
-                          <path d="M23 32.5H41.9627" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M35 24L42 32.5008L35 41" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                          <defs>
-                          <filter id="filter0_d" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                          <feOffset/>
-                          <feGaussianBlur stdDeviation="5.5"/>
-                          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
-                          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                          </filter>
-                          </defs>
-                          </svg>
-                        </div>
-
-                        <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
-                          <svg width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g filter="url(#filter0_d)">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32 53C43.598 53 53 43.598 53 32C53 20.402 43.598 11 32 11C20.402 11 11 20.402 11 32C11 43.598 20.402 53 32 53Z" fill="white"/>
-                          </g>
-                          <path d="M25.4474 33.6772L22.1058 36.4811" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M28.6305 34.9225L22.5021 40.0648" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path d="M32.0909 35.935L22.1323 44.2913" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M44.3472 21.7607L32.6723 21.7404L35.4452 25.0451L27.9257 31.3547L34.4312 34.4239L39.6444 30.0495L42.3141 33.2311L44.3472 21.7607Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
-                          <defs>
-                          <filter id="filter0_d" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                          <feOffset/>
-                          <feGaussianBlur stdDeviation="5.5"/>
-                          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
-                          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                          </filter>
-                          </defs>
-                          </svg>
-                        </div>
-
-                        <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
-                          <svg width="54" height="54" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g filter="url(#filter0_d)">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32 53C43.598 53 53 43.598 53 32C53 20.402 43.598 11 32 11C20.402 11 11 20.402 11 32C11 43.598 20.402 53 32 53Z" fill="white"/>
-                          </g>
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M32.5 33.5182L27.75 38.2682C27.3351 38.6832 26.8056 38.8264 26.5674 38.5882C26.3292 38.35 26.4724 37.8205 26.8873 37.4056L31.6373 32.6556L26.7318 27.75C26.3168 27.3351 26.1736 26.8056 26.4118 26.5674C26.65 26.3292 27.1795 26.4724 27.5944 26.8873L32.5 31.7929L37.4056 26.8873C37.8205 26.4724 38.35 26.3292 38.5882 26.5674C38.8264 26.8056 38.6832 27.3351 38.2682 27.75L33.3627 32.6556L38.1127 37.4056C38.5276 37.8205 38.6708 38.35 38.4326 38.5882C38.1944 38.8264 37.6649 38.6832 37.25 38.2682L32.5 33.5182Z" fill="black"/>
-                          <defs>
-                          <filter id="filter0_d" x="0" y="0" width="64" height="64" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                          <feOffset/>
-                          <feGaussianBlur stdDeviation="5.5"/>
-                          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
-                          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                          </filter>
-                          </defs>
-                          </svg>
-                        </div>
-
-                          <!-- <div data-toggle="tooltip" data-placement="left" title="Close" class="canvas-btn close-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-times"></i></div>
-
-                          <div data-toggle="tooltip" data-placement="left" title="Download as .Jpeg" class="download-pic canvas-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-download"></i></div>
-
-                          <div data-toggle="tooltip" data-placement="left" title="Shift + Ctrl + Z (Redo)" class="redo canvas-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-redo"></i></div>
-
-                          <div data-toggle="tooltip" data-placement="left" title="Ctrl + Z (Undo)" class="undo canvas-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-undo"></i></div>
-
-                          <div class="settings-btn border rounded bg-light text-dark p-1 px-md-3 px-2 m-1">
-                              <i class="fas fa-cog"></i>
-                              <span data-container="body" data-toggle="popover" data-placement="bottom" data-content=".."></span>
                           </div>
 
-                          <div data-toggle="tooltip" data-placement="left" title="Done" class="share-btn canvas-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-share"></i></div> -->
-
                       </div>
+
                   </div>
 
               </div>
 
           </div>
 
-          <div id="dialog-share" class="container d-flex align-items-center justify-content-center">
+          <div class="order-md-2 order-1">
+
+                <div class="carry-menu d-flex align-items-center">
+
+                    <div class="d-md-block mx-auto d-flex justify-content-center col-md-12 col-11 mx-2 text-center align-items-center">
+
+                      <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 42C32.598 42 42 32.598 42 21C42 9.40202 32.598 0 21 0C9.40202 0 0 9.40202 0 21C0 32.598 9.40202 42 21 42Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M13.2728 29.5628L18.3857 12.3762C18.3983 12.3342 18.4373 12.3042 18.4801 12.3042H23.4449C23.4888 12.3042 23.5267 12.3332 23.5384 12.3762L28.7262 29.5608C28.7359 29.5938 28.7311 29.6278 28.7145 29.6508C28.6941 29.6788 28.6639 29.6948 28.6318 29.6948H24.5615C24.5177 29.6948 24.4788 29.6658 24.4671 29.6218L23.334 25.7472C23.2532 25.4722 23.0059 25.2821 22.7255 25.2821H19.0389C18.7536 25.2821 18.5034 25.4772 18.4275 25.7602L17.3839 29.6198C17.3722 29.6638 17.3323 29.6948 17.2885 29.6948H13.3673C13.3361 29.6948 13.305 29.6788 13.2884 29.6558C13.2699 29.6288 13.2641 29.5938 13.2728 29.5628ZM13.3673 31H17.2885C17.9009 31 18.4431 30.5759 18.6076 29.9688L19.5217 26.5873H22.2534L23.2502 29.9958C23.4216 30.5869 23.9609 31 24.5616 31H28.6318C29.063 31 29.4748 30.786 29.7357 30.4259C29.9898 30.0689 30.0667 29.6018 29.9401 29.1767L24.7514 11.9891C24.5723 11.3971 24.0475 11 23.4449 11H18.4801C17.8746 11 17.3479 11.4001 17.1707 11.9951L12.0589 29.1837C11.9333 29.6058 12.0112 30.0709 12.2682 30.4319C12.5271 30.788 12.9379 31 13.3673 31Z" fill="black"/>
+                        <path d="M20.6306 22H22.369C22.5682 22 22.7558 21.9129 22.8738 21.7647C22.9937 21.6174 23.0304 21.4261 22.9743 21.2492L22.1902 18.7688C22.1554 18.6565 22.1186 18.5424 22.0828 18.4248C22.0045 18.1706 21.7406 17.9991 21.4669 18C21.1817 18.0036 20.9352 18.185 20.8655 18.4419C20.8269 18.5784 20.7901 18.7122 20.7505 18.8406L20.0234 21.2564C19.9702 21.4324 20.0089 21.6219 20.1278 21.7683C20.2467 21.9138 20.4333 22 20.6306 22" stroke="black"/>
+                        </svg>
+                      </div>
+
+                      <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 42C32.598 42 42 32.598 42 21C42 9.40202 32.598 0 21 0C9.40202 0 0 9.40202 0 21C0 32.598 9.40202 42 21 42Z" fill="black"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M11.1925 27.3488C11.2113 27.3535 11.2302 27.3582 11.2483 27.3621L12.7799 25.2433C12.8059 25.2237 12.8311 25.201 12.8531 25.1752L14.6035 23.1746C14.7239 23.3945 14.8915 23.5612 15.1032 23.6724C15.8761 24.0755 16.8386 23.4736 16.9464 23.4039C16.9645 23.3914 16.9819 23.3781 16.9992 23.364C17.5713 22.8693 17.8366 22.802 17.9106 22.7942C18.0302 22.9859 18.005 23.7295 17.8547 24.3737C17.8476 24.4034 17.8429 24.4332 17.8413 24.4629C17.798 25.3725 18.0349 26.0636 18.5449 26.5152C19.1808 27.078 20.0269 27.0522 20.3063 27.0256C21.2838 27.1923 21.9583 27.5445 22.3116 28.0744C22.6524 28.5855 22.6005 29.146 22.5714 29.3268L21.4372 31.127C21.4365 31.1278 21.4357 31.1278 21.4349 31.1286C20.965 31.5685 20.1709 32.5923 19.4374 31.9583C19.1131 31.6781 19.0942 31.1129 18.7165 30.8265C18.3843 30.5752 18.1278 30.5838 17.7272 30.5736C17.484 30.6621 17.2392 30.6613 16.9945 30.5697C16.693 30.6277 16.5238 30.5181 16.4845 30.241C16.3058 30.0625 16.3082 29.8606 16.1035 29.6813C15.81 29.4246 15.4558 29.362 15.0812 29.3596C14.8341 29.3581 14.5405 29.4849 14.2997 29.4457C13.2513 29.2751 13.7904 29.009 13.3324 28.6419C12.5666 28.0274 11.8339 28.274 11.0382 28.6513C11.0217 28.6591 11.0051 28.6669 10.9886 28.6748C10.9863 28.6591 10.9847 28.6442 10.9831 28.6294C10.9201 28.1965 10.9123 27.777 11.1925 27.3488ZM19.3154 18.1753L26.1248 23.0321L23.3497 27.9163C23.3222 27.8552 23.2923 27.7934 23.2584 27.7324C23.2254 27.6705 23.1884 27.6087 23.1482 27.5476C23.0821 27.4459 23.0082 27.3496 22.9279 27.2572C22.8507 27.168 22.7681 27.0843 22.6792 27.0036C22.2746 26.6373 21.7418 26.3626 21.0839 26.1849C20.8651 26.1246 20.6313 26.0761 20.385 26.0378C20.3598 26.0339 20.3346 26.0323 20.3094 26.0323C20.2811 26.0323 20.2528 26.0346 20.2252 26.0393C20.2252 26.0393 20.2221 26.0401 20.2166 26.0409C20.2055 26.0417 20.1851 26.044 20.1575 26.0464C20.1434 26.0472 20.1276 26.0479 20.1103 26.0487C20.0922 26.0495 20.0733 26.0503 20.0529 26.0503C19.9907 26.0511 19.9159 26.0487 19.8341 26.0393C19.6814 26.0205 19.5067 25.9775 19.3492 25.8859C19.2973 25.8554 19.2461 25.8186 19.1989 25.7763C19.1407 25.7247 19.0895 25.6644 19.0455 25.5963C18.9345 25.4257 18.8707 25.1995 18.844 24.9294C18.8385 24.8762 18.8298 24.8261 18.8282 24.7682C18.8267 24.7001 18.8274 24.6296 18.8306 24.5569C18.8306 24.5553 18.8298 24.5545 18.8306 24.5529C18.8337 24.5373 18.8385 24.5169 18.8416 24.4997C18.8589 24.4222 18.8778 24.3299 18.8967 24.2234C18.8975 24.2179 18.8991 24.2117 18.8999 24.2054C18.9054 24.1741 18.9101 24.1397 18.9148 24.1076C18.9211 24.07 18.9274 24.0356 18.9329 23.9949C18.9841 23.6411 18.9927 23.3452 18.9738 23.0979C18.9644 22.9703 18.9471 22.8552 18.9243 22.7527C18.8574 22.4505 18.7432 22.251 18.6307 22.1195C18.5551 22.0326 18.4804 21.9762 18.4206 21.9402C18.2545 21.84 18.0782 21.8001 17.8995 21.8056C17.8106 21.8079 17.7201 21.8212 17.6304 21.8447C17.2251 21.9457 16.8205 22.229 16.4868 22.5046C16.449 22.5351 16.4128 22.5656 16.3782 22.5961C16.3514 22.6118 16.3215 22.629 16.2893 22.6454C16.1933 22.6963 16.0744 22.7464 15.9579 22.7816C15.9194 22.7934 15.8808 22.8028 15.8438 22.8106C15.806 22.8184 15.7706 22.8239 15.736 22.8263C15.7021 22.8286 15.6699 22.8278 15.6408 22.8239C15.6116 22.8192 15.5857 22.8122 15.5636 22.7996C15.4881 22.7613 15.407 22.6141 15.3732 22.3277L19.3154 18.1753ZM23.9463 15.9532C24.025 15.9172 24.0927 15.8624 24.1431 15.7919L28.6834 9.50665C28.7881 9.42525 29.0832 9.21235 29.4469 9.08633C29.5374 9.05502 29.6326 9.02919 29.7302 9.01119C29.7806 9.00258 29.8309 8.99632 29.8813 8.99319C30.1292 8.9744 30.3858 9.02215 30.6219 9.18965C30.6329 9.19669 30.6431 9.20296 30.6542 9.20922C30.6557 9.21078 30.6573 9.21157 30.6589 9.21313C30.6612 9.2147 30.6636 9.21704 30.666 9.21861C30.6715 9.22252 30.6762 9.22565 30.6801 9.22879C30.6896 9.23661 30.6998 9.24444 30.7108 9.25305C30.7966 9.31488 30.8667 9.38533 30.9257 9.46047C30.98 9.53092 31.0233 9.60606 31.0587 9.68511C31.15 9.88862 31.183 10.1125 31.1807 10.3269C31.1807 10.3293 31.1807 10.3309 31.1807 10.3332C31.1791 10.4224 31.1728 10.5085 31.1626 10.5923C31.1461 10.7277 31.1201 10.8522 31.0949 10.9539C31.0689 11.0557 31.043 11.1355 31.0272 11.1832L26.4876 17.4677C26.4294 17.5476 26.3971 17.6438 26.3947 17.7432L26.3003 21.9457L22.2644 19.0668L20.2457 17.6274L23.9463 15.9532ZM10.1386 29.3847C10.1811 29.7588 10.5109 29.9647 10.8627 29.7988C11.1767 29.65 11.9921 29.0818 12.3415 29.1914C12.7516 29.3197 12.7043 29.6125 12.9428 29.8528C13.2742 30.1862 13.4977 30.3733 13.9966 30.4132C14.2997 30.4367 14.6365 30.2762 14.9285 30.3224C15.7572 30.4523 15.5699 30.7873 15.9131 31.2178C16.2058 31.5865 16.5388 31.7055 17.0055 31.6906C17.4273 31.6765 17.5619 31.527 17.9893 31.7321C18.4449 31.9497 18.4095 32.1853 18.6897 32.5602C18.9416 32.8991 19.2123 33.1355 19.6491 33.2013C20.6416 33.35 21.4695 32.4099 22.1157 31.8057C22.1668 31.7571 22.2022 31.7055 22.2266 31.653C22.2392 31.6577 22.251 31.664 22.2644 31.6679L23.4583 29.7745C23.4851 29.7314 23.5048 29.6853 23.5174 29.6375C23.5182 29.6344 23.5205 29.625 23.5237 29.6125L27.2054 23.1315C27.2227 23.101 27.2353 23.0697 27.2463 23.0368C27.2479 23.0305 27.2495 23.0235 27.2503 23.0165C27.2597 22.9836 27.2652 22.9507 27.2668 22.917C27.2668 22.9116 27.2691 22.9061 27.2691 22.9006L27.3809 17.9178L31.8701 11.703C31.8929 11.6717 31.9126 11.6372 31.9268 11.6004C31.9614 11.5167 32.7414 9.55048 31.3326 8.4852C31.3271 8.47972 31.3208 8.47502 31.3153 8.47033C31.298 8.45624 31.2806 8.4445 31.261 8.43041C31.2507 8.42258 31.2413 8.41554 31.2311 8.40927C31.2177 8.3991 31.2051 8.38971 31.1909 8.38031C31.1775 8.37092 31.1642 8.36231 31.15 8.35448C29.6869 7.37295 28.0664 8.73489 27.9971 8.79359C27.9672 8.81864 27.9405 8.8476 27.9177 8.87891L23.4158 15.111L19.1383 17.0466C19.047 17.0678 18.9605 17.1147 18.892 17.1867L14.5853 21.7234C14.5515 21.7469 14.5177 21.7719 14.4901 21.804L12.1999 24.4214C12.1463 24.4551 12.0991 24.4981 12.0598 24.5522L10.4849 26.7328C10.4416 26.7657 10.3999 26.8056 10.3653 26.8581C10.3181 26.9293 10.2787 26.9997 10.2417 27.0686L10.2055 27.1203C10.2087 27.1203 10.2118 27.1211 10.215 27.1218C9.84742 27.867 10.0418 28.53 10.1386 29.3847Z" fill="white"/>
+                        </svg>
+                      </div>
+
+                      <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 42C32.598 42 42 32.598 42 21C42 9.40202 32.598 0 21 0C9.40202 0 0 9.40202 0 21C0 32.598 9.40202 42 21 42Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9 33.125H33V30H27.1681L21 31.1229L15.1327 30H9V33.125Z" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M18.2102 5.61256L23.6445 10V18.1513H29L21 27.4086L13 18.285H18.2102V5.61256Z" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+
+                      <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 42C32.598 42 42 32.598 42 21C42 9.40202 32.598 0 21 0C9.40202 0 0 9.40202 0 21C0 32.598 9.40202 42 21 42Z" fill="white"/>
+                        <path d="M31 21.5L12.0373 21.5" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M19 30L12 21.4992L19 13" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+
+                      <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 42C32.598 42 42 32.598 42 21C42 9.40202 32.598 0 21 0C9.40202 0 0 9.40202 0 21C0 32.598 9.40202 42 21 42Z" fill="white"/>
+                        <path d="M12 21.5H30.9627" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M24 13L31 21.5008L24 30" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+
+                      <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 42C32.598 42 42 32.598 42 21C42 9.40202 32.598 0 21 0C9.40202 0 0 9.40202 0 21C0 32.598 9.40202 42 21 42Z" fill="white"/>
+                        <path d="M14.4474 22.6772L11.1058 25.4811" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M17.6305 23.9225L11.5021 29.0648" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21.0909 24.935L11.1323 33.2913" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M33.3472 10.7607L21.6723 10.7404L24.4452 14.0451L16.9257 20.3547L23.4312 23.4239L28.6444 19.0495L31.3141 22.2311L33.3472 10.7607Z" stroke="black" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+
+                      <div class="menu-btn px-md-3 px-2 py-0 my-0" style="line-height:1px">
+                        <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21 42C32.598 42 42 32.598 42 21C42 9.40202 32.598 0 21 0C9.40202 0 0 9.40202 0 21C0 32.598 9.40202 42 21 42Z" fill="white"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.5 22.5182L16.75 27.2682C16.3351 27.6832 15.8056 27.8264 15.5674 27.5882C15.3292 27.35 15.4724 26.8205 15.8873 26.4056L20.6373 21.6556L15.7318 16.75C15.3168 16.3351 15.1736 15.8056 15.4118 15.5674C15.65 15.3292 16.1795 15.4724 16.5944 15.8873L21.5 20.7929L26.4056 15.8873C26.8205 15.4724 27.35 15.3292 27.5882 15.5674C27.8264 15.8056 27.6832 16.3351 27.2682 16.75L22.3627 21.6556L27.1127 26.4056C27.5276 26.8205 27.6708 27.35 27.4326 27.5882C27.1944 27.8264 26.6649 27.6832 26.25 27.2682L21.5 22.5182Z" fill="black"/>
+                        </svg>
+                      </div>
+
+                        <!-- <div data-toggle="tooltip" data-placement="left" title="Close" class="canvas-btn close-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-times"></i></div>
+
+                        <div data-toggle="tooltip" data-placement="left" title="Download as .Jpeg" class="download-pic canvas-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-download"></i></div>
+
+                        <div data-toggle="tooltip" data-placement="left" title="Shift + Ctrl + Z (Redo)" class="redo canvas-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-redo"></i></div>
+
+                        <div data-toggle="tooltip" data-placement="left" title="Ctrl + Z (Undo)" class="undo canvas-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-undo"></i></div>
+
+                        <div class="settings-btn border rounded bg-light text-dark p-1 px-md-3 px-2 m-1">
+                            <i class="fas fa-cog"></i>
+                            <span data-container="body" data-toggle="popover" data-placement="bottom" data-content=".."></span>
+                        </div>
+
+                        <div data-toggle="tooltip" data-placement="left" title="Done" class="share-btn canvas-btn border rounded p-1 px-md-3 px-2 m-1"><i class="fas fa-share"></i></div> -->
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="dialog-share" class="container d-flex align-items-center justify-content-center">
 
               <div class="col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded p-3 text-light bg-shadow">
 
@@ -953,8 +879,6 @@
               </div>
 
           </div>
-
-        </div>
 
         <img class="image-for-storage position-absolute" id="blah" src="" alt="" style="top: -9999px; left: -9999px; opacity: 0">
         <img class="thumbnail position-absolute" id="" src="" alt="" style="top: -9999px; left: -9999px; opacity: 0">
@@ -1130,10 +1054,10 @@
                     },
                     //					modal: true,
                     autoOpen: false,
-                    appendTo: ".mainPage",
+                    appendTo: ".btn-container",
                     show: {
                         effect: "fade",
-                        duration: 500
+                        duration: 300
                     },
                 })
 
@@ -1148,7 +1072,7 @@
                     },
                     modal: true,
                     autoOpen: false,
-                    appendTo: ".mainPage",
+                    appendTo: ".btn-container",
                     show: {
                         effect: "fade",
                         duration: 500
@@ -1166,7 +1090,7 @@
                     },
                     modal: true,
                     autoOpen: false,
-                    appendTo: ".mainPage",
+                    appendTo: ".btn-container",
                     show: {
                         effect: "fade",
                         duration: 500
@@ -2824,7 +2748,11 @@ border-top-color: #343a40;
                 dataforimageexists.data = JSON.parse(imageData);
               }
 
-              $('.btn-container').css({opacity:0.2});
+              $('.blackish-overlay').css({
+                height: $('body').height(),
+                width: $('body').width(),
+                display: 'block',
+              })
               $("#dialog-final").dialog('open');
 
               $('.image').attr({
