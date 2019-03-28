@@ -2753,17 +2753,19 @@ border-top-color: #343a40;
                 dataforimageexists.data = JSON.parse(imageData);
               }
 
+              let card = this;
+
               $('.blackish-overlay').css({display: 'block',height: $('body').height(),width: $('body').width()}).animate({
                 opacity:0.7
               }, 50, function() {
-                console.log(this);
                 $("#dialog-final").dialog('open');
+                $('.image').attr({
+                  src: $(card).find('.card-image-top').attr('data-image'),
+                  firstLoad: false
+                }).data({public_id: imageID});
               });
 
-              $('.image').attr({
-                src: $(this).find('.card-image-top').attr('data-image'),
-                firstLoad: false
-              }).data({public_id: imageID});
+
 
               spinner.end();
 
