@@ -127,6 +127,7 @@
 
             .img-block {
                 background: transparent;
+                z-index: 10;
             }
 
             .bg-shadow {
@@ -288,7 +289,7 @@
 
                 left: 50%;
                 transform: translate(-50%, 0);
-                z-index: 11;
+                /* z-index: 11; */
 
             }
 
@@ -523,7 +524,7 @@
 
             #for-printing {
               position: absolute;
-              z-index: 10;
+              overflow: hidden;
             }
 
             .carry-menu {
@@ -695,6 +696,25 @@
 
           <div class="img-block pt-md-3 col-lg-8 col-md-10 col-12 order-mdm-1 order-2 mx-0 p-0 rounded-top">
 
+            <div id="for-printing">
+
+                <div class="circleAndNo rounded-circle bg-info text-light">
+                    <span data-container="body" data-toggle="popover" data-placement="top" data-content=""></span>
+                    <elem></elem>
+                </div>
+
+                <img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="" alt="">
+
+                <div class="position-relative mx-auto detailBox-Big">
+
+                    <div class="d-flex flex-wrap bg-dark rounded-bottom">
+
+                    </div>
+
+                </div>
+
+            </div>
+
               <div id="overlay" class="position-absolute">
 
                   <div class="detailBox bg-dark rounded" ctr="4">
@@ -709,25 +729,6 @@
                   </div>
 
                   <canvas data-html2canvas-ignore class="" id="myCanvas"></canvas>
-
-              </div>
-
-              <div id="for-printing">
-
-                  <div class="circleAndNo rounded-circle bg-info text-light">
-                      <span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span>
-                      <elem></elem>
-                  </div>
-
-                  <img class="image bg-shadow mx-auto border border-dark rounded-top" id="blah" src="" alt="">
-
-                  <div class="position-relative mx-auto detailBox-Big">
-
-                      <div class="d-flex flex-wrap bg-dark rounded-bottom">
-
-                      </div>
-
-                  </div>
 
               </div>
 
@@ -1225,6 +1226,8 @@
 
                     let circleNo = createEditablePopover.DOMelem;
 
+                    console.log('problem doesnot lies here',circleNo);
+
                     $(circleNo).data({
                         editFlag: true
                     }).children('span').popover('show');
@@ -1234,6 +1237,8 @@
                     $('.popover').removeClass('hover-pop custom-dark-popover bg-dark');
 
                     $('.popover-body:eq(-1)').html(elem);
+
+                    console.log($('.popover'));
 
                     createEditablePopover.freshresults.push(circleNo);
 
@@ -1307,7 +1312,7 @@
                     let mWidth = $('.circleAndNo:eq(0)').width() / $(DOM).width();
 
                     $('.circleAndNo:eq(0)').css({
-                        'z-index': 4
+                        'z-index': 11
                     }).data({
                         'percentX': percentX,
                         'percentY': percentY,
@@ -1523,6 +1528,8 @@ border-top-color: #343a40;
                 if (oneInProgress) {
                     return
                 };
+
+                console.log('this circle clicked',this);
 
                 createEditablePopover.executeInCommand(this);
 
@@ -2852,6 +2859,7 @@ border-top-color: #343a40;
                         $('#for-printing').prepend(elem);
 
                         $('.circleAndNo:eq(0)').css({
+                            'z-index':11,
                             left: newObj.percentX * $('.image').width() + $('#overlay').position().left,
                             top: newObj.percentY * $('.image').height(),
                             'font-size': newObj.mFontSize * $('.image').width(),
