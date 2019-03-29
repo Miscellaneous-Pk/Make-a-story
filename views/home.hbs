@@ -943,7 +943,7 @@
 
                 this.undoInCommand = function undo() {
 
-                    if (!(allFunctions.length)) return console.log('no function in undo array');
+                    if (!(allFunctions.length)) return 'no function in undo array';
                     var command = allFunctions.pop();
                     undoneFunctions.push(command);
                     circleAndNo.hide().css({
@@ -956,7 +956,7 @@
 
                 this.redoInCommand = function redo() {
 
-                    if (!(undoneFunctions.length)) return console.log('no function in redo array');
+                    if (!(undoneFunctions.length)) return 'no function in redo array';
                     var command = undoneFunctions.pop();
                     allFunctions.push(command);
                     circleAndNo.hide().css({
@@ -1227,8 +1227,6 @@
 
                     let circleNo = createEditablePopover.DOMelem;
 
-                    console.log(circleNo);
-
                     $(circleNo).data({
                         editFlag: true
                     }).children('span').popover('show');
@@ -1239,8 +1237,6 @@
 
                     $('.popover-body:eq(-1)').html(elem);
 
-                    console.log($('.popover'));
-
                     createEditablePopover.freshresults.push(circleNo);
 
                     eventSequence.push({
@@ -1250,7 +1246,7 @@
 
                     oneInProgress = true;
 
-                    console.log('Editable popover is created');
+                    return 'Editable popover is created';
 
                 },
 
@@ -1433,8 +1429,6 @@
 
                 $(this).children().popover('toggle');
 
-                console.log('2 circle mouseenter');
-
                 $('.popover:eq(-1)').addClass('hover-pop custom-dark-popover bg-dark');
 
                 let elem = `
@@ -1469,10 +1463,6 @@
 
                 let popHeight = parseInt(getTransform(el)[1], 10) + $('.popover:eq(-1)').height();
 
-                console.log('popHt: ' + popHeight,
-                            'popTop: ' + getTransform(el)[1],
-                            'circleTop: ' + $(this).css('top'));
-
                 if (popHeight >= $(document).height() * 0.9) {
 
                     $('.custom-dark-popover .arrow').remove();
@@ -1482,8 +1472,6 @@
                 $('#dynamic').remove();
 
                 let popId = '#' + $(this).find('span').attr('aria-describedby');
-
-                console.log($(popId).last().attr('x-placement'));
 
                 if ($(popId).last().attr('x-placement') == 'bottom') {
 
@@ -1528,8 +1516,6 @@ border-top-color: #343a40;
                     return
                 };
 
-                console.log('this circle clicked',this);
-
                 createEditablePopover.executeInCommand(this);
 
                 placeCircleDatainTextArea($(this).data().comment);
@@ -1545,8 +1531,6 @@ border-top-color: #343a40;
                     $('.popBtn:eq(-1)').removeAttr('disabled', 'disabled');
 
                 }
-
-                console.log('data placed in the text area');
 
             }
 
@@ -1569,8 +1553,6 @@ border-top-color: #343a40;
                 execute: function(DOMelem) {
 
                     dataAmendinPop.freshresults.push($(DOMelem).data().comment);
-
-                    console.log('data amended in text area');
 
                     return true;
 
@@ -1642,8 +1624,6 @@ border-top-color: #343a40;
 
                     popGoesHidden.freshresults.push(circleNo);
 
-                    console.log('Data saved in circle and popover goes hidden');
-
                     return true;
 
                 },
@@ -1657,8 +1637,6 @@ border-top-color: #343a40;
                     let prvsData = popGoesHidden.arrayData.pop();
 
                     popGoesHidden.arrayData2.push(prvsData);
-
-                    console.log('prvs Data', popGoesHidden.arrayData);
 
                     $(circleNo).data({
                         comment: prvsData,
@@ -1897,7 +1875,7 @@ border-top-color: #343a40;
                 });
 
                 let heightOfOpenWindow = () => { return Math.max($('body')[0].scrollHeight, $('#for-printing')[0].scrollHeight) };
-                console.log(heightOfOpenWindow(),$('body').height(), $('#for-printing').height());
+
                 $('.blackish-overlay').css({top:0,height:heightOfOpenWindow()});
 
             }
@@ -2056,8 +2034,6 @@ border-top-color: #343a40;
                     event: 'marker deleted',
                     markerDOM: $('[aria-describedby="' + $(this).closest('.popover').attr('id') + '"]').closest('.circleAndNo')
                 });
-
-                console.log(eventSequence);
 
                 markerDeleted.executeInCommand(this, false);
 
@@ -2292,8 +2268,6 @@ border-top-color: #343a40;
 
                 })
 
-                console.log(eventSequence);
-
                 let presentCircleDims = circleAndNo.css(['font-size', 'height', 'width']);
 
                 markerSizeChanged.executeInCommand(false, false, presentCircleDims);
@@ -2346,8 +2320,6 @@ border-top-color: #343a40;
 
                     })
 
-                    console.log(eventSequence);
-
                     let combinedClassNames = foundClassesNew + ' ' + foundClassesOld;
 
                     $('.circleAndNo').toggleClass(combinedClassNames);
@@ -2361,8 +2333,6 @@ border-top-color: #343a40;
 
                     markerThemeChanged.freshresults.push(classNames);
 
-                    console.log('fresh', markerThemeChanged.freshresults);
-
                     return combinedClassNames;
 
                 },
@@ -2370,8 +2340,6 @@ border-top-color: #343a40;
                 undo: function() {
 
                     let classes = markerThemeChanged.freshresults.pop();
-
-                    console.log(classes);
 
                     $('.circleAndNo:eq(-1)')
                         .show()
@@ -2395,15 +2363,11 @@ border-top-color: #343a40;
 
                     markerThemeChanged.undoresult.push(classes);
 
-                    console.log(markerThemeChanged.undoresult);
-
                 },
 
                 redo: function() {
 
                     let classes = markerThemeChanged.undoresult.pop();
-
-                    console.log(markerThemeChanged.undoresult);
 
                     $('.circleAndNo:eq(-1)')
                         .show()
@@ -2442,8 +2406,6 @@ border-top-color: #343a40;
 
                 let event = storeEvent();
 
-                console.log(event);
-
                 $('.detailBox-Big').hide();
                 $('.detailBox').show().addClass('d-flex');
                 $('.detailBox').css({
@@ -2458,8 +2420,6 @@ border-top-color: #343a40;
             $(document).on('click', '.box-left-top', function() {
 
                 let event = storeEvent();
-
-                console.log(event);
 
                 $('.detailBox-Big').hide();
                 $('.detailBox').show().addClass('d-flex');
@@ -2476,8 +2436,6 @@ border-top-color: #343a40;
 
                 let event = storeEvent();
 
-                console.log(event);
-
                 $('.detailBox-Big').hide();
                 $('.detailBox').show().addClass('d-flex');
                 $('.detailBox').css({
@@ -2493,8 +2451,6 @@ border-top-color: #343a40;
 
                 let event = storeEvent();
 
-                console.log(event);
-
                 $('.detailBox-Big').hide();
                 $('.detailBox').show().addClass('d-flex');
                 $('.detailBox').css({
@@ -2509,8 +2465,6 @@ border-top-color: #343a40;
             $(document).on('click', '.box-big-bottom', function() {
 
                 let event = storeEvent();
-
-                console.log(event);
 
                 $('.detailBox').attr({ctr:4}).hide().removeClass('d-flex')
                 $('.detailBox-Big').show();
@@ -2624,8 +2578,6 @@ border-top-color: #343a40;
 
                     let link = drawnPic.toDataURL('image/jpeg');
 
-                    console.log('converted successfully');
-
                     $('.aTag:eq(0)').attr({
                         href: link,
                         download: 'newImage'
@@ -2698,14 +2650,6 @@ border-top-color: #343a40;
                 $("#dialog-final").dialog('open');
 
                 $("#dialog-share").dialog('close');
-
-                $.post('http://localhost/themepic/store_plotting.php', {
-                    delete: true
-                }, function(result) {
-
-                    console.log(result);
-
-                });
 
             })
 
@@ -2793,8 +2737,6 @@ border-top-color: #343a40;
 
                 }
 
-                console.log('.image Load completed', imgHt, imgWt);
-
                 $('#overlay').css({
                     height: imgHt,
                     width: imgWt
@@ -2810,8 +2752,6 @@ border-top-color: #343a40;
                 });
 
                 spinner.end();
-
-                console.log($(this).data().public_id);
 
                 if (!($(this).data().public_id)) {
 
@@ -2834,7 +2774,6 @@ border-top-color: #343a40;
             				        'content-type': 'application/json',
             				    }
             					}).done((res) => {
-            						console.log(res);
                         $(this).data({'public_id':res.public_id, 'thumbnail_saved': true});
                         update_image_table_db('save_draft');
                         $('.saving-image').addClass('d-none').animate({opacity: 1}, 500, 'linear');
@@ -2848,8 +2787,6 @@ border-top-color: #343a40;
 
                 };
 
-                console.log(`Data for img exist: ${dataforimageexists.status}`);
-
                 if (dataforimageexists.status) {
 
                     let elem = `<div class="circleAndNo rounded-circle bg-info text-light" ><span data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></span><elem>1</elem></div>`;
@@ -2859,8 +2796,6 @@ border-top-color: #343a40;
                     $.each(obj, function(key, value) {
 
                         let newObj = value.data;
-
-                        console.log(value);
 
                         $('#for-printing').prepend(elem);
 
@@ -2926,13 +2861,11 @@ border-top-color: #343a40;
                   if (width > MAX_WIDTH) {
                       height *= MAX_WIDTH / width;
                       width = MAX_WIDTH;
-                      console.log('thumbnail is now downsized - I.')
                   }
               } else {
                   if (height > MAX_HEIGHT) {
                       width *= MAX_HEIGHT / height;
                       height = MAX_HEIGHT;
-                      console.log('thumbnail is now downsized - II.')
                   }
               };
               StorageCanvas.width = width;
@@ -2962,7 +2895,6 @@ border-top-color: #343a40;
                       'content-type': 'application/json',
                   }
                 }).done((res) => {
-                  console.log(res);
                   $('.saving-thumbnail').addClass('d-none').animate({opacity: 1}, 500, 'linear');
                 }).fail((e) => {
                   console.log('error', e.responseText);
@@ -3019,8 +2951,6 @@ border-top-color: #343a40;
 
             $('.image-for-storage').on('load', function() {
 
-                console.log('2. ".image-for-storage" is loaded now at an hidden place.');
-
                 ConvertImageandStoreImageInCloudinary();
 
             })
@@ -3044,13 +2974,11 @@ border-top-color: #343a40;
                     if (width > MAX_WIDTH) {
                         height *= MAX_WIDTH / width;
                         width = MAX_WIDTH;
-                        console.log('Image is now downsized - I.')
                     }
                 } else {
                     if (height > MAX_HEIGHT) {
                         width *= MAX_HEIGHT / height;
                         height = MAX_HEIGHT;
-                        console.log('Image is now downsized - II.')
                     }
                 };
 
@@ -3071,8 +2999,6 @@ border-top-color: #343a40;
 
                 if (isTainted(StorageCanvas)) {
 
-                    console.log('3. image-for-storage when placed in canvas, it is tainted.');
-
                     $('.ok-btn-box .error-span').find('small').html('<i class="text-warning fas fa-exclamation-circle"></i> Sorry, canvas is tainted! I will save these images in local database. Wait a moment please.');
 
                     let data = {
@@ -3092,7 +3018,6 @@ border-top-color: #343a40;
                             'content-type': 'application/json',
                         }
                       }).done((res) => {
-                        console.log(res);
                         $('.image').data({'public_id':res.public_id}).attr({src: res.image});
                         $('.saving-image').addClass('d-none').animate({opacity: 1}, 500, 'linear');
                       }).fail((e) => {
@@ -3109,8 +3034,6 @@ border-top-color: #343a40;
                     src: dataurl
                 });
 
-                console.log('Image tag is given the src of dataurl, but not loaded yet.');
-
                 return;
 
             }
@@ -3122,8 +3045,6 @@ border-top-color: #343a40;
                 $("#dialog-final").dialog('open');
 
                 $("#dialog-uploadImage").dialog('close');
-
-                console.log('".image" is set to "firstLoad : true"');
 
                 $('.image').attr({
                     firstLoad: true
@@ -3143,8 +3064,6 @@ border-top-color: #343a40;
 
                 }
 
-                console.log('1. Image is valid, add source to .image-for-storage');
-
                 $('.saving-image').removeClass('d-none').animate({opacity: 1}, 500, 'linear');
 
                 $('.image-for-storage').attr({
@@ -3158,8 +3077,6 @@ border-top-color: #343a40;
                 $("#dialog-final").dialog('open');
 
                 $("#dialog-uploadImage").dialog('close');
-
-                console.log('2. ".image" is set to "firstLoad : true"');
 
                 $('.image').attr({
                     firstLoad: true
@@ -3197,8 +3114,6 @@ border-top-color: #343a40;
 
                 if ($('.image').height() < 10) {
 
-                    console.log('.image height is less then 10 that means no .image is there');
-
                     return;
 
                 }
@@ -3211,14 +3126,12 @@ border-top-color: #343a40;
 
                 let div = document.querySelector('.custom-hide');
 
-                // console.log('-- Going to print this printing area. Image link should be: ' + $('.custom-hide').find('.image').attr('src'));
-
                 html2canvas(div, {
 
                     useCORS: true,
                     backgroundColor: 'null',
                     scale: 1,
-                    logging: true
+                    logging: false
 
                 }).then(function(drawnPic) {
 
@@ -3227,8 +3140,6 @@ border-top-color: #343a40;
                     printhidendisplay.undo();
 
                     if (call == 'save_draft') {
-
-                        console.log('saved draft');
 
                         return;
 
@@ -3273,8 +3184,6 @@ border-top-color: #343a40;
 
                 });
 
-                console.log(circleData);
-
                 update_image_table_db('save_draft');
 
                 $('.saving-data').removeClass('d-none').animate({opacity: 1}, 500, 'linear');
@@ -3290,8 +3199,6 @@ border-top-color: #343a40;
 
                 data = JSON.stringify(data);
 
-                console.log(data);
-
                 $.ajax({
                     url: '/loggedin',
                     type: 'post',
@@ -3300,7 +3207,6 @@ border-top-color: #343a40;
                         'content-type': 'application/json',
                     }
                   }).done((res) => {
-                    console.log(res);
                     $('.saving-data').addClass('d-none').animate({opacity: 1}, 500, 'linear');
                   }).fail((e) => {
                     console.log(e.responseText);
@@ -3325,8 +3231,6 @@ border-top-color: #343a40;
 
                 data = JSON.stringify(data);
 
-                console.log(data);
-
                 $.ajax({
                     url: '/loggedin',
                     type: 'post',
@@ -3335,7 +3239,6 @@ border-top-color: #343a40;
                         'content-type': 'application/json',
                     }
                   }).done((res) => {
-                    console.log(res);
                     $('.saving-data').addClass('d-none').animate({opacity: 1}, 500, 'linear');
                     $('.saving-done').html('<i class="fas fa-check-circle"></i> Published');
                     let picId = $('.image').data().public_id;
@@ -3457,7 +3360,6 @@ border-top-color: #343a40;
                       'content-type': 'application/json',
                   }
                 }).done((res) => {
-                  console.log(res);
                   window.location.reload(true);
                 }).fail((e) => {
                   console.log('ERROR', e.responseText);
