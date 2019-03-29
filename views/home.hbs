@@ -700,7 +700,7 @@
             <div id="for-printing">
 
                 <div class="circleAndNo rounded-circle bg-info text-light">
-                    <span data-container="body" data-toggle="popover" data-placement="top" data-content=""></span>
+                    <span data-container="body" data-toggle="popover" data-placement="top" data-content="hello qasim"></span>
                     <elem></elem>
                 </div>
 
@@ -1227,7 +1227,7 @@
 
                     let circleNo = createEditablePopover.DOMelem;
 
-                    console.log('problem doesnot lie here',circleNo);
+                    console.log(circleNo);
 
                     $(circleNo).data({
                         editFlag: true
@@ -1337,9 +1337,7 @@
                     eventSequence.push({
                         event: 'marker created',
                         markerDOM: $('.circleAndNo:eq(0)')[0]
-                    })
-
-                    console.log('circle:eq(0) is created');
+                    });
 
                     return $('.circleAndNo:eq(0)')[0];
 
@@ -1894,11 +1892,13 @@ border-top-color: #343a40;
 
                     }
 
-                    //					console.log(className());
-
                     className();
 
-                })
+                });
+
+                let heightOfOpenWindow = () => { return Math.max($('body')[0].scrollHeight, $('#for-printing')[0].scrollHeight) };
+                console.log(heightOfOpenWindow(),$('body').height(), $('#for-printing').height());
+                $('.blackish-overlay').css({top:0,height:heightOfOpenWindow()});
 
             }
 
@@ -2755,6 +2755,7 @@ border-top-color: #343a40;
 
               let card = this;
 
+
               $('.blackish-overlay').css({display: 'block',height: $('body').height(),width: $('body').width()}).animate({
                 opacity:0.7
               }, 50, function() {
@@ -2764,8 +2765,6 @@ border-top-color: #343a40;
                   firstLoad: false
                 }).data({public_id: imageID});
               });
-
-
 
               spinner.end();
 
