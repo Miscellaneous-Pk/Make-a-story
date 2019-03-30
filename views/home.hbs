@@ -286,7 +286,7 @@
 
             #overlay {
 
-                top: 3px;
+                top: 0px;
                 left: 50%;
                 transform: translate(-50%, 0);
 
@@ -723,7 +723,7 @@
 
             </div>
 
-            <div id="overlay" class="position-absolute">
+            <div id="overlay" class="position-absolute mt-md-3">
 
                 <div class="detailBox bg-dark rounded" ctr="4">
 
@@ -1194,7 +1194,7 @@
                 let leftOfCanvas = $('#overlay').position().left;
 
                 circleAndNo.css({
-                    top: mousePos.y,
+                    top: parseInt($('.img-block').css("padding-top")) + mousePos.y,
                     left: leftOfCanvas + mousePos.x
                 });
 
