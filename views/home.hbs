@@ -52,7 +52,6 @@
 
             canvas {
                 position: absolute;
-                /* z-index: 11; */
                 cursor: copy;
             }
 
@@ -287,9 +286,9 @@
 
             #overlay {
 
+                top: 3px;
                 left: 50%;
                 transform: translate(-50%, 0);
-                /* z-index: 11; */
 
             }
 
@@ -517,6 +516,7 @@
               position: absolute;
               z-index: 8;
               top: 0px;
+
             }
 
             #dialog-final {
@@ -524,12 +524,19 @@
             }
 
             #for-printing {
-              position: absolute;
+              /* transform: translate(-50%,0); */
               overflow: hidden;
             }
 
             .carry-menu {
               z-index: 9;
+            }
+
+            #dialog-uploadImag {
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              z-index: 11;
             }
 
         </style>
@@ -607,7 +614,7 @@
 
         <div id="dialog-uploadImage" class="container dialog d-flex align-items-center justify-content-center">
 
-            <div class="col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded text-light bg-shadow p-0 m-0">
+            <div class="img-block col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded text-light bg-shadow p-0 m-0">
 
                 <div class="p-0 m-0 upload-image-box">
 
@@ -697,7 +704,7 @@
 
           <div class="img-block pt-md-3 col-lg-8 col-md-10 col-12 order-mdm-1 order-2 mx-0 p-0 rounded-top">
 
-            <div id="for-printing">
+            <div class="pb-3" id="for-printing">
 
                 <div class="circleAndNo rounded-circle bg-info text-light">
                     <span data-container="body" data-toggle="popover" data-placement="top" data-content="hello qasim"></span>
@@ -716,22 +723,22 @@
 
             </div>
 
-              <div id="overlay" class="position-absolute">
+            <div id="overlay" class="position-absolute">
 
-                  <div class="detailBox bg-dark rounded" ctr="4">
-
-
-                      <small class="border-right px-1 rounded-left">1</small>
-                      <small class="border-right px-1">2</small>
-                      <small class="border-right px-1">3</small>
-                      <small class="px-1 rounded-right">4</small>
+                <div class="detailBox bg-dark rounded" ctr="4">
 
 
-                  </div>
+                    <small class="border-right px-1 rounded-left">1</small>
+                    <small class="border-right px-1">2</small>
+                    <small class="border-right px-1">3</small>
+                    <small class="px-1 rounded-right">4</small>
 
-                  <canvas data-html2canvas-ignore class="" id="myCanvas"></canvas>
 
-              </div>
+                </div>
+
+                <canvas data-html2canvas-ignore class="" id="myCanvas"></canvas>
+
+            </div>
 
           </div>
 
@@ -1065,7 +1072,6 @@
                         at: "center",
                         of: window
                     },
-                    modal: true,
                     autoOpen: false,
                     appendTo: ".btn-container",
                     show: {
@@ -1874,11 +1880,20 @@ border-top-color: #343a40;
 
                 });
 
-                let heightOfOpenWindow = () => { return Math.max($('body')[0].scrollHeight, $('#for-printing')[0].scrollHeight) };
-
                 $('.blackish-overlay').css({top:0,height:heightOfOpenWindow()});
 
-            }
+            };
+
+            let heightOfOpenWindow = () => { return Math.max($('body')[0].scrollHeight, $('#for-printing')[0].scrollHeight) };
+
+            $('.blackish-overlay').on('click',function() {
+              if ($('#dialog-final').dialog('isOpen')) return;
+              $(".ui-dialog-content").dialog("close");
+              $('.blackish-overlay').css({
+                display: 'none',
+              });
+
+            })
 
             $(document).on('mouseenter mouseleave', '.small-elem', function() {
 
@@ -2602,6 +2617,7 @@ border-top-color: #343a40;
                   height: $('body').height(),
                   width: $('body').width(),
                   display: 'block',
+                  opacity:0.7,
                 });
 
                 $("#dialog-uploadImage").dialog('open');
@@ -2700,7 +2716,7 @@ border-top-color: #343a40;
               let card = this;
 
 
-              $('.blackish-overlay').css({display: 'block',height: $('body').height(),width: $('body').width()}).animate({
+              $('.blackish-overlay').css({display: 'block',height: heightOfOpenWindow(),width: $('body').width()}).animate({
                 opacity:0.7
               }, 50, function() {
                 $("#dialog-final").dialog('open');
