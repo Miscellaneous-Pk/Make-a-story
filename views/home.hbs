@@ -568,6 +568,7 @@
                 left:0%;
                 top:100%;
                 white-space: normal;
+                width: 320px;
               }
 
             }
@@ -779,12 +780,12 @@
 
               <div class="d-md-block mx-auto d-flex justify-content-center col-md-12 col-11 mx-2 text-center align-items-center">
 
-                <div class="menu-caption position-absolute d-none">
+                <div class="menu-caption position-absolute d-none border p-0 text-left">
 
                   <span></span>
 
                   <div class="text-posn d-none text-left ml-2">
-                    <svg class="" width="50%" viewBox="0 0 156 231" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="" width="170" viewBox="0 0 156 231" fill="none" xmlns="http://www.w3.org/2000/svg">
           					<path fill-rule="evenodd" clip-rule="evenodd" d="M1 1H155V230H1V1Z" fill="#D8D8D8" fill-opacity="0.58" stroke="#FFFBFB" stroke-width="2" stroke-linejoin="round"/>
           					<path fill-rule="evenodd" clip-rule="evenodd" d="M1 144H155V230H1V144Z" fill="#FFFFFF"/>
           					<path data-show-text="detailBox-Big" class="banner-lines" d="M139.5 160H72.5" stroke="#DADADA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -795,6 +796,36 @@
           					<path data-show-text="detailBox left bottom" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M10 116C10 114.343 11.3431 113 13 113H71C72.6569 113 74 114.343 74 116V130C74 131.657 72.6569 133 71 133H13C11.3431 133 10 131.657 10 130V116Z" fill="#FFFFFF"/>
           					<path data-show-text="detailBox right bottom" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M82 116C82 114.343 83.3431 113 85 113H143C144.657 113 146 114.343 146 116V130C146 131.657 144.657 133 143 133H85C83.3431 133 82 131.657 82 130V116Z" fill="#FFFFFF"/>
           					</svg>
+                  </div>
+
+                  <div class="marker-posn d-none text-left justify-content-between border">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44Z" fill="#D91968"/>
+                    </svg>
+
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44Z" fill="#D91968"/>
+                    </svg>
+
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44Z" fill="#D91968"/>
+                    </svg>
+
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44Z" fill="#D91968"/>
+                    </svg>
+
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44Z" fill="#D91968"/>
+                    </svg>
+
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44Z" fill="#D91968"/>
+                    </svg>
+
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M22 44C34.1503 44 44 34.1503 44 22C44 9.84974 34.1503 0 22 0C9.84974 0 0 9.84974 0 22C0 34.1503 9.84974 44 22 44Z" fill="#D91968"/>
+                    </svg>
                   </div>
 
                 </div>
@@ -3449,18 +3480,16 @@ border-top-color: #343a40;
             });
 
             $('.menu-btn>svg').on('mouseenter mouseleave',function(e){
-              if (e.type == 'mouseleave') return;
               let label = $(this).attr('name');
               $('.menu-caption').toggleClass('d-none d-block').find('span').html(label);
-              if (label == 'Text Position.') console.log($('.menu-caption').find('.text-posn').toggleClass('d-none d-block'));
+              if (label == 'Text Position.') $('.menu-caption').find('.text-posn').toggleClass('d-none d-block');
+              if (label == 'Marker Settings.') $('.menu-caption').find('.marker-posn').toggleClass('d-none d-flex');
               $('.blackish-overlay').toggleClass('o-active o-inactive');
-              console.log('----');
               $(this).find('path').each(function() {
                 let oldstroke = $(this).attr('stroke');
                 let oldfill = $(this).attr('fill');
                 if (oldstroke) $(this).attr('stroke',inverse(oldstroke));
                 if (oldfill) $(this).attr('fill',inverse(oldfill));
-                console.log(inverse(oldstroke));
               });
             });
 
