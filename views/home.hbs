@@ -47,7 +47,7 @@
             }
 
             bg-transparent {
-                background-color: transparent;
+                background-color: black !important;
             }
 
             canvas {
@@ -584,6 +584,10 @@
 
             .disappear>svg {
               cursor: default !important;
+            }
+
+            .bg-black {
+              background-color: rgb(0,0,0,0.4) !important;
             }
 
             @media(max-width:767px){
@@ -3518,7 +3522,7 @@ border-top-color: #343a40;
               if ($('.menu-btn:eq(1)').data().state) return console.log('already clicked');
               let label = $(this).attr('name');
               if (label == 'Marker Settings.') {
-                $('.menu-caption').toggleClass('bg-light').find('.marker-posn').toggleClass('d-none d-flex').siblings('span').toggleClass('text-black');
+                $('.menu-caption').toggleClass('bg-black').find('.marker-posn').toggleClass('d-none d-flex').siblings('span');
               }
               $('.menu-caption').toggleClass('d-none d-block').find('span').html(label);
               if (label == 'Text Position.') $('.menu-caption').find('.text-posn').toggleClass('d-none d-block');
@@ -3541,6 +3545,7 @@ border-top-color: #343a40;
               if (label == 'Marker Settings.') {
                 var nextstate = $(this).parent('.menu-btn').data().state;
                 $(this).parent('.menu-btn').data({state: !nextstate}).siblings('.menu-btn').toggleClass('disappear'); // Toggled state not being assigned to .menu-btn here
+                $('.menu-caption').toggleClass('bg-black bg-light').find('span').toggleClass('text-black');
               };
             })
 
