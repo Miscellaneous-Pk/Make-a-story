@@ -570,6 +570,30 @@
               cursor: pointer;
             }
 
+            .size-circle {
+              height: 49px;
+              width: 49px;
+              font-size: 110%;
+              font-weight: bold;
+              cursor: pointer;
+              top: 50%;
+              left: 30%;
+              transform: translate(-50%,-50%);
+            }
+
+            .size-canvas {
+              cursor: pointer;
+              height: 15px;
+              width: 100%;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%,-50%);
+            }
+
+            .size-svg {
+              width: 346px;
+            }
+
             .menu-btn>svg {
               cursor: pointer;
             }
@@ -601,6 +625,10 @@
 
               .menu-caption > span {
                 white-space: normal;
+              }
+
+              .size-svg {
+                width: 266px;
               }
 
             }
@@ -844,24 +872,26 @@
                     <div class="marker-circle rounded-circle bg-danger border-light text-light d-flex align-items-center justify-content-center mx-1 shadow">6</div>
                     <div class="marker-circle rounded-circle bg-success border-light text-light d-flex align-items-center justify-content-center mx-1 shadow">7</div>
                     <div class="col-12 my-2"></div>
-                    <svg width="346" height="66" viewBox="0 0 346 66" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.5 33.5H340.5" stroke="#1C1B19" stroke-width="10" stroke-linecap="round"/>
-                    <g filter="url(#filter0_d)">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M47 55C59.1503 55 69 45.1503 69 33C69 20.8497 59.1503 11 47 11C34.8497 11 25 20.8497 25 33C25 45.1503 34.8497 55 47 55Z" fill="white"/>
-                    </g>
-                    <path d="M41.184 29.28L38.628 31.53L37.098 29.766L41.256 26.256H43.776V39H41.184V29.28ZM47.3088 32.628C47.3088 31.872 47.3748 31.104 47.5068 30.324C47.6508 29.544 47.8968 28.836 48.2448 28.2C48.6048 27.564 49.0908 27.048 49.7028 26.652C50.3148 26.244 51.0948 26.04 52.0428 26.04C52.9908 26.04 53.7708 26.244 54.3828 26.652C54.9948 27.048 55.4748 27.564 55.8228 28.2C56.1828 28.836 56.4288 29.544 56.5608 30.324C56.7048 31.104 56.7768 31.872 56.7768 32.628C56.7768 33.384 56.7048 34.152 56.5608 34.932C56.4288 35.712 56.1828 36.42 55.8228 37.056C55.4748 37.692 54.9948 38.214 54.3828 38.622C53.7708 39.018 52.9908 39.216 52.0428 39.216C51.0948 39.216 50.3148 39.018 49.7028 38.622C49.0908 38.214 48.6048 37.692 48.2448 37.056C47.8968 36.42 47.6508 35.712 47.5068 34.932C47.3748 34.152 47.3088 33.384 47.3088 32.628ZM50.0088 32.628C50.0088 32.964 50.0208 33.366 50.0448 33.834C50.0808 34.302 50.1648 34.752 50.2968 35.184C50.4288 35.616 50.6268 35.982 50.8908 36.282C51.1668 36.582 51.5508 36.732 52.0428 36.732C52.5228 36.732 52.9008 36.582 53.1768 36.282C53.4528 35.982 53.6568 35.616 53.7888 35.184C53.9208 34.752 53.9988 34.302 54.0228 33.834C54.0588 33.366 54.0768 32.964 54.0768 32.628C54.0768 32.292 54.0588 31.89 54.0228 31.422C53.9988 30.954 53.9208 30.504 53.7888 30.072C53.6568 29.64 53.4528 29.274 53.1768 28.974C52.9008 28.674 52.5228 28.524 52.0428 28.524C51.5508 28.524 51.1668 28.674 50.8908 28.974C50.6268 29.274 50.4288 29.64 50.2968 30.072C50.1648 30.504 50.0808 30.954 50.0448 31.422C50.0208 31.89 50.0088 32.292 50.0088 32.628Z" fill="black"/>
-                    <defs>
-                    <filter id="filter0_d" x="14" y="0" width="66" height="66" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
-                    <feOffset/>
-                    <feGaussianBlur stdDeviation="5.5"/>
-                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
-                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-                    </filter>
-                    </defs>
-                    </svg>
+                    <div class="position-relative d-flex justify-content-center">
+
+                      <div class="position-absolute size-circle rounded-circle border border-dark bg-light text-black d-flex align-items-center justify-content-center mx-1 shadow">30</div>
+                      <div class="position-absolute size-canvas"></div>
+
+                      <svg class="size-svg" width="346" height="66" viewBox="0 0 346 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5.5 33.5H340.5" stroke="#1C1B19" stroke-width="10" stroke-linecap="round"/>
+                      <defs>
+                      <filter id="filter0_d" x="14" y="0" width="66" height="66" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+                      <feOffset/>
+                      <feGaussianBlur stdDeviation="5.5"/>
+                      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+                      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                      </filter>
+                      </defs>
+                      </svg>
+                    </div>
 
 
 
@@ -3547,7 +3577,15 @@ border-top-color: #343a40;
                 $(this).parent('.menu-btn').data({state: !nextstate}).siblings('.menu-btn').toggleClass('disappear'); // Toggled state not being assigned to .menu-btn here
                 $('.menu-caption').toggleClass('bg-black bg-light').find('span').toggleClass('text-black');
               };
-            })
+            });
+
+            $('.size-canvas').on('mousemove mousedown',function(e) {
+              if (e.which == 1 || e.type == 'mousedown') {
+                let mousePos = getMousePos(this,e);
+                let value = Math.abs(mousePos.x/$(this).width()*100);
+                $('.size-circle').css({left:`${value}%`}).html(Math.floor(value));
+              }
+            });
 
         </script>
 
