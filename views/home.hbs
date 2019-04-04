@@ -822,7 +822,7 @@
 
             <div id="overlay" class="position-absolute mt-md-3">
 
-                <div class="detailBox bg-dark rounded" ctr="4">
+                <div class="detailBox bg-dark rounded">
 
                     <small class="border-right px-1 rounded-left">1</small>
                     <small class="border-right px-1">2</small>
@@ -844,7 +844,11 @@
 
                   <span></span>
 
-                  <div class="text-posn d-none text-left ml-2">
+                  <div class="text-posn d-none text-md-right text-left ml-2 pb-3">
+
+                    <div class="col-12 px-0 text-md-right text-left"><section class="badge badge-light ">Press to change text position.</section></div>
+                    <div class="col-12 my-2"></div>
+
                     <svg class="" width="170" viewBox="0 0 156 231" fill="none" xmlns="http://www.w3.org/2000/svg">
           					<path fill-rule="evenodd" clip-rule="evenodd" d="M1 1H155V230H1V1Z" fill="#D8D8D8" fill-opacity="0.58" stroke="#FFFBFB" stroke-width="2" stroke-linejoin="round"/>
           					<path fill-rule="evenodd" clip-rule="evenodd" d="M1 144H155V230H1V144Z" fill="#FFFFFF"/>
@@ -891,16 +895,14 @@
                       </filter>
                       </defs>
                       </svg>
+
                     </div>
-
-
-
 
                   </div>
 
                 </div>
 
-                <div class="menu-btn px-md-3 px-1 py-md-1 py-2 my-0" style="line-height:1px">
+                <div class="menu-btn px-md-3 px-1 py-md-1 py-2 my-0" style="line-height:1px" ctr="4">
                   <svg name="Text Position." width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M19 38C29.4934 38 38 29.4934 38 19C38 8.50659 29.4934 0 19 0C8.50659 0 0 8.50659 0 19C0 29.4934 8.50659 38 19 38Z" fill="white"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2728 27.5628L16.3857 10.3762C16.3983 10.3342 16.4373 10.3042 16.4801 10.3042H21.4449C21.4888 10.3042 21.5267 10.3332 21.5384 10.3762L26.7262 27.5608C26.7359 27.5938 26.7311 27.6278 26.7145 27.6508C26.6941 27.6788 26.6639 27.6948 26.6318 27.6948H22.5615C22.5177 27.6948 22.4788 27.6658 22.4671 27.6218L21.334 23.7472C21.2532 23.4722 21.0059 23.2821 20.7255 23.2821H17.0389C16.7536 23.2821 16.5034 23.4772 16.4275 23.7602L15.3839 27.6198C15.3722 27.6638 15.3323 27.6948 15.2885 27.6948H11.3673C11.3361 27.6948 11.305 27.6788 11.2884 27.6558C11.2699 27.6288 11.2641 27.5938 11.2728 27.5628ZM11.3673 29H15.2885C15.9009 29 16.4431 28.5759 16.6076 27.9688L17.5217 24.5873H20.2534L21.2502 27.9958C21.4216 28.5869 21.9609 29 22.5616 29H26.6318C27.063 29 27.4748 28.786 27.7357 28.4259C27.9898 28.0689 28.0667 27.6018 27.9401 27.1767L22.7514 9.98915C22.5723 9.39706 22.0475 9 21.4449 9H16.4801C15.8746 9 15.3479 9.40006 15.1707 9.99515L10.0589 27.1837C9.93329 27.6058 10.0112 28.0709 10.2682 28.4319C10.5271 28.788 10.9379 29 11.3673 29Z" fill="black"/>
@@ -1049,6 +1051,8 @@
         <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.0/additional-methods.js"></script>
         <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js" type="text/javascript"></script>
+    		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TimelineLite.min.js" type="text/javascript"></script>
 
         <script type="text/javascript">
 
@@ -3555,7 +3559,7 @@ border-top-color: #343a40;
                 $('.menu-caption').toggleClass('bg-black').find('.marker-posn').toggleClass('d-none d-flex').siblings('span');
               }
               $('.menu-caption').toggleClass('d-none d-block').find('span').html(label);
-              if (label == 'Text Position.') $('.menu-caption').find('.text-posn').toggleClass('d-none d-block');
+              if (label == 'Text Position.') $('.menu-caption').toggleClass('bg-black').find('.text-posn').toggleClass('d-none d-block');
               $(this).find('path').each(function() {
                 let oldstroke = $(this).attr('stroke');
                 let oldfill = $(this).attr('fill');
@@ -3577,6 +3581,27 @@ border-top-color: #343a40;
                 $(this).parent('.menu-btn').data({state: !nextstate}).siblings('.menu-btn').toggleClass('disappear'); // Toggled state not being assigned to .menu-btn here
                 $('.menu-caption').toggleClass('bg-black bg-light').find('span').toggleClass('text-black');
               };
+              if (label == 'Text Position.') {
+                var tl6 = new TimelineLite();
+        				let ctr = $(this).parent('.menu-btn').attr('ctr');
+        				if (ctr == 4) {
+        					$(this).parent('.menu-btn').attr({ctr:0});
+        					$('.detailBox').toggleClass('d-none d-flex');
+        					$('.detailBox-Big').css({display:'block'});
+        					tl6.to(`.banner-inBox`,0.05,{fill:'#DADADA', ease:Power2.easeInOut})
+        						 .to(`.banner-lines`,0.05,{stroke:'black', ease:Power2.easeInOut});
+        					return console.log('done');
+        				};
+        				$('.detailBox-Big').css({display:'none'});
+        				console.log(ctr);
+        				let myData = $(`.banner-inBox:eq(${ctr})`).attr('data-show-text').split(' ');
+        				$('.detailBox').css({left:'',right:'',top:'',bottom:'',[myData[1]]: '2%',[myData[2]]: '2%'}).removeClass('d-none').addClass('d-flex');
+        				tl6.to(`.banner-inBox:eq(${ctr})`,0.05,{fill:'black', ease:Power2.easeInOut})
+        					 .to(`.banner-lines`,0.05,{stroke:'#DADADA', ease:Power2.easeInOut})
+        					 .to($(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox'),0.05,{fill:'#DADADA',ease:Power2.easeInOut});
+                ctr++;
+        				$(this).parent('.menu-btn').attr({ctr});
+              }
             });
 
             $('.size-canvas').on('mousemove mousedown',function(e) {
