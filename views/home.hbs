@@ -176,9 +176,9 @@
 
             .detailBox {
                 position: absolute;
-                z-index: 5;
                 display: none;
                 cursor: pointer;
+                z-index: 11;
             }
 
             .detailBox-text {
@@ -288,9 +288,9 @@
             }
 
             .circles-here {
-              top: 0px;
+              top: 0%;
               left: 50%;
-              transform: translate(-50%, 0);
+              transform: translate(-50%, 0%);
             }
 
             .image {
@@ -298,6 +298,9 @@
                 display: block;
                 width: auto;
                 height: auto;
+                top: 0%;
+                left: 50%;
+                transform: translate(-50%, 0%);
 
             }
 
@@ -540,6 +543,7 @@
 
             .img-block {
                 background: transparent;
+                overflow: hidden;
                 z-index: 10;
             }
 
@@ -614,6 +618,10 @@
               background-color: rgb(0,0,0,0.4) !important;
             }
 
+            .mt-md-11 {
+                margin-top: 1.05rem!important;
+            }
+
             @media(max-width:767px){
 
               .menu-caption {
@@ -631,7 +639,12 @@
                 width: 266px;
               }
 
+              .mt-md-11 {
+                  margin-top: 0rem!important;
+              }
+
             }
+
 
         </style>
 
@@ -796,11 +809,15 @@
             </div>
           </div>
 
-          <div class="img-block pt-md-3 col-lg-8 col-md-10 col-12 order-mdm-1 order-2 mx-0 p-0 rounded-top">
+          <div class="img-block mt-md-3 col-lg-8 col-md-10 col-12 order-mdm-1 order-2 mx-0 p-0 rounded">
 
-            <div class="pb-3" id="for-printing">
+            <div id="overlay" class="position-absolute"></div>
 
-              <div class="border border-dark circles-here mt-md-3 rounded-top">
+            <div class="detailBox bg-dark rounded"></div>
+
+            <div class="" id="for-printing">
+
+              <div class="circles-here position-absolute rounded border border-dark">
                 <div class="circleAndNo rounded-circle bg-info text-light">
                     <span data-container="body" data-toggle="popover" data-placement="top" data-content="hello qasim"></span>
                     <elem></elem>
@@ -808,29 +825,15 @@
                 <canvas data-html2canvas-ignore class="" id="myCanvas"></canvas>
               </div>
 
-              <img class="image mx-auto bg-shadow border border-dark rounded-top" id="blah" src="" alt="">
+              <img class="image position-absolute bg-shadow border border-dark" id="blah" src="" alt="">
 
-              <div class="position-relative mx-auto detailBox-Big ">
+              <div class="position-relative mx-auto detailBox-Big pb-3 ">
 
                   <div class="d-flex flex-wrap bg-dark rounded-bottom border border-dark">
 
                   </div>
 
               </div>
-
-            </div>
-
-            <div id="overlay" class="position-absolute mt-md-3">
-
-                <div class="detailBox bg-dark rounded">
-
-                    <small class="border-right px-1 rounded-left">1</small>
-                    <small class="border-right px-1">2</small>
-                    <small class="border-right px-1">3</small>
-                    <small class="px-1 rounded-right">4</small>
-
-
-                </div>
 
             </div>
 
@@ -852,13 +855,13 @@
                     <svg class="" width="170" viewBox="0 0 156 231" fill="none" xmlns="http://www.w3.org/2000/svg">
           					<path fill-rule="evenodd" clip-rule="evenodd" d="M1 1H155V230H1V1Z" fill="#D8D8D8" fill-opacity="0.58" stroke="#FFFBFB" stroke-width="2" stroke-linejoin="round"/>
           					<path fill-rule="evenodd" clip-rule="evenodd" d="M1 144H155V230H1V144Z" fill="#FFFFFF"/>
-          					<path data-show-text="detailBox-Big" class="banner-lines" d="M139.5 160H72.5" stroke="#DADADA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          					<path class="banner-lines" d="M139.5 187H16.5" stroke="#DADADA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          					<path class="banner-lines" d="M111.5 213H16.5" stroke="#DADADA" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-          					<path data-show-text="detailBox left top" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M10 15C10 13.3431 11.3431 12 13 12H71C72.6569 12 74 13.3431 74 15V29C74 30.6569 72.6569 32 71 32H13C11.3431 32 10 30.6569 10 29V15Z" fill="#000000"/>
-          					<path data-show-text="detailBox right top" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M82 15C82 13.3431 83.3431 12 85 12H143.187C144.844 12 146.187 13.3431 146.187 15V29.2428C146.187 30.8996 144.844 32.2428 143.187 32.2428H85C83.3431 32.2428 82 30.8996 82 29.2428V15Z" fill="#FFFFFF"/>
-          					<path data-show-text="detailBox left bottom" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M10 116C10 114.343 11.3431 113 13 113H71C72.6569 113 74 114.343 74 116V130C74 131.657 72.6569 133 71 133H13C11.3431 133 10 131.657 10 130V116Z" fill="#FFFFFF"/>
-          					<path data-show-text="detailBox right bottom" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M82 116C82 114.343 83.3431 113 85 113H143C144.657 113 146 114.343 146 116V130C146 131.657 144.657 133 143 133H85C83.3431 133 82 131.657 82 130V116Z" fill="#FFFFFF"/>
+          					<path data-show-text="detailBox-Big" class="banner-lines" d="M139.5 160H72.5" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          					<path class="banner-lines" d="M139.5 187H16.5" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          					<path class="banner-lines" d="M111.5 213H16.5" stroke="black" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+          					<path data-show-text="detailBox left top" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M10 15C10 13.3431 11.3431 12 13 12H71C72.6569 12 74 13.3431 74 15V29C74 30.6569 72.6569 32 71 32H13C11.3431 32 10 30.6569 10 29V15Z" fill="#DADADA"/>
+          					<path data-show-text="detailBox right top" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M82 15C82 13.3431 83.3431 12 85 12H143.187C144.844 12 146.187 13.3431 146.187 15V29.2428C146.187 30.8996 144.844 32.2428 143.187 32.2428H85C83.3431 32.2428 82 30.8996 82 29.2428V15Z" fill="#DADADA"/>
+          					<path data-show-text="detailBox left bottom" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M10 116C10 114.343 11.3431 113 13 113H71C72.6569 113 74 114.343 74 116V130C74 131.657 72.6569 133 71 133H13C11.3431 133 10 131.657 10 130V116Z" fill="#DADADA"/>
+          					<path data-show-text="detailBox right bottom" class="banner-inBox" fill-rule="evenodd" clip-rule="evenodd" d="M82 116C82 114.343 83.3431 113 85 113H143C144.657 113 146 114.343 146 116V130C146 131.657 144.657 133 143 133H85C83.3431 133 82 131.657 82 130V116Z" fill="#DADADA"/>
           					</svg>
                   </div>
 
@@ -902,7 +905,7 @@
 
                 </div>
 
-                <div class="menu-btn px-md-3 px-1 py-md-1 py-2 my-0" style="line-height:1px" ctr="4">
+                <div class="menu-btn px-md-3 px-1 py-md-1 py-2 my-0" style="line-height:1px" ctr="-1">
                   <svg name="Text Position." width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M19 38C29.4934 38 38 29.4934 38 19C38 8.50659 29.4934 0 19 0C8.50659 0 0 8.50659 0 19C0 29.4934 8.50659 38 19 38Z" fill="white"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.2728 27.5628L16.3857 10.3762C16.3983 10.3342 16.4373 10.3042 16.4801 10.3042H21.4449C21.4888 10.3042 21.5267 10.3332 21.5384 10.3762L26.7262 27.5608C26.7359 27.5938 26.7311 27.6278 26.7145 27.6508C26.6941 27.6788 26.6639 27.6948 26.6318 27.6948H22.5615C22.5177 27.6948 22.4788 27.6658 22.4671 27.6218L21.334 23.7472C21.2532 23.4722 21.0059 23.2821 20.7255 23.2821H17.0389C16.7536 23.2821 16.5034 23.4772 16.4275 23.7602L15.3839 27.6198C15.3722 27.6638 15.3323 27.6948 15.2885 27.6948H11.3673C11.3361 27.6948 11.305 27.6788 11.2884 27.6558C11.2699 27.6288 11.2641 27.5938 11.2728 27.5628ZM11.3673 29H15.2885C15.9009 29 16.4431 28.5759 16.6076 27.9688L17.5217 24.5873H20.2534L21.2502 27.9958C21.4216 28.5869 21.9609 29 22.5616 29H26.6318C27.063 29 27.4748 28.786 27.7357 28.4259C27.9898 28.0689 28.0667 27.6018 27.9401 27.1767L22.7514 9.98915C22.5723 9.39706 22.0475 9 21.4449 9H16.4801C15.8746 9 15.3479 9.40006 15.1707 9.99515L10.0589 27.1837C9.93329 27.6058 10.0112 28.0709 10.2682 28.4319C10.5271 28.788 10.9379 29 11.3673 29Z" fill="black"/>
@@ -2916,9 +2919,8 @@ border-top-color: #343a40;
                 });
 
                 $('.circles-here').css({
-                    height: imgHt+1,
-                    width: imgWt+2,
-                    position: 'absolute',
+                    height: imgHt,
+                    width: imgWt,
                     'z-index': 9,
                     overflow: 'hidden',
                 });
@@ -3584,8 +3586,9 @@ border-top-color: #343a40;
               if (label == 'Text Position.') {
                 var tl6 = new TimelineLite();
         				let ctr = $(this).parent('.menu-btn').attr('ctr');
+                ctr++;
         				if (ctr == 4) {
-        					$(this).parent('.menu-btn').attr({ctr:0});
+        					$(this).parent('.menu-btn').attr({ctr:-1});
         					$('.detailBox').toggleClass('d-none d-flex');
         					$('.detailBox-Big').css({display:'block'});
         					tl6.to(`.banner-inBox`,0.05,{fill:'#DADADA', ease:Power2.easeInOut})
@@ -3599,7 +3602,6 @@ border-top-color: #343a40;
         				tl6.to(`.banner-inBox:eq(${ctr})`,0.05,{fill:'black', ease:Power2.easeInOut})
         					 .to(`.banner-lines`,0.05,{stroke:'#DADADA', ease:Power2.easeInOut})
         					 .to($(`.banner-inBox:eq(${ctr})`).attr('fill','black').siblings('.banner-inBox'),0.05,{fill:'#DADADA',ease:Power2.easeInOut});
-                ctr++;
         				$(this).parent('.menu-btn').attr({ctr});
               }
             });
