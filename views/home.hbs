@@ -281,9 +281,9 @@
 
             #overlay {
 
-                top: 0px;
-                left: 50%;
-                transform: translate(-50%, 0);
+              top: 0px;
+              left: 50%;
+              transform: translate(-50%, 0);
 
             }
 
@@ -811,13 +811,10 @@
 
           <div class="img-block mt-md-3 col-lg-8 col-md-10 col-12 order-mdm-1 order-2 mx-0 p-0 rounded">
 
-            <div id="overlay" class="position-absolute"></div>
-
-            <div class="detailBox bg-dark rounded"></div>
-
             <div class="" id="for-printing">
 
               <div class="circles-here position-absolute rounded border border-dark">
+                <div class="detailBox bg-dark rounded"></div>
                 <div class="circleAndNo rounded-circle bg-info text-light">
                     <span data-container="body" data-toggle="popover" data-placement="top" data-content="hello qasim"></span>
                     <elem></elem>
@@ -921,7 +918,7 @@
                 </div>
 
                 <div class="menu-btn px-md-3 px-1 py-md-1 py-2 my-0" style="line-height:1px">
-                  <svg name="Download Image." width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg class="download-pic" name="Download Image." width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M19 38C29.4934 38 38 29.4934 38 19C38 8.50659 29.4934 0 19 0C8.50659 0 0 8.50659 0 19C0 29.4934 8.50659 38 19 38Z" fill="white"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M8 30H30V27H24.6541L19 28.078L13.6216 27H8V30Z" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M16.2102 5L21.6445 8.82461V15.9302H27L19 24L11 16.0468H16.2102V5Z" stroke="black" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1352,7 +1349,7 @@
 
                 var mousePos = getMousePos(canvas, evt);
 
-                let leftOfCanvas = $('#overlay').position().left;
+                let leftOfCanvas = $('.image').position().left;
 
                 circleAndNo.css({
                     top: mousePos.y,
@@ -2048,7 +2045,13 @@ border-top-color: #343a40;
             let heightOfOpenWindow = () => { return Math.max($('body')[0].scrollHeight, $('#for-printing')[0].scrollHeight) };
 
             $('.blackish-overlay').on('click',function() {
+
+              console.log('clicked black');
+              $('.menu-btn:eq(1)>svg').trigger('click');
+              $('.menu-btn:eq(1)>svg').trigger('mouseleave');
+
               if ($('#dialog-final').dialog('isOpen')) return;
+
               $(".ui-dialog-content").dialog("close");
               $('.blackish-overlay').css({
                 display: 'none',
@@ -2354,7 +2357,8 @@ border-top-color: #343a40;
 
                 execute: function() {
 
-                    sliderVal = $('.slider').val();
+                    sliderVal = $('.size-circle').html();
+                    if (sliderVal < '10') sliderVal = '40';
 
                     circleAndNo.css({
                         'font-size': sliderVal / 50 * 80 + '%',
@@ -2710,7 +2714,7 @@ border-top-color: #343a40;
 
                     let imgWt = $('.image').width();
 
-                    let elem = $('#for-printing').clone().addClass('custom-hide bg-dark');
+                    let elem = $('.img-block').clone().addClass('custom-hide bg-dark');
 
                     $('body').append(elem);
 
@@ -2740,11 +2744,11 @@ border-top-color: #343a40;
 
                 $('body').append(aTag);
 
-                printhidendisplay.execute(true);
+                // printhidendisplay.execute(true);
 
-                let div = document.querySelector('.custom-hide');
+                // let div = document.querySelector('.custom-hide');
 
-                html2canvas(div, {
+                html2canvas($('.img-block')[0], {
 
                     useCORS: true,
                     backgroundColor: 'null'
@@ -2757,8 +2761,6 @@ border-top-color: #343a40;
                         href: link,
                         download: 'newImage'
                     }).click();
-
-                    printhidendisplay.undo();
 
                 });
 
@@ -2900,8 +2902,8 @@ border-top-color: #343a40;
                     'max-width': '100%'
                 });
 
-                let imgWt = $(this).width();
-                let imgHt = $(this).height();
+                let imgWt = $(this).outerWidth();
+                let imgHt = $(this).outerHeight();
 
                 if (imgHt < 0) return console.log('.image height is less then 0 so stopping resetting of canvas size.');
 
@@ -2926,7 +2928,8 @@ border-top-color: #343a40;
                 });
 
                 $('.detailBox-Big').css({
-                    width: imgWt + 2
+                    width: imgWt,
+                    'margin-top':imgHt,
                 });
 
                 $('.detailBox').css({
@@ -2984,7 +2987,7 @@ border-top-color: #343a40;
 
                         $('.circleAndNo:eq(0)').css({
                             'z-index':11,
-                            left: newObj.percentX * $('.image').width() + $('#overlay').position().left,
+                            left: newObj.percentX * $('.image').width() + $('.image').position().left,
                             top: newObj.percentY * $('.image').height(),
                             'font-size': newObj.mFontSize * $('.image').width(),
                             height: newObj.mHeight * $('.image').width(),
@@ -3611,7 +3614,19 @@ border-top-color: #343a40;
                 let mousePos = getMousePos(this,e);
                 let value = Math.abs(mousePos.x/$(this).width()*100);
                 $('.size-circle').css({left:`${value}%`}).html(Math.floor(value));
-              }
+
+                eventSequence.push({
+
+                    event: 'marker size changed',
+                    markerDOM: circleAndNo,
+
+                })
+
+                let presentCircleDims = circleAndNo.css(['font-size', 'height', 'width']);
+
+                markerSizeChanged.executeInCommand(false, false, presentCircleDims);
+              };
+
             });
 
         </script>
