@@ -52,6 +52,8 @@
 
             canvas {
                 position: absolute;
+                left: 50%;
+                transform: translate(-50%,0%);
                 cursor: copy;
             }
 
@@ -288,20 +290,12 @@
             }
 
             .circles-here {
-              top: 0%;
+              /* top: 0%;
               left: 50%;
-              transform: translate(-50%, 0%);
+              transform: translate(-50%, 0%); */
             }
 
             .image {
-
-                display: block;
-                width: auto;
-                height: auto;
-                top: 0%;
-                left: 50%;
-                transform: translate(-50%, 0%);
-
             }
 
             .custom-hide {
@@ -512,6 +506,7 @@
             }
 
             #for-printing {
+              text-align: center;
               overflow: hidden;
             }
 
@@ -718,7 +713,7 @@
 
         <div id="dialog-uploadImage" class="container dialog d-flex align-items-center justify-content-center">
 
-            <div class="img-block col-lg-4 col-md-6 col-sm-8 col-12 rounded text-light bg-shadow p-0 m-0">
+            <div class="img-block col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded text-light bg-shadow p-0 m-0">
 
                 <div class="p-0 m-0 upload-image-box">
 
@@ -819,9 +814,9 @@
                 <canvas data-html2canvas-ignore class="" id="myCanvas"></canvas>
               </div>
 
-              <img class="image position-absolute bg-shadow border border-dark" id="blah" src="" alt="">
+              <img class="image bg-shadow border border-dark" id="blah" src="" alt="">
 
-              <div class="position-relative mx-auto detailBox-Big pb-3 ">
+              <div class="position-relative mx-auto detailBox-Big">
 
                   <div class="d-flex flex-wrap bg-dark rounded-bottom border border-dark">
 
@@ -2639,11 +2634,16 @@ border-top-color: #343a40;
 
                     let imgWt = $('.image').width();
 
-                    let elem = $('#for-printing').clone().addClass('custom-hide bg-dark');
+                    let elem = $('#for-printing').clone().addClass('custom-hide');
 
                     $('body').append(elem);
 
-                    $('.custom-hide').children('.image').width(imgWt);
+                    $('.custom-hide').css({width:imgWt});
+                    console.log(imgWt);
+                    console.log($('.custom-hide').find('.image').css('width'));
+                    console.log($('.custom-hide').find('.circles-here').css('width'));
+
+                    return;
 
                     if (!(textreq)) {
 
@@ -2673,7 +2673,9 @@ border-top-color: #343a40;
 
                 let div = $('.custom-hide')[0];
 
-                console.log(div);
+                // let div = $('#for-printing')[0];
+
+                console.log();
 
                 html2canvas(div, {
 
@@ -2690,7 +2692,11 @@ border-top-color: #343a40;
                         download: 'newImage'
                     }).click();
 
-                    // printhidendisplay.undo();
+                    console.log($('.custom-hide').find('.image').css('width'));
+                    console.log($('.custom-hide').find('.circles-here').css('width'));
+
+
+                    printhidendisplay.undo();
 
                 });
 
@@ -2843,11 +2849,6 @@ border-top-color: #343a40;
 
                 }
 
-                $('#overlay').css({
-                    height: imgHt,
-                    width: imgWt
-                });
-
                 $('.circles-here').css({
                     height: imgHt,
                     width: imgWt,
@@ -2857,7 +2858,6 @@ border-top-color: #343a40;
 
                 $('.detailBox-Big').css({
                     width: imgWt,
-                    'margin-top':imgHt,
                 });
 
                 $('.detailBox').css({
