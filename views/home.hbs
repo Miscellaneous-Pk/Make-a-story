@@ -305,9 +305,7 @@
             }
 
             .custom-hide {
-                position: absolute !important;
-                top: -9999px !important;
-                left: -9999px !important;
+                position: relative;
             }
 
             .overflow-hidden {
@@ -1257,78 +1255,6 @@
                 });
 
             })
-
-            $(window).resize(function() {
-
-                wht = $(window).height();
-                wwt = $(window).width();
-
-                $('.mainPage').height(wht);
-
-                $('.image').css({
-                    'max-height': wht / 1.1,
-                    'max-width': '100%'
-                });
-
-                let imgWt = $('.image').width();
-                let imgHt = $('.image').height();
-
-                $('.carry-menu').height(imgHt);
-
-                if (wwt < 767) {
-
-                    $('.carry-menu').height('auto');
-
-                }
-
-                $('#overlay').css({
-                    height: imgHt,
-                    width: imgWt
-                });
-
-                $('.detailBox-Big').css({
-                    width: imgWt + 2
-                });
-
-                $('.circleAndNo').each(function(key, value) {
-
-                    if ($(this).data().percentX) {
-
-                        let percent = $(this).data();
-
-                        $('.circleAndNo:eq(' + key + ')').css({
-                            left: percent.percentX * $('#myCanvas').width() + $('#overlay').position().left,
-                            top: percent.percentY * $('#myCanvas').height(),
-                            'font-size': percent.mFontSize * $('#myCanvas').width(),
-                            height: percent.mHeight * $('#myCanvas').width(),
-                            width: percent.mWidth * $('#myCanvas').width()
-                        })
-
-                    }
-
-                })
-
-                $("#dialog-final").dialog("option", "position", {
-                    my: "center top",
-                    at: "center top",
-                    of: window
-                });
-
-                $("#dialog-share").dialog("option", "position", {
-                    my: "center",
-                    at: "center",
-                    of: window
-                });
-
-                $("#dialog-uploadImage").dialog("option", "position", {
-                    my: "center",
-                    at: "center",
-                    of: window
-                });
-
-            })
-
-
 
             canvas.addEventListener('mousemove', function(evt) {
 
@@ -2714,11 +2640,11 @@ border-top-color: #343a40;
 
                     let imgWt = $('.image').width();
 
-                    let elem = $('.img-block').clone().addClass('custom-hide bg-dark');
+                    let elem = $('#for-printing').clone().addClass('custom-hide bg-dark').css({top:$(window).innerHeight,left:0});
 
                     $('body').append(elem);
 
-                    $('.custom-hide').children('.image').width(imgWt);
+                    // $('.custom-hide').children('.image').width(imgWt);
 
                     if (!(textreq)) {
 
@@ -2744,11 +2670,13 @@ border-top-color: #343a40;
 
                 $('body').append(aTag);
 
-                // printhidendisplay.execute(true);
+                printhidendisplay.execute(true);
 
-                // let div = document.querySelector('.custom-hide');
+                let div = $('.custom-hide')[0];
 
-                html2canvas($('.img-block')[0], {
+                console.log(div);
+
+                html2canvas(div, {
 
                     useCORS: true,
                     backgroundColor: 'null'
@@ -2761,6 +2689,8 @@ border-top-color: #343a40;
                         href: link,
                         download: 'newImage'
                     }).click();
+
+                    // printhidendisplay.undo();
 
                 });
 
@@ -2787,8 +2717,6 @@ border-top-color: #343a40;
             })
 
             $('.close-btn').click(function() {
-
-                //				$('.btn-container').show();
 
                 $("#dialog-final").dialog('close');
 
