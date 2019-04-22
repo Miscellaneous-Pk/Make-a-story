@@ -541,7 +541,6 @@
 
             .img-block {
                 background: transparent;
-                overflow: hidden;
                 z-index: 10;
             }
 
@@ -719,7 +718,7 @@
 
         <div id="dialog-uploadImage" class="container dialog d-flex align-items-center justify-content-center">
 
-            <div class="img-block col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded text-light bg-shadow p-0 m-0">
+            <div class="img-block col-lg-4 col-md-6 col-sm-8 col-12 rounded text-light bg-shadow p-0 m-0">
 
                 <div class="p-0 m-0 upload-image-box">
 
@@ -2640,11 +2639,11 @@ border-top-color: #343a40;
 
                     let imgWt = $('.image').width();
 
-                    let elem = $('#for-printing').clone().addClass('custom-hide bg-dark').css({top:$(window).innerHeight,left:0});
+                    let elem = $('#for-printing').clone().addClass('custom-hide bg-dark');
 
                     $('body').append(elem);
 
-                    // $('.custom-hide').children('.image').width(imgWt);
+                    $('.custom-hide').children('.image').width(imgWt);
 
                     if (!(textreq)) {
 
@@ -2679,7 +2678,8 @@ border-top-color: #343a40;
                 html2canvas(div, {
 
                     useCORS: true,
-                    backgroundColor: 'null'
+                    backgroundColor: 'null',
+                    scale: 2,
 
                 }).then(function(drawnPic) {
 
