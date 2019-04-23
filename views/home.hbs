@@ -506,6 +506,7 @@
             }
 
             #for-printing {
+              position: relative;
               text-align: center;
               overflow: hidden;
             }
@@ -2634,16 +2635,13 @@ border-top-color: #343a40;
 
                     let imgWt = $('.image').width();
 
+                    console.log($('.custom-hide').find('.circleAndNo:eq(0)').css('height'));
+
                     let elem = $('#for-printing').clone().addClass('custom-hide');
 
                     $('body').append(elem);
 
-                    $('.custom-hide').css({width:imgWt});
-                    console.log(imgWt);
-                    console.log($('.custom-hide').find('.image').css('width'));
-                    console.log($('.custom-hide').find('.circles-here').css('width'));
-
-                    return;
+                    $('.custom-hide').css({width:imgWt,overflow:'visible'});
 
                     if (!(textreq)) {
 
@@ -2651,7 +2649,7 @@ border-top-color: #343a40;
 
                     }
 
-                    $('.custom-hide').children('.detailBox').remove();
+                    // $('.custom-hide').children('.detailBox').remove();
 
                 },
 
@@ -2692,11 +2690,9 @@ border-top-color: #343a40;
                         download: 'newImage'
                     }).click();
 
-                    console.log($('.custom-hide').find('.image').css('width'));
-                    console.log($('.custom-hide').find('.circles-here').css('width'));
-
 
                     printhidendisplay.undo();
+
 
                 });
 
@@ -2853,7 +2849,6 @@ border-top-color: #343a40;
                     height: imgHt,
                     width: imgWt,
                     'z-index': 9,
-                    overflow: 'hidden',
                 });
 
                 $('.detailBox-Big').css({
