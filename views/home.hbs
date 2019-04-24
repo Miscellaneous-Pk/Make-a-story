@@ -50,7 +50,7 @@
                 background-color: black !important;
             }
 
-            canvas {
+            #myCanvas {
                 position: absolute;
                 left: 50%;
                 transform: translate(-50%,0%);
@@ -290,9 +290,9 @@
             }
 
             .circles-here {
-              /* top: 0%;
+              top: 0%;
               left: 50%;
-              transform: translate(-50%, 0%); */
+              transform: translate(-50%, 0%);
             }
 
             .image {
@@ -613,6 +613,14 @@
 
             .mt-md-11 {
                 margin-top: 1.05rem!important;
+            }
+
+            #share-form {
+              /* z-index: 10; */
+            }
+
+            .share-box {
+              z-index: 11;
             }
 
             @media(max-width:767px){
@@ -974,7 +982,7 @@
 
         <div id="dialog-share" class="container d-flex align-items-center justify-content-center">
 
-              <div class="col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded p-3 text-light bg-shadow">
+              <div class="share-box col-lg-4 col-md-6 col-sm-8 col-12 bg-dark rounded p-3 text-light bg-shadow">
 
                   <form id="share-form" method="post" action="http://localhost/themepic/save_photo.php" novalidate>
 
@@ -2898,7 +2906,7 @@ border-top-color: #343a40;
 
                 if (dataforimageexists.status) {
 
-                    let elem = `<div class="circleAndNo rounded-circle bg-info text-light" ><span data-container="body" data-toggle="popover" data-placement="top" data-content="content..."></span><elem>1</elem></div>`;
+                    let elem = `<div class="circleAndNo rounded-circle bg-info text-light" ><span data-container="body" data-toggle="popover" data-placement="top" data-content="..."></span><elem>1</elem></div>`;
 
                     let obj = dataforimageexists.data;
 
