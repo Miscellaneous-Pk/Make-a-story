@@ -489,7 +489,7 @@
 
 						<div class="" id="for-printing">
 
-							<div class="title bg-dark rounded-top py-2 px-2 mx-auto"><span class="badge badge-dark">Title</span><span class="title-badge badge">{{title}}</span></div>
+							<div class="title bg-dark rounded-top py-2 px-2 mx-auto"><span class="title-badge badge">{{title}}</span></div>
 
 							<img class="image bg-shadow mx-auto border border-dark" id="blah" src="{{image}}" data-id="{{id}}" data-comments= "{{comments}}">
 
@@ -711,7 +711,7 @@
 
 			$( document ).ready(function() {
 
-				$('.image').trigger('load');
+				$('.image').attr({src:'{{image}}'});
 
 				$('.dark-overlay').css({width: $(window).width(), height: $(window).height()});
 
@@ -724,7 +724,7 @@
 				$('[data-toggle="tooltip"]').tooltip();
 
 
-			}) // DOCUMENT IS READY AND RECIZE
+			})
 
 			$( window ).resize(function() {
 
@@ -902,8 +902,8 @@
 
 				$(this).css({'max-height': wht/1.1, 'max-width' : '100%'});
 
-				let imgWt = $(this).width();
-				let imgHt = $(this).height();
+				let imgWt = $(this).outerWidth();
+				let imgHt = $(this).outerHeight();
 
 				$('.carry-menu').height(imgHt);
 
@@ -911,13 +911,15 @@
 
 					$('.carry-menu').height('auto');
 
-				}
+				};
+
+				$('.title').css({width:imgWt});
 
 				$('#overlay').css({height: imgHt, width: imgWt, top: $('.title').outerHeight()});
 
-				$('.detailBox-Big').css({width: imgWt + 2});
+				$('.detailBox-Big').css({width: imgWt});
 
-				let key = $('.detailBox').attr('ctr');
+				let key = $('.detailBox').attr('ctr') || 4;
 
 				let textPosn = {
 					0: 'left top',
@@ -1048,8 +1050,6 @@
 					});
 
 					$(document).on('mouseenter mouseleave', '.small-elem', function() {
-
-						console.log('hello');
 
 							let serNo = parseInt($(this).html());
 
@@ -1292,10 +1292,9 @@
 					$('.detailBox-Big').css({display:'block'});
 					tl6.to(`.banner-inBox`,0.05,{fill:'#DADADA', ease:Power2.easeInOut})
 						 .to(`.banner-lines`,0.05,{stroke:'black', ease:Power2.easeInOut});
-					return console.log('done');
+					return;
 				};
 				$('.detailBox-Big').css({display:'none'});
-				console.log(ctr);
 				let myData = $(`.banner-inBox:eq(${ctr})`).attr('data-show-text').split(' ');
 				$('.detailBox').css({left:'',right:'',top:'',bottom:'',[myData[1]]: '2%',[myData[2]]: '2%'}).removeClass('d-none').addClass('d-flex');
 				tl6.to(`.banner-inBox:eq(${ctr})`,0.05,{fill:'black', ease:Power2.easeInOut})
@@ -1312,6 +1311,54 @@
 				let token = '{{token}}';
 				if (token.length > 0) return window.location.assign(`/home/{{token}}`);
 				return window.location.assign('/home/notloggedin');
+			})
+
+			$(document).on('shown.bs.popover', '.circleAndNo', function(e) {
+
+					let el = $('.popover:eq(-1)').css('transform');
+
+					function getTransform(el) {
+
+							var results = el.match(/matrix(?:(3d)\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))(?:, (\d+)), \d+\)|\(\d+(?:, \d+)*(?:, (\d+))(?:, (\d+))\))/)
+
+							if (!results) return [0, 0, 0];
+							if (results[1] == '3d') return results.slice(2, 5);
+							results.push(0);
+							return results.slice(5, 8);
+
+					}
+
+					let popHeight = parseInt(getTransform(el)[1], 10) + $('.popover:eq(-1)').height();
+
+					if (popHeight >= $(document).height() * 0.9) {
+
+							$('.custom-dark-popover .arrow').remove();
+
+					}
+					$('#dynamic').remove();
+
+					let popId = '#' + $(this).find('span').attr('aria-describedby');
+
+					if ($(popId).last().attr('x-placement') == 'bottom') {
+
+							$("<style type='text/css' id='dynamic' />").appendTo("head");
+
+							$("#dynamic").text(`.custom-dark-popover .arrow::after
+								{
+									border-bottom-color: #343a40;
+								}`);
+
+					} else {
+
+							$("<style type='text/css' id='dynamic' />").appendTo("head");
+
+							$("#dynamic").text(`.custom-dark-popover .arrow::after
+								{
+									border-top-color: #343a40;
+								}`);
+
+					}
+
 			})
 
 		</script>

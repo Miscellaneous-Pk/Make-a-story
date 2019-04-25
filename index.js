@@ -250,6 +250,7 @@ app.get('/picture/:id',(req,res) => {
     "pictures._id": getId,
   }).then((msg) => {
     var result = _.find(msg.pictures,{_id: mongoose.Types.ObjectId(getId)});
+    console.log(msg);
     res.status(200).render('public_page.hbs',{
       image: result.image,
       comments: result.data,

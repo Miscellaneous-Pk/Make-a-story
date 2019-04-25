@@ -344,9 +344,12 @@
 
             .draft-badge {
 
-                position: absolute;
-                top: 0.5em;
-                right: 0.5em;
+              font-family: Avenir-Black;
+              font-size: 15px;
+              line-height: 1.2em;
+              position: absolute;
+              top: 0.5em;
+              right: 0.5em;
 
             }
 
@@ -357,12 +360,52 @@
 
             .Published {
               background-color: #28A645;
-              /* color: #E2E6EA; */
+            }
+
+            .badge-love {
+              background-color: #FF4770;
+            }
+
+            .text-love {
+              color: #FF4770;
+            }
+
+            .bg-love {
+              background-color: #FF4770;
             }
 
             .delete-badge {
               position: absolute;
               top: 0.5em;
+              left: 0.5em;
+              z-index: 1;
+              cursor: pointer;
+            }
+
+            .edit-badge {
+              position: absolute;
+              top: 0.5em;
+              left: 2em;
+              z-index: 1;
+              cursor: pointer;
+            }
+
+            .like-badge {
+              position: absolute;
+              /* font-size: 0.8em;
+              line-height: 1px;
+              padding: 0px; */
+              top: 0.5em;
+              left: 3.5em;
+              z-index: 1;
+              cursor: pointer;
+            }
+
+            .text-badge {
+              font-family: Avenir-Black;
+              font-size: 15px;
+              position: absolute;
+              top: 2em;
               left: 0.5em;
               z-index: 1;
               cursor: pointer;
@@ -698,6 +741,9 @@
 
                   <div class="grid-item col-6 col-sm-4 col-md-3 col-lg-2 px-1 pb-2">
                     <div class="badge text-secondary delete-badge"><i class="fas fa-trash"></i></div>
+                    <div class="badge text-secondary edit-badge"><i class="far fa-edit"></i></div>
+                    <div class="badge text-secondary like-badge"><i class="far fa-heart"></i></div>
+                    <div class="badge text-badge d-none"></div>
                     <div class="card p-0 bg-dark bg-shadow">
 
                       <div class="badge draft-badge {{status}}">{{status}}</div>
@@ -1573,10 +1619,7 @@
                     $("#dynamic").text(`
 
 .custom-dark-popover .arrow::after {
-
-
 border-bottom-color: #343a40;
-
 
 }`
 
@@ -1589,10 +1632,7 @@ border-bottom-color: #343a40;
                     $("#dynamic").text(`
 
 .custom-dark-popover .arrow::after {
-
-
 border-top-color: #343a40;
-
 
 }`
 
@@ -2866,7 +2906,7 @@ border-top-color: #343a40;
                 $('.detailBox').css({
                     right: '2%',
                     bottom: '2%'
-                });
+                }).attr({ctr:4});
 
                 spinner.end();
 
@@ -3333,8 +3373,6 @@ border-top-color: #343a40;
 
             let images_cloudinary = new Object();
 
-
-
             $('.publish-btn').on('click', function() {
 
                 let data = {
@@ -3343,8 +3381,10 @@ border-top-color: #343a40;
                   "token": `{{token}}`,
                   "status": 'Published',
                   "title" : $('#in-title').val(),
-                  "ctr": $('.detailBox').attr('ctr'),
+                  "ctr": $('.detailBox:eq(0)').attr('ctr'),
                 };
+
+                // return console.log('data',$('.detailBox'),data);
 
                 data = JSON.stringify(data);
 
@@ -3456,7 +3496,18 @@ border-top-color: #343a40;
             })
 
             $('.delete-badge').on('mouseenter mouseleave', function() {
-              $(this).toggleClass('text-secondary text-warning').siblings('.card').toggleClass('bg-dark bg-warning');
+              $(this).toggleClass('text-secondary text-danger').siblings('.card').toggleClass('bg-dark bg-danger');
+              $(this).siblings('.text-badge').toggleClass('d-none d-block').addClass('badge-danger').removeClass('badge-light badge-love').html('Delete').css({left:'0.7em'});
+            });
+
+            $('.edit-badge').on('mouseenter mouseleave', function() {
+              $(this).toggleClass('text-secondary text-light').siblings('.card').toggleClass('bg-dark bg-light');
+              $(this).siblings('.text-badge').toggleClass('d-none d-block').addClass('badge-light').removeClass('badge-danger badge-love').html('Edit').css({left:'1.8em'});
+            });
+
+            $('.like-badge').on('mouseenter mouseleave', function() {
+              $(this).toggleClass('text-secondary text-love').siblings('.card').toggleClass('bg-dark bg-love');
+              $(this).siblings('.text-badge').toggleClass('d-none d-block').addClass('badge-love').removeClass('badge-light badge-success').html('Like').css({left:'3em'});
             });
 
             $('.delete-badge').on('click', function() {
@@ -3521,6 +3572,7 @@ border-top-color: #343a40;
                 var tl6 = new TimelineLite();
         				let ctr = $(this).parent('.menu-btn').attr('ctr');
                 ctr++;
+                $('.detailBox').attr({ctr});
         				if (ctr == 4) {
         					$(this).parent('.menu-btn').attr({ctr:-1});
         					$('.detailBox').toggleClass('d-none d-flex');
